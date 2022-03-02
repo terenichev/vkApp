@@ -11,7 +11,9 @@ class vandaViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
     
+    
     static let identifier = "vandaViewCell"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

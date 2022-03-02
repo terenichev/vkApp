@@ -328,23 +328,26 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0WF-Y0-kPA">
-                                <rect key="frame" x="128" y="77" width="206" height="33"/>
+                                <rect key="frame" x="140" y="77" width="254" height="33"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="Vi4-3Q-7zp"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kcY-mI-6vt">
-                                <rect key="frame" x="128" y="118" width="206" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="140" y="115" width="254" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="5IG-rN-scv">
-                                <rect key="frame" x="10" y="221" width="394" height="118"/>
+                                <rect key="frame" x="10" y="311" width="394" height="118"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="118" id="NuE-nf-xyl"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="PQn-vU-tNv">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -359,7 +362,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ванда" translatesAutoresizingMaskIntoConstraints="NO" id="412-BB-03o">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ванда" translatesAutoresizingMaskIntoConstraints="NO" id="412-BB-03o">
                                                     <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                                 </imageView>
                                             </subviews>
@@ -382,22 +385,24 @@
                         <viewLayoutGuide key="safeArea" id="Wi2-NV-7KK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="5IG-rN-scv" firstAttribute="top" secondItem="MfP-BC-A2n" secondAttribute="bottom" constant="60" id="7VB-xf-f6E"/>
+                            <constraint firstItem="5IG-rN-scv" firstAttribute="top" secondItem="MfP-BC-A2n" secondAttribute="bottom" constant="150" id="7VB-xf-f6E"/>
                             <constraint firstItem="MfP-BC-A2n" firstAttribute="top" secondItem="0WF-Y0-kPA" secondAttribute="bottom" constant="-49" id="9Mk-IU-4nC"/>
                             <constraint firstItem="Wi2-NV-7KK" firstAttribute="trailing" secondItem="5IG-rN-scv" secondAttribute="trailing" constant="10" id="Coq-8E-gzH"/>
                             <constraint firstItem="MfP-BC-A2n" firstAttribute="leading" secondItem="Wi2-NV-7KK" secondAttribute="leading" constant="20" id="GXA-7V-yMV"/>
-                            <constraint firstItem="kcY-mI-6vt" firstAttribute="leading" secondItem="MfP-BC-A2n" secondAttribute="trailing" constant="8" symbolic="YES" id="MrA-c3-9cd"/>
+                            <constraint firstItem="kcY-mI-6vt" firstAttribute="leading" secondItem="MfP-BC-A2n" secondAttribute="trailing" constant="20" id="MrA-c3-9cd"/>
                             <constraint firstItem="MfP-BC-A2n" firstAttribute="top" secondItem="Wi2-NV-7KK" secondAttribute="top" constant="61" id="N8r-Qr-iMg"/>
-                            <constraint firstItem="0WF-Y0-kPA" firstAttribute="leading" secondItem="MfP-BC-A2n" secondAttribute="trailing" constant="8" symbolic="YES" id="RaE-3I-VYx"/>
-                            <constraint firstItem="Wi2-NV-7KK" firstAttribute="trailing" secondItem="0WF-Y0-kPA" secondAttribute="trailing" constant="80" id="SqU-hb-B5c"/>
+                            <constraint firstItem="0WF-Y0-kPA" firstAttribute="leading" secondItem="MfP-BC-A2n" secondAttribute="trailing" constant="20" id="RaE-3I-VYx"/>
+                            <constraint firstItem="Wi2-NV-7KK" firstAttribute="trailing" secondItem="0WF-Y0-kPA" secondAttribute="trailing" constant="20" id="SqU-hb-B5c"/>
                             <constraint firstItem="5IG-rN-scv" firstAttribute="leading" secondItem="Wi2-NV-7KK" secondAttribute="leading" constant="10" id="YK7-Nr-yjb"/>
-                            <constraint firstItem="Wi2-NV-7KK" firstAttribute="trailing" secondItem="kcY-mI-6vt" secondAttribute="trailing" constant="80" id="hBZ-mS-iRn"/>
-                            <constraint firstItem="kcY-mI-6vt" firstAttribute="top" secondItem="0WF-Y0-kPA" secondAttribute="bottom" constant="8" symbolic="YES" id="nbK-kf-LPO"/>
-                            <constraint firstItem="Wi2-NV-7KK" firstAttribute="bottom" secondItem="5IG-rN-scv" secondAttribute="bottom" constant="469" id="oSG-n7-YRB"/>
+                            <constraint firstItem="Wi2-NV-7KK" firstAttribute="trailing" secondItem="kcY-mI-6vt" secondAttribute="trailing" constant="20" id="hBZ-mS-iRn"/>
+                            <constraint firstItem="kcY-mI-6vt" firstAttribute="top" secondItem="0WF-Y0-kPA" secondAttribute="bottom" constant="5" id="nbK-kf-LPO"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="MyCollectionView" destination="5IG-rN-scv" id="ovQ-vd-lDO"/>
+                        <outlet property="friendStatusInProfile" destination="kcY-mI-6vt" id="VVD-n3-CJ9"/>
+                        <outlet property="mainPhotoOfProfile" destination="MfP-BC-A2n" id="1c6-7q-deA"/>
+                        <outlet property="nameInProfileLabel" destination="0WF-Y0-kPA" id="9ry-mo-pgl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLy-kk-k4i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -455,11 +460,6 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Groups" id="YfQ-px-X3y">
-                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="cJH-Tx-vVg">
-                            <connections>
-                                <segue destination="B2V-c5-ZBQ" kind="unwind" unwindAction="logOutActionExitWithUnwindSegue:" id="3C1-IB-Te0"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vRi-H9-xrT">
                             <connections>
                                 <segue destination="Yue-oj-wjS" kind="presentation" modalPresentationStyle="fullScreen" id="5i7-Wo-YP6"/>
@@ -469,7 +469,6 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIS-52-ZoC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="B2V-c5-ZBQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2760.8000000000002" y="371.67487684729065"/>
         </scene>
@@ -552,7 +551,7 @@
         <!--Friends-->
         <scene sceneID="jKz-ox-Eoj">
             <objects>
-                <navigationController title="Friends" automaticallyAdjustsScrollViewInsets="NO" id="E0X-5t-9og" sceneMemberID="viewController">
+                <navigationController title="Friends" automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" id="E0X-5t-9og" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Friends" image="person.2.fill" catalog="system" id="fle-5M-h88"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AFJ-P2-hKD">

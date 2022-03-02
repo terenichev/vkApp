@@ -84,8 +84,9 @@ class FriendsViewController: UITableViewController {
            let destinationVC = segue.destination as? profileViewController,
            let indexPath = tableView.indexPathForSelectedRow {
 
-//            let friendToShow = friends[indexPath.row].name
-            //destinationVC.title = friendToShow
+            let friendToShow = friends[indexPath.row]
+            
+            destinationVC.profileForFriend = friendToShow
             destinationVC.arrayImages = friends[indexPath.row].images
         }
         

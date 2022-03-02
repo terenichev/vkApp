@@ -12,5 +12,5 @@ struct Friend{
     let mainImage: UIImage?
     let name: String
     let images: [UIImage?]
-     
+    let statusText: String
 }
