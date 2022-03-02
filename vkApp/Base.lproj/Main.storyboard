@@ -211,7 +211,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Friends" largeTitleDisplayMode="never" id="kga-0L-Wow">
-                        <barButtonItem key="leftBarButtonItem" title="Log Out" id="g9g-YT-SOT">
+                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="g9g-YT-SOT">
                             <connections>
                                 <segue destination="Wc0-Ii-pNa" kind="unwind" unwindAction="logOutActionExitWithUnwindSegue:" id="282-6m-fhB"/>
                             </connections>
@@ -402,7 +402,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLy-kk-k4i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5620.289855072464" y="-770.08928571428567"/>
+            <point key="canvasLocation" x="3600" y="-942"/>
         </scene>
         <!--Groups-->
         <scene sceneID="Gqb-qa-rgG">
@@ -455,6 +455,11 @@
                     </tableView>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Groups" id="YfQ-px-X3y">
+                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="cJH-Tx-vVg">
+                            <connections>
+                                <segue destination="B2V-c5-ZBQ" kind="unwind" unwindAction="logOutActionExitWithUnwindSegue:" id="3C1-IB-Te0"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="vRi-H9-xrT">
                             <connections>
                                 <segue destination="Yue-oj-wjS" kind="presentation" modalPresentationStyle="fullScreen" id="5i7-Wo-YP6"/>
@@ -464,6 +469,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dIS-52-ZoC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="B2V-c5-ZBQ" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2760.8000000000002" y="371.67487684729065"/>
         </scene>
