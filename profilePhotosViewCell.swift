@@ -12,7 +12,7 @@ class vandaViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     
-    static let identifier = "vandaViewCell"
+    static let identifier = "profilePhotosViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +24,6 @@ class vandaViewCell: UICollectionViewCell {
     }
     
     static func nib() -> UINib{
-        return UINib(nibName: "vandaViewCell", bundle: nil)
+        return UINib(nibName: "profilePhotosViewCell", bundle: nil)
     }
 }

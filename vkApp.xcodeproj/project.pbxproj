@@ -17,8 +17,8 @@
 		D381203A27B595E100986187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D381203927B595E100986187 /* Assets.xcassets */; };
 		D381203D27B595E100986187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D381203B27B595E100986187 /* LaunchScreen.storyboard */; };
 		D38881CF27CE924800C7BE5B /* profileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881CE27CE924800C7BE5B /* profileViewController.swift */; };
-		D38881D427CEB7AF00C7BE5B /* vandaViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881D227CEB7AF00C7BE5B /* vandaViewCell.swift */; };
-		D38881D527CEB7AF00C7BE5B /* vandaViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38881D327CEB7AF00C7BE5B /* vandaViewCell.xib */; };
+		D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881D227CEB7AF00C7BE5B /* profilePhotosViewCell.swift */; };
+		D38881D527CEB7AF00C7BE5B /* profilePhotosViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */; };
 		D3E835B927C3F34800C37C67 /* FavoriteGroupsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835B827C3F34800C37C67 /* FavoriteGroupsVC.swift */; };
 		D3E835BD27C3F37700C37C67 /* FavoriteGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835BC27C3F37700C37C67 /* FavoriteGroupsCell.swift */; };
 		D3E835BF27C3F38800C37C67 /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835BE27C3F38800C37C67 /* Group.swift */; };
@@ -45,8 +45,8 @@
 		D381203C27B595E100986187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D381203E27B595E100986187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D38881CE27CE924800C7BE5B /* profileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewController.swift; sourceTree = "<group>"; };
-		D38881D227CEB7AF00C7BE5B /* vandaViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = vandaViewCell.swift; sourceTree = "<group>"; };
-		D38881D327CEB7AF00C7BE5B /* vandaViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = vandaViewCell.xib; sourceTree = "<group>"; };
+		D38881D227CEB7AF00C7BE5B /* profilePhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profilePhotosViewCell.swift; sourceTree = "<group>"; };
+		D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = profilePhotosViewCell.xib; sourceTree = "<group>"; };
 		D3E835B827C3F34800C37C67 /* FavoriteGroupsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGroupsVC.swift; sourceTree = "<group>"; };
 		D3E835BC27C3F37700C37C67 /* FavoriteGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteGroupsCell.swift; sourceTree = "<group>"; };
 		D3E835BE27C3F38800C37C67 /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
@@ -74,8 +74,8 @@
 		D381202427B595DF00986187 = {
 			isa = PBXGroup;
 			children = (
-				D38881D227CEB7AF00C7BE5B /* vandaViewCell.swift */,
-				D38881D327CEB7AF00C7BE5B /* vandaViewCell.xib */,
+				D38881D227CEB7AF00C7BE5B /* profilePhotosViewCell.swift */,
+				D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */,
 				D38881CE27CE924800C7BE5B /* profileViewController.swift */,
 				D381202F27B595DF00986187 /* vkApp */,
 				D381202E27B595DF00986187 /* Products */,
@@ -219,7 +219,7 @@
 				D381203D27B595E100986187 /* LaunchScreen.storyboard in Resources */,
 				D381203A27B595E100986187 /* Assets.xcassets in Resources */,
 				D381203827B595DF00986187 /* Main.storyboard in Resources */,
-				D38881D527CEB7AF00C7BE5B /* vandaViewCell.xib in Resources */,
+				D38881D527CEB7AF00C7BE5B /* profilePhotosViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -240,7 +240,7 @@
 				D3E835BD27C3F37700C37C67 /* FavoriteGroupsCell.swift in Sources */,
 				D3E835B927C3F34800C37C67 /* FavoriteGroupsVC.swift in Sources */,
 				D3E835C727C74F9C00C37C67 /* AllGroupsVC.swift in Sources */,
-				D38881D427CEB7AF00C7BE5B /* vandaViewCell.swift in Sources */,
+				D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */,
 				D3E835C327C668BF00C37C67 /* FriendPhotoCollectionViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
 				D3E835C127C6683D00C37C67 /* FriendPhotosCollectionVC.swift in Sources */,

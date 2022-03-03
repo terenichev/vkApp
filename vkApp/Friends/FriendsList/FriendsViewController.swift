@@ -89,6 +89,9 @@ class FriendsViewController: UITableViewController {
             destinationVC.profileForFriend = friendToShow
             destinationVC.arrayImages = friends[indexPath.row].images
         }
-        
+    }
+    
+    @IBAction func profileExit(unwindSegue: UIStoryboardSegue){
+        print("exit")
     }
 }
