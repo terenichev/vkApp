@@ -488,6 +488,35 @@
             </objects>
             <point key="canvasLocation" x="2760.8000000000002" y="371.67487684729065"/>
         </scene>
+        <!--News Table View Controller-->
+        <scene sceneID="Jvi-E8-sWl">
+            <objects>
+                <tableViewController id="hM0-6l-4a7" customClass="NewsTableViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="dqA-cn-6io">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="395" id="eGK-jl-Feb">
+                                <rect key="frame" x="0.0" y="44.5" width="414" height="395"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="eGK-jl-Feb" id="MM8-bY-F0F">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="395"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="hM0-6l-4a7" id="R0t-Fc-xlh"/>
+                            <outlet property="delegate" destination="hM0-6l-4a7" id="hd6-jF-T5N"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" id="6RY-sP-KI5"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kPs-VR-Ex6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2757.971014492754" y="1016.5178571428571"/>
+        </scene>
         <!--All GroupsVC-->
         <scene sceneID="LXf-ph-JQf">
             <objects>
@@ -558,6 +587,7 @@
                     <connections>
                         <segue destination="E0X-5t-9og" kind="relationship" relationship="viewControllers" id="FgA-va-DHz"/>
                         <segue destination="xcH-Ws-gZ5" kind="relationship" relationship="viewControllers" id="hrI-h6-knb"/>
+                        <segue destination="389-sS-yJ3" kind="relationship" relationship="viewControllers" id="C2i-f4-YiG"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ete-Ae-3Ej" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -568,7 +598,7 @@
         <scene sceneID="jKz-ox-Eoj">
             <objects>
                 <navigationController title="Friends" automaticallyAdjustsScrollViewInsets="NO" hidesBarsOnSwipe="YES" id="E0X-5t-9og" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Friends" image="person.2.fill" catalog="system" id="fle-5M-h88"/>
+                    <tabBarItem key="tabBarItem" title="Друзья" image="person.2.fill" catalog="system" id="fle-5M-h88"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AFJ-P2-hKD">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -583,11 +613,11 @@
             </objects>
             <point key="canvasLocation" x="1887" y="-273"/>
         </scene>
-        <!--Groups-->
+        <!--Группы-->
         <scene sceneID="D5c-SJ-y66">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xcH-Ws-gZ5" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Groups" image="person.3.fill" catalog="system" id="r3O-au-goI"/>
+                    <tabBarItem key="tabBarItem" title="Группы" image="person.3.fill" catalog="system" id="r3O-au-goI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iDj-Wx-pBq">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -602,12 +632,32 @@
             </objects>
             <point key="canvasLocation" x="1886" y="372"/>
         </scene>
+        <!--Новости-->
+        <scene sceneID="qh2-Sm-cFN">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="389-sS-yJ3" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Новости" image="newspaper" catalog="system" id="Xgb-dO-rb8"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="n80-fL-Jdo">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hM0-6l-4a7" kind="relationship" relationship="rootViewController" id="V6C-Nm-udU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Z8a-2L-XRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1887" y="1017"/>
+        </scene>
     </scenes>
     <resources>
         <image name="face.smiling" catalog="system" width="128" height="121"/>
         <image name="free-png.ru-307" width="2048" height="2048"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="message" catalog="system" width="128" height="113"/>
+        <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
