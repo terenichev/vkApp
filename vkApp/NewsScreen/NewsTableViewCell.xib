@@ -25,13 +25,13 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя Фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CC-ns-sDa">
-                        <rect key="frame" x="87" y="17" width="111" height="20.5"/>
+                        <rect key="frame" x="76" y="17" width="111" height="20.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Дата поста" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ze4-qb-VV0">
-                        <rect key="frame" x="87" y="39.5" width="65" height="14.5"/>
+                        <rect key="frame" x="76" y="39.5" width="65" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="12"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -117,7 +117,7 @@
                 </subviews>
                 <constraints>
                     <constraint firstItem="PIi-fJ-8DE" firstAttribute="top" secondItem="f0G-Dr-ZSC" secondAttribute="bottom" constant="8" id="2ed-eq-cXb"/>
-                    <constraint firstItem="3CC-ns-sDa" firstAttribute="leading" secondItem="m1F-eH-5cR" secondAttribute="trailing" constant="27" id="6Ro-Lt-BN0"/>
+                    <constraint firstItem="3CC-ns-sDa" firstAttribute="leading" secondItem="m1F-eH-5cR" secondAttribute="trailing" constant="16" id="6Ro-Lt-BN0"/>
                     <constraint firstItem="ze4-qb-VV0" firstAttribute="top" secondItem="3CC-ns-sDa" secondAttribute="bottom" constant="2" id="CnX-KQ-F2V"/>
                     <constraint firstAttribute="trailing" secondItem="PIi-fJ-8DE" secondAttribute="trailing" constant="10" id="Dhd-jN-IeT"/>
                     <constraint firstAttribute="trailing" secondItem="f0G-Dr-ZSC" secondAttribute="trailing" constant="10" id="FNe-aA-Jrs"/>
@@ -128,7 +128,7 @@
                     <constraint firstItem="m1F-eH-5cR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="11" id="VLw-06-Y7W"/>
                     <constraint firstItem="f0G-Dr-ZSC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="aZo-Ue-oH8"/>
                     <constraint firstAttribute="bottom" secondItem="mIp-Xq-9Sc" secondAttribute="bottom" constant="12.5" id="jv8-de-YFT"/>
-                    <constraint firstItem="ze4-qb-VV0" firstAttribute="leading" secondItem="m1F-eH-5cR" secondAttribute="trailing" constant="27" id="mLO-fM-aW3"/>
+                    <constraint firstItem="ze4-qb-VV0" firstAttribute="leading" secondItem="m1F-eH-5cR" secondAttribute="trailing" constant="16" id="mLO-fM-aW3"/>
                     <constraint firstItem="mIp-Xq-9Sc" firstAttribute="leading" secondItem="J0d-jK-vhB" secondAttribute="trailing" constant="90" id="mlr-RI-Afy"/>
                     <constraint firstItem="f0G-Dr-ZSC" firstAttribute="top" secondItem="m1F-eH-5cR" secondAttribute="bottom" constant="8" id="oCN-ai-Jr0"/>
                     <constraint firstItem="mIp-Xq-9Sc" firstAttribute="centerY" secondItem="J0d-jK-vhB" secondAttribute="centerY" id="qiM-Z3-2Ic"/>
@@ -140,9 +140,12 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="avatarImageNews" destination="m1F-eH-5cR" id="kUX-og-1S4"/>
+                <outlet property="commentsCountLabel" destination="E6a-fX-yZj" id="Deh-nu-eSZ"/>
                 <outlet property="dateOfPostNews" destination="ze4-qb-VV0" id="G4m-C7-23m"/>
                 <outlet property="imageInPost" destination="PIi-fJ-8DE" id="2ww-n7-Whk"/>
+                <outlet property="likesCountLabel" destination="raR-LK-RLj" id="IEx-UE-bNE"/>
                 <outlet property="nameFriendNews" destination="3CC-ns-sDa" id="JOw-nR-rmH"/>
+                <outlet property="sharesCountLabel" destination="ShR-nR-Joe" id="77f-dA-Ceb"/>
                 <outlet property="textInPost" destination="f0G-Dr-ZSC" id="Ba5-vQ-J71"/>
             </connections>
             <point key="canvasLocation" x="194.20289855072465" y="217.29910714285714"/>

@@ -15,6 +15,9 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var textInPost: UITextView!
     
     @IBOutlet weak var imageInPost: UIImageView!
+    @IBOutlet weak var likesCountLabel: UILabel!
+    @IBOutlet weak var commentsCountLabel: UILabel!
+    @IBOutlet weak var sharesCountLabel: UILabel!
     
     static let identifier = "NewsTableViewCell"
     
@@ -23,12 +26,15 @@ class NewsTableViewCell: UITableViewCell {
         // Initialization code
     }
 
-    public func configure(with avatar: UIImage, name: String, date: String?, text: String?, imagePost: UIImage?) {
+    public func configure(with avatar: UIImage, name: String, date: String?, text: String?, imagePost: UIImage?, likesCount: Int, sharesCount: Int, commentsCount: Int) {
         avatarImageNews.image = avatar
         nameFriendNews.text = name
         dateOfPostNews.text = date
         textInPost.text = text
         imageInPost.image = imagePost
+        likesCountLabel.text = String(likesCount)
+        commentsCountLabel.text = String(commentsCount)
+        sharesCountLabel.text = String(sharesCount)
     }
     
     static func nib() -> UINib{

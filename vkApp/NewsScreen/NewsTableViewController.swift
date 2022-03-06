@@ -9,6 +9,7 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
 
+    let posts:[Post] = [tonyPost, thorPost, strangePost]
     var NewsOfFriend: Friend = tonyStark
     let nums: [String] = ["first","second","third","fourth","fifth","sixth"]
     var ttt = "Единство предмета речи — это тема высказывания. Тема — это смысловое ядро текста, конденсированное и обобщённое содержание текста.Понятие «содержание высказывания» связано с категорией информативности речи и присуще только тексту. Оно сообщает читателю индивидуально-авторское понимание отношений между явлениями, их значимости во всех сферах придают ему смысловую цельность."
@@ -31,7 +32,7 @@ class NewsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return tonyStark.images.count
+        return posts.count
     }
 
     
@@ -39,9 +40,11 @@ class NewsTableViewController: UITableViewController {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: NewsTableViewCell.identifier, for: indexPath) as! NewsTableViewCell
         
-        cell.configure(with: tonyStark.mainImage!, name: tonyStark.name, date: "5 min ago", text: "My \(nums[indexPath.row]) post!! Артему приветик", imagePost: tonyStark.images[indexPath.row])
+//        cell.configure(with: tonyStark.mainImage!, name: tonyStark.name, date: "5 min ago", text: "My \(nums[indexPath.row]) post!!", imagePost: tonyStark.images[indexPath.row])
         cell.imageInPost.layer.cornerRadius = 5
         cell.avatarImageNews.layer.cornerRadius = cell.avatarImageNews.bounds.height/2
+        
+        cell.configure(with: posts[indexPath.row].friend.mainImage!, name: posts[indexPath.row].friend.name, date: posts[indexPath.row].dateOfPost, text: posts[indexPath.row].textInPost, imagePost: posts[indexPath.row].friend.images[2], likesCount: posts[indexPath.row].likesCount, sharesCount: posts[indexPath.row].sharesCount, commentsCount: posts[indexPath.row].commentsCount)
         return cell
     }
     
