@@ -419,6 +419,7 @@
                         <outlet property="mainPhotoOfProfile" destination="MfP-BC-A2n" id="Kf2-hG-YkS"/>
                         <outlet property="nameInProfileLabel" destination="0WF-Y0-kPA" id="9ry-mo-pgl"/>
                         <segue destination="geA-RY-8so" kind="show" identifier="showBigPhoto" id="X8P-RF-n3t"/>
+                        <segue destination="geA-RY-8so" kind="show" identifier="showBigPhotoCell" id="wWk-8P-RJh"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLy-kk-k4i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -685,6 +686,9 @@
             <point key="canvasLocation" x="1887" y="1017"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="wWk-8P-RJh"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="face.smiling" catalog="system" width="128" height="121"/>
         <image name="free-png.ru-307" width="2048" height="2048"/>

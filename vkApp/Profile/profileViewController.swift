@@ -39,8 +39,6 @@ class profileViewController: UIViewController {
         let tapOnPhoto = UITapGestureRecognizer(target: self, action: #selector(showMainPhoto))
         
         container.addGestureRecognizer(tapOnPhoto)
-        
-        
     }
     
     
@@ -54,6 +52,10 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         return arrayImages.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "showBigPhotoCell", sender: self)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = MyCollectionView.dequeueReusableCell(withReuseIdentifier: profilePhotosViewCell.identifier, for: indexPath) as! profilePhotosViewCell
         
@@ -61,7 +63,9 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         cell.configure(with: arrayImages[indexPath.row]!)
         cell.imageView.layer.cornerRadius = 5
-        performSegue(withIdentifier: "showBigPhotoCell", sender: self)
+        
+        
+        
         return cell
         }
       
@@ -80,7 +84,15 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         if segue.identifier == "showBigPhoto",
            let destinationVC = segue.destination as? ShowMainPhotoViewController
             {
-            destinationVC.friend = profileForFriend
+            destinationVC.image = profileForFriend.mainImage
+        }
+        
+        if segue.identifier == "showBigPhotoCell",
+           let destinationVC = segue.destination as? ShowMainPhotoViewController
+            {
+            let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
+            let index = indexPath[0] as NSIndexPath
+            destinationVC.image = profileForFriend.images[index.row]
         }
     }
 }

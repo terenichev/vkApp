@@ -10,12 +10,14 @@ import UIKit
 class ShowMainPhotoViewController: UIViewController {
 
     @IBOutlet weak var showMainPhoto: UIImageView!
-    var friend: Friend = tonyStark
+    
+    var image: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        showMainPhoto.image = friend.mainImage
+       
+        showMainPhoto.image = image
     }
     
 
