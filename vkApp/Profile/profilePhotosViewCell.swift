@@ -7,7 +7,7 @@
 
 import UIKit
 
-class vandaViewCell: UICollectionViewCell {
+class profilePhotosViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
     

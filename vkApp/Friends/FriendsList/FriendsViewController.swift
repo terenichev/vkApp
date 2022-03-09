@@ -74,18 +74,19 @@ class FriendsViewController: UITableViewController {
 //
 //            let friendToShow = friends[indexPath.row].name
 //            destinationVC.title = friendToShow
+//
 //            destinationVC.arrayImages = friends[indexPath.row].images
 //        }
 //    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+
         if segue.identifier == "showFriendProfile",
            let destinationVC = segue.destination as? profileViewController,
            let indexPath = tableView.indexPathForSelectedRow {
 
             let friendToShow = friends[indexPath.row]
-            
+
             destinationVC.profileForFriend = friendToShow
             destinationVC.arrayImages = friends[indexPath.row].images
         }

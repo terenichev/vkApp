@@ -35,6 +35,7 @@
 		D3EB0CE527D32D1B007B143B /* NewsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3EB0CE327D32D1B007B143B /* NewsTableViewCell.xib */; };
 		D3EB0CE727D52F8F007B143B /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB0CE627D52F8F007B143B /* Post.swift */; };
 		D3EB0CE927D53010007B143B /* Posts.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB0CE827D53010007B143B /* Posts.swift */; };
+		D3EB0CED27D91499007B143B /* ShowMainPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3EB0CEC27D91499007B143B /* ShowMainPhotoViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		D3EB0CE327D32D1B007B143B /* NewsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsTableViewCell.xib; sourceTree = "<group>"; };
 		D3EB0CE627D52F8F007B143B /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		D3EB0CE827D53010007B143B /* Posts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Posts.swift; sourceTree = "<group>"; };
+		D3EB0CEC27D91499007B143B /* ShowMainPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMainPhotoViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,6 +86,7 @@
 		D381202427B595DF00986187 = {
 			isa = PBXGroup;
 			children = (
+				D3EB0CEC27D91499007B143B /* ShowMainPhotoViewController.swift */,
 				D381202F27B595DF00986187 /* vkApp */,
 				D381202E27B595DF00986187 /* Products */,
 			);
@@ -279,6 +282,7 @@
 				D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */,
 				D3E835C327C668BF00C37C67 /* FriendPhotoCollectionViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
+				D3EB0CED27D91499007B143B /* ShowMainPhotoViewController.swift in Sources */,
 				D3E835C127C6683D00C37C67 /* FriendPhotosCollectionVC.swift in Sources */,
 				D3E835D227CA6F6800C37C67 /* avatarUIView.swift in Sources */,
 				D381203327B595DF00986187 /* SceneDelegate.swift in Sources */,

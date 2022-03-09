@@ -15,6 +15,8 @@ class profileViewController: UIViewController {
     @IBOutlet weak var nameInProfileLabel: UILabel!
     @IBOutlet weak var friendStatusInProfile: UILabel!
     
+    @IBOutlet weak var container: UIView!
+    
     
     var profileForFriend: Friend = tonyStark
     var arrayImages: [UIImage?] = []
@@ -22,20 +24,29 @@ class profileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        MyCollectionView.register(vandaViewCell.nib(), forCellWithReuseIdentifier: vandaViewCell.identifier)
+        MyCollectionView.register(profilePhotosViewCell.nib(), forCellWithReuseIdentifier: profilePhotosViewCell.identifier)
         self.MyCollectionView.dataSource = self
         self.MyCollectionView.delegate = self
         
-        mainPhotoOfProfile.layer.cornerRadius = mainPhotoOfProfile.bounds.height/2
-        
-        
+        mainPhotoOfProfile.layer.cornerRadius = 50
+    
         mainPhotoOfProfile.image = profileForFriend.mainImage
         nameInProfileLabel.text = profileForFriend.name
         friendStatusInProfile.text = profileForFriend.statusText
+    
+//        mainPhotoOfProfile.isUserInteractionEnabled = true
+        
+        let tapOnPhoto = UITapGestureRecognizer(target: self, action: #selector(showMainPhoto))
+        
+        container.addGestureRecognizer(tapOnPhoto)
+        
+        
     }
     
     
 }
+
+
 
 extension profileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
@@ -44,15 +55,35 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = MyCollectionView.dequeueReusableCell(withReuseIdentifier: vandaViewCell.identifier, for: indexPath) as! vandaViewCell
+        let cell = MyCollectionView.dequeueReusableCell(withReuseIdentifier: profilePhotosViewCell.identifier, for: indexPath) as! profilePhotosViewCell
         
 //        cell.configure(with: UIImage(named: "Ванда")!)
         
         cell.configure(with: arrayImages[indexPath.row]!)
         cell.imageView.layer.cornerRadius = 5
+        performSegue(withIdentifier: "showBigPhotoCell", sender: self)
         return cell
         }
       
-}
     
+    @IBAction func photoOutActionExit(unwindSegue: UIStoryboardSegue){
+        print("exit")
+    }
+    
+    @objc func showMainPhoto() {
+        print ("tap on photo")
+        performSegue(withIdentifier: "showBigPhoto", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+
+        if segue.identifier == "showBigPhoto",
+           let destinationVC = segue.destination as? ShowMainPhotoViewController
+            {
+            destinationVC.friend = profileForFriend
+        }
+    }
+}
+
+
     
