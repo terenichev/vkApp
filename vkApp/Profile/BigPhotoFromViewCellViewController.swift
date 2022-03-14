@@ -13,7 +13,7 @@ class BigPhotoFromViewCellViewController: UIViewController {
     
     var friend:Friend = tonyStark
     var arrayImages:[UIImage?]? = nil
-    var selectedIndex:Int = 0
+    var selectedIndex:Int = 1
     
     
     var imageFromProfilCell: UIImage? = nil
@@ -26,13 +26,14 @@ class BigPhotoFromViewCellViewController: UIViewController {
         self.collectionBigPhoto.dataSource = self
         self.collectionBigPhoto.delegate = self
         
-        
         self.title = "\(selectedIndex + 1) из \(self.friend.images.count)"
+        
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.collectionBigPhoto.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .bottom, animated: false)
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//        self.collectionBigPhoto.scrollToItem(at: IndexPath(item: selectedIndex, section: 0), at: .right, animated: false)
+        collectionBigPhoto.selectItem(at: IndexPath(item: selectedIndex, section: 0), animated: false, scrollPosition: .init(rawValue: UInt(selectedIndex)))
         
     }
 }
@@ -49,9 +50,6 @@ extension BigPhotoFromViewCellViewController: UICollectionViewDataSource, UIColl
         
         cell.configure(with: friend.images[indexPath.row]!)
         cell.bigImage.layer.cornerRadius = 5
-        
-        
-//        self.title = "\(indexPath.row + 1) из \(friend.images.count)"
        
         return cell
         }
@@ -78,6 +76,7 @@ extension BigPhotoFromViewCellViewController: UICollectionViewDataSource, UIColl
             }
         }
     }
+    
     
     
 }
