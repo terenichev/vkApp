@@ -40,11 +40,7 @@ class profileViewController: UIViewController {
         
         container.addGestureRecognizer(tapOnPhoto)
     }
-    
-    
 }
-
-
 
 extension profileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
@@ -64,18 +60,14 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         cell.configure(with: arrayImages[indexPath.row]!)
         cell.imageView.layer.cornerRadius = 5
         
-        
-        
         return cell
         }
       
     
     @IBAction func photoOutActionExit(unwindSegue: UIStoryboardSegue){
-        print("exit")
     }
     
     @objc func showMainPhoto() {
-        print ("tap on photo")
         performSegue(withIdentifier: "showBigPhoto", sender: self)
     }
     
@@ -88,11 +80,15 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         }
         
         if segue.identifier == "showBigPhotoCell",
-           let destinationVC = segue.destination as? ShowMainPhotoViewController
+           let destinationVC = segue.destination as? BigPhotoFromViewCellViewController
             {
             let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
             let index = indexPath[0] as NSIndexPath
-            destinationVC.image = profileForFriend.images[index.row]
+            destinationVC.imageFromProfilCell = profileForFriend.images[index.row]
+            destinationVC.friend = profileForFriend
+            destinationVC.selectedIndex = index.row
+//            destinationVC.title = "\(index.row) из \(profileForFriend.images.count)"
+            
         }
     }
 }
