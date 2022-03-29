@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import Foundation
 
-class FriendsViewController: UITableViewController {
+class FriendsViewController: UITableViewController, UISearchBarDelegate {
+    
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var friends = [
         tonyStark,
@@ -21,16 +24,28 @@ class FriendsViewController: UITableViewController {
         andrew,
         tobbie]
     
+    
+    var namesOfFriends: [String] = []
+    var searchFriends: [Friend]!
+    
     var sortedFriends = [Character: [Friend]]()
     
     var chars:[String] = []
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        searchBar.delegate = self
  
+        searchFriends = friends
         self.sortedFriends = sort(friends: friends)
+        
+        //namesOfFriends = friends.sorted(by: { $0.name < $1.name})
+        
     }
 
+    
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
         
         var friendsDict = [Character: [Friend]]()
@@ -108,4 +123,31 @@ class FriendsViewController: UITableViewController {
         }
     }
     
+    
+    // MARK: Search Bar Config
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchFriends = []
+        
+        if searchText == "" {
+            searchFriends = friends
+        }
+        else {
+            for friend in friends {
+                
+                if friends.contains(where: {$0.name.lowercased().contains(searchText.lowercased())}) {
+                    self.searchFriends.append(friend)
+                    print(searchFriends ?? "nil")
+                } else {
+                    print("nonono")
+                }
+                
+            }
+        }
+        
+                    
+        self.tableView.reloadData()
+       // print("relosd data")
+        
+    }
 }

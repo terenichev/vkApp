@@ -120,9 +120,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" id="LfT-ei-YeA">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="50" id="Cw4-8j-jO9" customClass="FriendsCell" customModule="vkApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44.5" width="414" height="50"/>
+                                <rect key="frame" x="0.0" y="88.5" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cw4-8j-jO9" id="f6k-OU-kFX">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
@@ -217,6 +222,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="LfT-ei-YeA" id="uaS-jl-4Ve"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXk-V8-PN8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="Wc0-Ii-pNa" userLabel="Exit" sceneMemberID="exit"/>
@@ -366,6 +374,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Сообщение"/>
+                                <connections>
+                                    <action selector="mainPhotoAnimate:" destination="bu2-9c-R83" eventType="touchUpInside" id="iGc-AK-aNB"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYR-GJ-Cyu">
                                 <rect key="frame" x="209.5" y="249" width="188.5" height="40"/>
@@ -374,6 +385,9 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Звонок"/>
+                                <connections>
+                                    <action selector="animateY:" destination="bu2-9c-R83" eventType="touchUpInside" id="tpd-aW-dUn"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YiR-b9-2iD">
                                 <rect key="frame" x="20" y="104" width="100" height="100"/>
@@ -382,6 +396,10 @@
                                     <constraint firstAttribute="height" constant="100" id="uqX-ai-zf1"/>
                                 </constraints>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="rPp-dK-onO">
+                                <rect key="frame" x="87" y="475" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wi2-NV-7KK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -414,6 +432,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="MyCollectionView" destination="5IG-rN-scv" id="ovQ-vd-lDO"/>
+                        <outlet property="animatingImage" destination="rPp-dK-onO" id="cA7-Uj-rNo"/>
                         <outlet property="container" destination="YiR-b9-2iD" id="G31-9Q-z1W"/>
                         <outlet property="friendStatusInProfile" destination="kcY-mI-6vt" id="VVD-n3-CJ9"/>
                         <outlet property="mainPhotoOfProfile" destination="MfP-BC-A2n" id="Kf2-hG-YkS"/>
@@ -737,6 +756,7 @@
         <image name="face.smiling" catalog="system" width="128" height="121"/>
         <image name="free-png.ru-307" width="2048" height="2048"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
+        <image name="image" width="630" height="500"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>

@@ -15,6 +15,8 @@ class profileViewController: UIViewController {
     @IBOutlet weak var nameInProfileLabel: UILabel!
     @IBOutlet weak var friendStatusInProfile: UILabel!
     
+    @IBOutlet weak var animatingImage: UIImageView!
+    
     @IBOutlet weak var container: UIView!
     
     
@@ -23,6 +25,8 @@ class profileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        animatingImage.layer.cornerRadius = 10
         
         MyCollectionView.register(profilePhotosViewCell.nib(), forCellWithReuseIdentifier: profilePhotosViewCell.identifier)
         self.MyCollectionView.dataSource = self
@@ -40,6 +44,33 @@ class profileViewController: UIViewController {
         
         container.addGestureRecognizer(tapOnPhoto)
     }
+    
+    
+    @IBAction func animateY(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.5) {
+            
+            if self.animatingImage.layer.position.y > 800 {
+                self.animatingImage.layer.position.y = 550
+            }else {
+                self.animatingImage.layer.position.y += 100
+            }
+        }
+    }
+    
+    
+    @IBAction func mainPhotoAnimate(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.5) {
+            
+            if self.animatingImage.layer.position.x > 500 {
+                self.animatingImage.layer.position.x = -100
+            }else {
+                self.animatingImage.layer.position.x += 100
+            }
+        }
+    }
+    
 }
 
 extension profileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
@@ -69,6 +100,9 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     @objc func showMainPhoto() {
         performSegue(withIdentifier: "showBigPhoto", sender: self)
+        UIView.animate(withDuration: 0.5) {
+           // self.mainPhotoOfProfile.layer.position.y += 500
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
