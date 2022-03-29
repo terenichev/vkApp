@@ -35,21 +35,21 @@ class ViewController: UIViewController{
                        delay: 0,
                        options: [.repeat],
                        animations: {
-            self.firstCircle.alpha = 0
+            self.firstCircle.alpha = 0.1
         })
         
         UIView.animate(withDuration: 2,
                        delay: 0.66,
                        options: [.repeat],
                        animations: {
-            self.secondCircle.alpha = 0
+            self.secondCircle.alpha = 0.1
         })
         
         UIView.animate(withDuration: 2,
                        delay: 1.33,
                        options: [.repeat],
                        animations: {
-            self.thirdCircle.alpha = 0
+            self.thirdCircle.alpha = 0.1
         })
         
     }

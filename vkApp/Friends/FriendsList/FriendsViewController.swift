@@ -38,10 +38,20 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
  
         self.sortedFriends = sort(friends: friends)
         
+        searchBar.searchTextField.addTarget(self, action: #selector(searchBarShowCancel), for: .allTouchEvents)
         
-        
+        searchBar.searchTextField.addTarget(self, action: #selector(searchBarHideCancel), for: .editingDidEndOnExit)
     }
 
+    @objc func searchBarShowCancel() {
+//        searchBar.showsCancelButton = true
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    @objc func searchBarHideCancel() {
+        searchBar.setShowsCancelButton(false, animated: true)
+    }
+    
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
         
         var friendsDict = [Character: [Friend]]()

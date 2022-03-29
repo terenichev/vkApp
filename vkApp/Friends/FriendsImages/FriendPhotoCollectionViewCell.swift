@@ -22,18 +22,18 @@ class FriendPhotoCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func handleTap(_ : UIGestureRecognizer){
-        likeControl.islike.toggle()
-        
-        if likeControl.islike {
-            likeControl.likePicture.tintColor = .red
-            likeControl.likesCountLabel.textColor = .red
-            likeControl.likesCount += 1
-            likeControl.likesCountLabel.text = String(likeControl.likesCount)
-        } else {
-            likeControl.likePicture.tintColor = .lightGray
-            likeControl.likesCountLabel.textColor = .lightGray
-            likeControl.likesCount -= 1
-            likeControl.likesCountLabel.text = String(likeControl.likesCount)
-        }
+//        likeControl.islike.toggle()
+//        
+//        if likeControl.islike {
+//            likeControl.likePicture.tintColor = .red
+//            likeControl.likesCountLabel.textColor = .red
+//            likeControl.likesCount += 1
+//            likeControl.likesCountLabel.text = String(likeControl.likesCount)
+//        } else {
+//            likeControl.likePicture.tintColor = .lightGray
+//            likeControl.likesCountLabel.textColor = .lightGray
+//            likeControl.likesCount -= 1
+//            likeControl.likesCountLabel.text = String(likeControl.likesCount)
+//        }
     }
 }

@@ -10,6 +10,8 @@ import UIKit
 class BigPhotoFromProfileCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var bigImage: UIImageView!
+    
+    
     static let identifier = "bigPhotoCell"
     
     override func awakeFromNib() {

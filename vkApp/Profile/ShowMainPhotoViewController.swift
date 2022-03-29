@@ -11,16 +11,36 @@ class ShowMainPhotoViewController: UIViewController {
 
     @IBOutlet weak var showMainPhoto: UIImageView!
     
+    @IBOutlet weak var container: UIView!
+    @IBOutlet weak var likeControl: LikeControl!
+    @IBOutlet weak var likePicture: UIImageView!
+    
     var image: UIImage? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-       
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        tap.numberOfTapsRequired = 1
+        container.addGestureRecognizer(tap)
+        
         showMainPhoto.image = image
     }
     
-
+    @objc func handleTap(_ : UIGestureRecognizer){
+        
+        print("tap")
+        likeControl.islike.toggle()
+        
+        if likeControl.islike {
+            
+            likeControl.plusOneLike()
+        } else {
+            likeControl.minusOneLike()
+        }
+    }
+    
+    
     /*
     // MARK: - Navigation
 
