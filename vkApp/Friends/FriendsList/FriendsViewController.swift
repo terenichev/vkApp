@@ -38,8 +38,9 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
  
-        searchFriends = friends
         self.sortedFriends = sort(friends: friends)
+        
+//        self.sortedFriends = sort(friends: friends)
         
         //namesOfFriends = friends.sorted(by: { $0.name < $1.name})
         
@@ -47,6 +48,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
 
     
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
+        
         
         var friendsDict = [Character: [Friend]]()
         
@@ -95,7 +97,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         cell.labelFriendsCell.text = friend.name
         cell.imageFriendsCell.image = friend.mainImage
-        cell.imageFriendsCell.layer.cornerRadius = 45
+        cell.imageFriendsCell.layer.cornerRadius = 5
 
         return cell
     }
@@ -135,17 +137,17 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         else {
             for friend in friends {
                 
-                if friends.contains(where: {$0.name.lowercased().contains(searchText.lowercased())}) {
-                    self.searchFriends.append(friend)
-                    print(searchFriends ?? "nil")
-                } else {
-                    print("nonono")
+                if friend.name.lowercased().contains(searchText.lowercased()) {
+                    searchFriends.append(friend)
+                    
                 }
                 
             }
         }
         
-                    
+        self.sortedFriends = sort(friends: searchFriends)
+        
+        print(searchFriends.count)
         self.tableView.reloadData()
        // print("relosd data")
         
