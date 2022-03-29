@@ -19,11 +19,39 @@ class ViewController: UIViewController{
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var forgetPasswordButton: UIButton!
     
+    @IBOutlet weak var firstCircle: UIImageView!
+    @IBOutlet weak var secondCircle: UIImageView!
+    @IBOutlet weak var thirdCircle: UIImageView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideScreen))
         view.addGestureRecognizer(tapGR)
+        
+        
+        UIView.animate(withDuration: 2,
+                       delay: 0,
+                       options: [.repeat],
+                       animations: {
+            self.firstCircle.alpha = 0
+        })
+        
+        UIView.animate(withDuration: 2,
+                       delay: 0.66,
+                       options: [.repeat],
+                       animations: {
+            self.secondCircle.alpha = 0
+        })
+        
+        UIView.animate(withDuration: 2,
+                       delay: 1.33,
+                       options: [.repeat],
+                       animations: {
+            self.thirdCircle.alpha = 0
+        })
+        
     }
 
     
