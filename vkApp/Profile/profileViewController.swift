@@ -26,6 +26,7 @@ class profileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         animatingImage.layer.cornerRadius = 10
         
         MyCollectionView.register(profilePhotosViewCell.nib(), forCellWithReuseIdentifier: profilePhotosViewCell.identifier)
@@ -45,6 +46,12 @@ class profileViewController: UIViewController {
         container.addGestureRecognizer(tapOnPhoto)
     }
     
+    @objc func tapOnArthur() {
+        print("tap on Arthur")
+        UIView.animate(withDuration: 2) {
+            self.animatingImage.transform3D.m12 = 1
+        }
+    }
     
     @IBAction func animateY(_ sender: Any) {
         
@@ -62,7 +69,7 @@ class profileViewController: UIViewController {
     @IBAction func mainPhotoAnimate(_ sender: Any) {
         
         UIView.animate(withDuration: 0.5) {
-            
+
             if self.animatingImage.layer.position.x > 500 {
                 self.animatingImage.layer.position.x = -100
             }else {

@@ -92,9 +92,29 @@ class ViewController: UIViewController{
     
     
     @IBAction func tryTologin(_ sender: Any) {
+        
         if loginTextField.text == "" && passwordTextField.text == "" {
-            performSegue(withIdentifier: "checkLog", sender: self)
+            
+            UIView.animate(withDuration: 1,
+                           delay: 0,
+                           options: .curveEaseOut) {
+                self.loginTextField.layer.position.x += 500
+                self.passwordTextField.layer.position.x -= 500
+                self.goButton.layer.position.y += 500
+                self.forgetPasswordButton.layer.position.y += 500
+                
+            }
+            
+            UIView.animate(withDuration: 1,
+                           delay: 0,
+                           options: .curveEaseOut) {
+                self.logoImageView.layer.position.y += 200
+            }
+            
+            self.performSegue(withIdentifier: "checkLog", sender: self)
+            
         } else {
+            
             let wrongPasswordAlert = UIAlertController(title: "Error", message: "Введите верный логин и пароль", preferredStyle: .alert)
             let alertOk = UIAlertAction(title: "Ok", style: .default, handler: {_ in
                 self.loginTextField.text = ""
@@ -104,10 +124,12 @@ class ViewController: UIViewController{
             present(wrongPasswordAlert, animated: true, completion: nil)
             
         }
-    }
+        
+        }
     
     @IBAction func logOutActionExit(unwindSegue: UIStoryboardSegue){
         print("exit")
+        self.loadView()
     }
     
 }

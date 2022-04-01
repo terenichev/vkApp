@@ -35,21 +35,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         searchBar.delegate = self
- 
-        self.sortedFriends = sort(friends: friends)
-        
-        searchBar.searchTextField.addTarget(self, action: #selector(searchBarShowCancel), for: .allTouchEvents)
-        
-        searchBar.searchTextField.addTarget(self, action: #selector(searchBarHideCancel), for: .editingDidEndOnExit)
-    }
 
-    @objc func searchBarShowCancel() {
-//        searchBar.showsCancelButton = true
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-    
-    @objc func searchBarHideCancel() {
-        searchBar.setShowsCancelButton(false, animated: true)
+        self.sortedFriends = sort(friends: friends)
     }
     
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
@@ -132,7 +119,25 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     // MARK: Search Bar Config
     
+    //При нажатии на строку поиска скрываем navigationBar с анимацией
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        UIView.animate(withDuration: 0.3) {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
+        }
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        UIView.animate(withDuration: 0.3) {
+            self.navigationController?.setNavigationBarHidden(false, animated: true)
+        }
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.resignFirstResponder()
+    }
+    
+    //Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+    
         searchFriends = []
         
         if searchText == "" {
@@ -149,4 +154,5 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         self.sortedFriends = sort(friends: searchFriends)
         self.tableView.reloadData()
     }
+    
 }

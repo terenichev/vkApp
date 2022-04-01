@@ -32,7 +32,7 @@ class avatarUIView: UIView {
     }
     
     @objc func tapOnAvatar(){
-        print("tap")
+        print("tap on avatar")
         
         UIView.animate(withDuration: 0.5, delay: 0,
         usingSpringWithDamping: 0.5, initialSpringVelocity: 0, options: [],

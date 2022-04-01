@@ -1,0 +1,84 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "0WF-Y0-kPA"; */
+"0WF-Y0-kPA.text" = "Label";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "C0D-dn-LyH"; */
+"C0D-dn-LyH.text" = "3";
+
+/* Class = "UINavigationController"; title = "Friends"; ObjectID = "E0X-5t-9og"; */
+"E0X-5t-9og.title" = "Friends";
+
+/* Class = "UIButton"; configuration.title = "Забыли пароль?"; ObjectID = "EGp-nV-3lq"; */
+"EGp-nV-3lq.configuration.title" = "Забыли пароль?";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "EGp-nV-3lq"; */
+"EGp-nV-3lq.normalTitle" = "Button";
+
+/* Class = "UIButton"; configuration.title = "Сообщение"; ObjectID = "FRN-QX-dZL"; */
+"FRN-QX-dZL.configuration.title" = "Сообщение";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "FRN-QX-dZL"; */
+"FRN-QX-dZL.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "FwE-4N-Li9"; */
+"FwE-4N-Li9.text" = "Label";
+
+/* Class = "UISearchBar"; placeholder = "Поиск"; ObjectID = "LfT-ei-YeA"; */
+"LfT-ei-YeA.placeholder" = "Поиск";
+
+/* Class = "UISearchBar"; LfT-ei-YeA.scopeButtonTitles[0] = "Title"; ObjectID = "LfT-ei-YeA"; */
+"LfT-ei-YeA.scopeButtonTitles[0]" = "Title";
+
+/* Class = "UISearchBar"; LfT-ei-YeA.scopeButtonTitles[1] = "Title"; ObjectID = "LfT-ei-YeA"; */
+"LfT-ei-YeA.scopeButtonTitles[1]" = "Title";
+
+/* Class = "UITextField"; placeholder = "Введите логин"; ObjectID = "Okf-5l-0n3"; */
+"Okf-5l-0n3.placeholder" = "Введите логин";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "UD1-oY-qrM"; */
+"UD1-oY-qrM.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "Введите пароль"; ObjectID = "VHc-oT-5K3"; */
+"VHc-oT-5K3.placeholder" = "Введите пароль";
+
+/* Class = "UITabBarItem"; title = "Новости"; ObjectID = "Xgb-dO-rb8"; */
+"Xgb-dO-rb8.title" = "Новости";
+
+/* Class = "UINavigationItem"; title = "Groups"; ObjectID = "YfQ-px-X3y"; */
+"YfQ-px-X3y.title" = "Groups";
+
+/* Class = "UILabel"; text = "3"; ObjectID = "cU7-xh-Hqw"; */
+"cU7-xh-Hqw.text" = "3";
+
+/* Class = "UITabBarItem"; title = "Друзья"; ObjectID = "fle-5M-h88"; */
+"fle-5M-h88.title" = "Друзья";
+
+/* Class = "UIBarButtonItem"; title = "Выйти"; ObjectID = "g9g-YT-SOT"; */
+"g9g-YT-SOT.title" = "Выйти";
+
+/* Class = "UITabBarItem"; title = "Item"; ObjectID = "irO-Ii-30T"; */
+"irO-Ii-30T.title" = "Item";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "kcY-mI-6vt"; */
+"kcY-mI-6vt.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "Друзья"; ObjectID = "kga-0L-Wow"; */
+"kga-0L-Wow.title" = "Друзья";
+
+/* Class = "UIButton"; configuration.title = "Войти"; ObjectID = "mKl-JZ-SjQ"; */
+"mKl-JZ-SjQ.configuration.title" = "Войти";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "mKl-JZ-SjQ"; */
+"mKl-JZ-SjQ.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "o4m-gJ-9Oj"; */
+"o4m-gJ-9Oj.text" = "Label";
+
+/* Class = "UITabBarItem"; title = "Группы"; ObjectID = "r3O-au-goI"; */
+"r3O-au-goI.title" = "Группы";
+
+/* Class = "UIButton"; configuration.title = "Звонок"; ObjectID = "rYR-GJ-Cyu"; */
+"rYR-GJ-Cyu.configuration.title" = "Звонок";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "rYR-GJ-Cyu"; */
+"rYR-GJ-Cyu.normalTitle" = "Button";

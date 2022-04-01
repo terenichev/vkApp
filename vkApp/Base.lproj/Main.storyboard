@@ -130,7 +130,7 @@
             </objects>
             <point key="canvasLocation" x="17.39130434782609" y="68.973214285714278"/>
         </scene>
-        <!--Friends-->
+        <!--Друзья-->
         <scene sceneID="QaG-4s-3Pj">
             <objects>
                 <tableViewController id="hsB-4m-HOV" customClass="FriendsViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
@@ -237,7 +237,7 @@
                             <outlet property="delegate" destination="hsB-4m-HOV" id="YpH-Ri-fRi"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Friends" largeTitleDisplayMode="never" id="kga-0L-Wow">
+                    <navigationItem key="navigationItem" title="Друзья" largeTitleDisplayMode="never" id="kga-0L-Wow">
                         <barButtonItem key="leftBarButtonItem" title="Выйти" id="g9g-YT-SOT">
                             <connections>
                                 <segue destination="Wc0-Ii-pNa" kind="unwind" unwindAction="logOutActionExitWithUnwindSegue:" id="282-6m-fhB"/>
