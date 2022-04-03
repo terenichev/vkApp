@@ -390,9 +390,6 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Сообщение"/>
-                                <connections>
-                                    <action selector="mainPhotoAnimate:" destination="bu2-9c-R83" eventType="touchUpInside" id="iGc-AK-aNB"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rYR-GJ-Cyu">
                                 <rect key="frame" x="209.5" y="249" width="188.5" height="40"/>
@@ -401,9 +398,6 @@
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Звонок"/>
-                                <connections>
-                                    <action selector="animateY:" destination="bu2-9c-R83" eventType="touchUpInside" id="tpd-aW-dUn"/>
-                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YiR-b9-2iD">
                                 <rect key="frame" x="20" y="104" width="100" height="100"/>
@@ -412,10 +406,6 @@
                                     <constraint firstAttribute="height" constant="100" id="uqX-ai-zf1"/>
                                 </constraints>
                             </view>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="image" translatesAutoresizingMaskIntoConstraints="NO" id="rPp-dK-onO">
-                                <rect key="frame" x="87" y="475" width="240" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wi2-NV-7KK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -448,13 +438,13 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="MyCollectionView" destination="5IG-rN-scv" id="ovQ-vd-lDO"/>
-                        <outlet property="animatingImage" destination="rPp-dK-onO" id="cA7-Uj-rNo"/>
                         <outlet property="container" destination="YiR-b9-2iD" id="G31-9Q-z1W"/>
                         <outlet property="friendStatusInProfile" destination="kcY-mI-6vt" id="VVD-n3-CJ9"/>
                         <outlet property="mainPhotoOfProfile" destination="MfP-BC-A2n" id="Kf2-hG-YkS"/>
                         <outlet property="nameInProfileLabel" destination="0WF-Y0-kPA" id="9ry-mo-pgl"/>
                         <segue destination="geA-RY-8so" kind="show" identifier="showBigPhoto" id="X8P-RF-n3t"/>
                         <segue destination="tKe-Yb-Bjl" kind="show" identifier="showBigPhotoCell" id="Ity-e9-cOR"/>
+                        <segue destination="HI3-XK-qeq" kind="push" identifier="showAnimatingPhotos" id="GgW-Jn-YDl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hLy-kk-k4i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -736,6 +726,44 @@
             </objects>
             <point key="canvasLocation" x="3600.0000000000005" y="371.65178571428572"/>
         </scene>
+        <!--Friends Image AnimatingVC-->
+        <scene sceneID="hyP-wd-kXj">
+            <objects>
+                <viewController hidesBottomBarWhenPushed="YES" id="HI3-XK-qeq" customClass="FriendsImageAnimatingVC" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="bYv-Sz-tvl">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8mg-qD-ZdB">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="g8y-Bl-YOB">
+                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                            </imageView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="7ei-Rd-7Qa"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8mg-qD-ZdB" firstAttribute="top" secondItem="7ei-Rd-7Qa" secondAttribute="top" id="01q-cq-Ncm"/>
+                            <constraint firstItem="7ei-Rd-7Qa" firstAttribute="bottom" secondItem="8mg-qD-ZdB" secondAttribute="bottom" id="02c-On-PkW"/>
+                            <constraint firstItem="g8y-Bl-YOB" firstAttribute="trailing" secondItem="7ei-Rd-7Qa" secondAttribute="trailing" id="W13-tx-IhJ"/>
+                            <constraint firstItem="g8y-Bl-YOB" firstAttribute="top" secondItem="7ei-Rd-7Qa" secondAttribute="top" id="YFf-7G-LhB"/>
+                            <constraint firstItem="g8y-Bl-YOB" firstAttribute="bottom" secondItem="7ei-Rd-7Qa" secondAttribute="bottom" id="cKL-d9-D2f"/>
+                            <constraint firstItem="7ei-Rd-7Qa" firstAttribute="trailing" secondItem="8mg-qD-ZdB" secondAttribute="trailing" id="d0D-cm-sW3"/>
+                            <constraint firstItem="8mg-qD-ZdB" firstAttribute="leading" secondItem="7ei-Rd-7Qa" secondAttribute="leading" id="mQT-Og-H1p"/>
+                            <constraint firstItem="g8y-Bl-YOB" firstAttribute="leading" secondItem="7ei-Rd-7Qa" secondAttribute="leading" id="sJh-eT-Uyd"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="6R6-ac-dDj"/>
+                    <connections>
+                        <outlet property="firstImageView" destination="8mg-qD-ZdB" id="1PP-zQ-82A"/>
+                        <outlet property="secondImageView" destination="g8y-Bl-YOB" id="wD5-ci-tCs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KZ8-Rc-fuH" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4667" y="413"/>
+        </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="FmP-9E-Scv">
             <objects>
@@ -822,7 +850,6 @@
         <image name="face.smiling" catalog="system" width="128" height="121"/>
         <image name="free-png.ru-307" width="2048" height="2048"/>
         <image name="heart.fill" catalog="system" width="128" height="109"/>
-        <image name="image" width="630" height="500"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>

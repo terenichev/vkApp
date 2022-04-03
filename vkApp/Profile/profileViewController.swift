@@ -15,7 +15,6 @@ class profileViewController: UIViewController {
     @IBOutlet weak var nameInProfileLabel: UILabel!
     @IBOutlet weak var friendStatusInProfile: UILabel!
     
-    @IBOutlet weak var animatingImage: UIImageView!
     
     @IBOutlet weak var container: UIView!
     
@@ -27,7 +26,7 @@ class profileViewController: UIViewController {
         super.viewDidLoad()
         
         
-        animatingImage.layer.cornerRadius = 10
+        
         
         MyCollectionView.register(profilePhotosViewCell.nib(), forCellWithReuseIdentifier: profilePhotosViewCell.identifier)
         self.MyCollectionView.dataSource = self
@@ -41,41 +40,7 @@ class profileViewController: UIViewController {
     
 //        mainPhotoOfProfile.isUserInteractionEnabled = true
         
-        let tapOnPhoto = UITapGestureRecognizer(target: self, action: #selector(showMainPhoto))
         
-        container.addGestureRecognizer(tapOnPhoto)
-    }
-    
-    @objc func tapOnArthur() {
-        print("tap on Arthur")
-        UIView.animate(withDuration: 2) {
-            self.animatingImage.transform3D.m12 = 1
-        }
-    }
-    
-    @IBAction func animateY(_ sender: Any) {
-        
-        UIView.animate(withDuration: 0.5) {
-            
-            if self.animatingImage.layer.position.y > 800 {
-                self.animatingImage.layer.position.y = 550
-            }else {
-                self.animatingImage.layer.position.y += 100
-            }
-        }
-    }
-    
-    
-    @IBAction func mainPhotoAnimate(_ sender: Any) {
-        
-        UIView.animate(withDuration: 0.5) {
-
-            if self.animatingImage.layer.position.x > 500 {
-                self.animatingImage.layer.position.x = -100
-            }else {
-                self.animatingImage.layer.position.x += 100
-            }
-        }
     }
     
 }
@@ -87,7 +52,8 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "showBigPhotoCell", sender: self)
+//        performSegue(withIdentifier: "showBigPhotoCell", sender: self)
+        performSegue(withIdentifier: "showAnimatingPhotos", sender: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -129,7 +95,17 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
             destinationVC.friend = profileForFriend
             destinationVC.selectedIndex = index.row
 //            destinationVC.title = "\(index.row) из \(profileForFriend.images.count)"
-            
+        }
+            if segue.identifier == "showAnimatingPhotos",
+               let destinationVC = segue.destination as? FriendsImageAnimatingVC
+                {
+                let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
+                let index = indexPath[0] as NSIndexPath
+//                destinationVC.imageFromProfilCell = profileForFriend.images[index.row]
+                destinationVC.friend = profileForFriend
+                destinationVC.showedPhotoIndex = index.row
+                destinationVC.indexCount = profileForFriend.images.count - 1
+                
         }
     }
 }

@@ -50,6 +50,7 @@ extension BigPhotoFromViewCellViewController: UICollectionViewDataSource, UIColl
         
         cell.configure(with: friend.images[indexPath.row]!)
         cell.bigImage.layer.cornerRadius = 5
+        
        
         return cell
         }

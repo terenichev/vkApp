@@ -1,0 +1,234 @@
+//
+//  FriendsImageAnimatingVC.swift
+//  vkApp
+//
+//  Created by Денис Тереничев on 02.04.2022.
+//
+
+import UIKit
+
+class FriendsImageAnimatingVC: UIViewController {
+
+    @IBOutlet weak var firstImageView: UIImageView!
+    
+    @IBOutlet weak var secondImageView: UIImageView!
+    
+    var friend:Friend = tonyStark
+    var arrayImages:[UIImage?]? = nil
+    var selectedIndex:Int = 1
+    
+    var firstImagePosition: CGAffineTransform!
+    var secondImagePosition: CGAffineTransform!
+    
+    var showedPhotoIndex:Int = 0
+    var indexCount:Int = tonyStark.images.count - 1
+   
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        self.title = "\(showedPhotoIndex + 1) из \(self.friend.images.count)"
+        
+        
+        
+        let imageRightPosition = CGAffineTransform(translationX: view.frame.maxX + 20, y: 0)
+//      let imageLeftPosition = CGAffineTransform(translationX: -self.view.frame.maxX - 20, y: 0)
+        let imageCenterPosition = CGAffineTransform(translationX: 0, y: 0)
+        
+        firstImagePosition = imageCenterPosition
+        secondImagePosition = imageRightPosition
+        
+        
+        firstImageView.image = friend.images[showedPhotoIndex]
+        secondImageView.transform = imageRightPosition
+        secondImageView.image = friend.images[showedPhotoIndex+1]
+        
+        
+        let panGR = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
+        view.addGestureRecognizer(panGR)
+       
+    }
+    
+    @objc func viewPanned(_ recogniser: UIPanGestureRecognizer) {
+        
+//        var firstNewPos: CGAffineTransform!
+        var secondNewPos: CGAffineTransform!
+        
+        
+        switch recogniser.state {
+            
+        case .changed:
+            let percent = (recogniser.translation(in: view).x/view.frame.maxX) * 100
+            let percentAbs = abs(percent)
+            let scaleMultiplication = max((100 - percentAbs)/100, 1/3)
+            
+            let alphaMultiplication = max((100 - 1.5 * percentAbs)/100, 0)
+            
+//            firstImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
+            
+            
+            if percent < 0 {
+                firstImageView.image = friend.images[showedPhotoIndex]
+                if self.showedPhotoIndex != self.indexCount {
+                    self.secondImageView.image = friend.images[self.showedPhotoIndex+1]
+                }else {
+                    self.secondImageView.image = nil
+                }
+                
+                
+                firstImageView.transform = CGAffineTransform(scaleX: scaleMultiplication, y: scaleMultiplication)
+                firstImageView.alpha = alphaMultiplication
+                
+                secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x + view.frame.maxX + 10, y: 0)
+            }else {
+                if showedPhotoIndex != 0 {
+                    firstImageView.image = friend.images[showedPhotoIndex-1]
+                    secondImageView.image = friend.images[showedPhotoIndex]
+                }else {
+                    firstImageView.image = friend.images[showedPhotoIndex]
+                    secondImageView.image = nil
+                    
+                }
+                firstImageView.transform = CGAffineTransform(scaleX: min(abs(1-(1/scaleMultiplication)), 1), y: min(abs(1-(1/scaleMultiplication)), 1))
+                firstImageView.alpha = abs(1-alphaMultiplication)
+                secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
+            }
+            
+            
+            
+            
+        case .ended:
+            
+            let percent = (recogniser.translation(in: view).x/view.frame.maxX) * 100
+//            let percentAbs = abs(percent)
+//            let scaleMultiplication = max((100 - percentAbs)/100, 1/3)
+            
+            //листаем вперед
+            if percent < -50 {
+                
+                if self.showedPhotoIndex < indexCount {
+                    
+                    UIView.animate(withDuration: 0.1) {
+                        
+                        secondNewPos = CGAffineTransform(translationX: 0, y: 0)
+                        
+                        
+                        self.secondImageView.transform = secondNewPos
+                        
+                    } completion: { _ in
+                        self.showedPhotoIndex += 1
+                        
+                        self.firstImageView.transform = CGAffineTransform(translationX: 0, y: 0)
+                        self.secondImageView.transform = CGAffineTransform(translationX: self.view.frame.maxX + 20, y: 0)
+                        
+                        self.title = "\(self.showedPhotoIndex + 1) из \(self.friend.images.count)"
+                        self.firstImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.firstImageView.alpha = 1
+                        
+                        if self.showedPhotoIndex != self.indexCount {
+                            self.secondImageView.image = self.friend.images[self.showedPhotoIndex+1]
+                        }else {
+                            self.secondImageView.image = nil
+                        }
+                        
+                    }
+                    
+                }
+                
+                if self.showedPhotoIndex == indexCount {
+                    
+                    
+                    self.secondImageView.image = nil
+                    UIView.animate(withDuration: 0.1) {
+                        
+                        self.firstImageView.transform = .identity
+                        self.secondImageView.transform = .identity
+                        
+                    } completion: { _ in
+                        self.firstImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.firstImageView.alpha = 1
+                        self.secondImageView.image = nil
+                    }
+                    
+                }
+                
+                
+                
+                
+            //листаем назад
+            }else if percent > 50 {
+                
+                if self.showedPhotoIndex > 0 {
+                    
+                    UIView.animate(withDuration: 0.1) {
+                        
+                        secondNewPos = CGAffineTransform(translationX: self.view.frame.maxX + 20, y: 0)
+                        
+                        
+                        self.secondImageView.transform = secondNewPos
+                        
+                    }completion: { _ in
+                        self.showedPhotoIndex -= 1
+                        
+                        self.firstImageView.transform = CGAffineTransform(translationX: 0, y: 0)
+                        self.secondImageView.transform = CGAffineTransform(translationX:0, y: 0)
+                        
+                        self.title = "\(self.showedPhotoIndex + 1) из \(self.friend.images.count)"
+                        
+                        self.secondImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
+                        self.firstImageView.alpha = 0
+                        
+                        if self.showedPhotoIndex != 0 {
+                            self.firstImageView.image = self.friend.images[self.showedPhotoIndex-1]
+                        }else {
+                            self.firstImageView.image = nil
+                        }
+                        
+                    }
+                    
+                }
+                
+                if self.showedPhotoIndex == 0 {
+                    
+                    
+                    self.secondImageView.image = nil
+                    UIView.animate(withDuration: 0.1) {
+                        
+                        self.firstImageView.transform = .identity
+                        self.secondImageView.transform = .identity
+                        
+                    } completion: { _ in
+                        self.firstImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.firstImageView.alpha = 1
+                        self.secondImageView.image = nil
+                    }
+                    
+                }
+                
+             
+            //В случае маленького свайпа отменяем перелистывание
+            }else if percent < 0 && percent >= -50 {
+                UIView.animate(withDuration: 0.1) {
+                    self.firstImageView.transform = .identity
+                    self.firstImageView.alpha = 1
+                    self.secondImageView.transform = CGAffineTransform(translationX: self.view.frame.maxX + 20, y: 0)
+                }
+                
+            }else if percent > 0 && percent < 50 {
+                UIView.animate(withDuration: 0.1) {
+                    self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
+                    self.firstImageView.alpha = 0
+                    self.secondImageView.transform = CGAffineTransform(translationX: 0, y: 0)
+                }
+            }
+          
+            
+        default:
+            break
+        }
+
+        
+        
+    }
+
+}

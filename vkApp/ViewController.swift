@@ -31,29 +31,37 @@ class ViewController: UIViewController{
         view.addGestureRecognizer(tapGR)
         
         
-        UIView.animate(withDuration: 2,
-                       delay: 0,
-                       options: [.repeat],
-                       animations: {
-            self.firstCircle.alpha = 0.1
-        })
         
-        UIView.animate(withDuration: 2,
-                       delay: 0.66,
-                       options: [.repeat],
-                       animations: {
-            self.secondCircle.alpha = 0.1
-        })
         
-        UIView.animate(withDuration: 2,
-                       delay: 1.33,
-                       options: [.repeat],
-                       animations: {
-            self.thirdCircle.alpha = 0.1
-        })
-        
+        let panGestureRecognize = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
+        goButton.addGestureRecognizer(panGestureRecognize)
     }
 
+    @objc func viewPanned(_ recogniser: UIPanGestureRecognizer) {
+        
+        switch recogniser.state {
+            
+        case .changed:
+//            goButton.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: recogniser.translation(in: view).y)
+            goButton.transform = .init(rotationAngle: recogniser.translation(in: view).y/(180/3.14))
+            
+            
+            print(recogniser.translation(in: view).y/(180/3.14))
+            
+        case .ended:
+            if recogniser.translation(in: view).y/(180/3.14) > (3.14/2) {
+//                self.performSegue(withIdentifier: "checkLog", sender: self)
+                goButton.transform = .identity
+                
+            }else {
+                goButton.transform = .identity
+            }
+            
+        default:
+            break
+        }
+        
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -95,6 +103,27 @@ class ViewController: UIViewController{
         
         if loginTextField.text == "" && passwordTextField.text == "" {
             
+            UIView.animate(withDuration: 2,
+                           delay: 0,
+                           options: [.repeat],
+                           animations: {
+                self.firstCircle.alpha = 0.1
+            })
+            
+            UIView.animate(withDuration: 2,
+                           delay: 0.66,
+                           options: [.repeat],
+                           animations: {
+                self.secondCircle.alpha = 0.1
+            })
+            
+            UIView.animate(withDuration: 2,
+                           delay: 1.33,
+                           options: [.repeat],
+                           animations: {
+                self.thirdCircle.alpha = 0.1
+            })
+            
             UIView.animate(withDuration: 1,
                            delay: 0,
                            options: .curveEaseOut) {
@@ -112,6 +141,7 @@ class ViewController: UIViewController{
             }
             
             self.performSegue(withIdentifier: "checkLog", sender: self)
+            
             
         } else {
             
