@@ -27,6 +27,10 @@ class ViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        firstCircle.isHidden = true
+        secondCircle.isHidden = true
+        thirdCircle.isHidden = true
+        
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideScreen))
         view.addGestureRecognizer(tapGR)
         
@@ -103,44 +107,58 @@ class ViewController: UIViewController{
         
         if loginTextField.text == "" && passwordTextField.text == "" {
             
-            UIView.animate(withDuration: 2,
-                           delay: 0,
-                           options: [.repeat],
-                           animations: {
-                self.firstCircle.alpha = 0.1
-            })
-            
-            UIView.animate(withDuration: 2,
-                           delay: 0.66,
-                           options: [.repeat],
-                           animations: {
-                self.secondCircle.alpha = 0.1
-            })
-            
-            UIView.animate(withDuration: 2,
-                           delay: 1.33,
-                           options: [.repeat],
-                           animations: {
-                self.thirdCircle.alpha = 0.1
-            })
+            firstCircle.isHidden = false
+            secondCircle.isHidden = false
+            thirdCircle.isHidden = false
             
             UIView.animate(withDuration: 1,
                            delay: 0,
-                           options: .curveEaseOut) {
+                           options: .curveEaseIn) {
                 self.loginTextField.layer.position.x += 500
                 self.passwordTextField.layer.position.x -= 500
                 self.goButton.layer.position.y += 500
                 self.forgetPasswordButton.layer.position.y += 500
                 
+            } completion: { _ in
+                UIView.animate(withDuration: 3,
+                               delay: 0,
+                               options: .curveEaseOut) {
+                    self.logoImageView.layer.position.y += 200
+                }
+                
+                UIView.animate(withDuration: 2,
+                               delay: 0,
+                               options: [.repeat],
+                               animations: {
+                    self.firstCircle.alpha = 0.1
+                }) { _ in
+                    
+                }
+                
+                UIView.animate(withDuration: 2,
+                               delay: 0.66,
+                               options: [.repeat],
+                               animations: {
+                    self.secondCircle.alpha = 0.1
+                })
+                
+                UIView.animate(withDuration: 2,
+                               delay: 1.33,
+                               options: [.repeat],
+                               animations: {
+                    self.thirdCircle.alpha = 0.1
+                })
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
+                            self.performSegue(withIdentifier: "checkLog", sender: nil)
+
+                })
+                
             }
             
-            UIView.animate(withDuration: 1,
-                           delay: 0,
-                           options: .curveEaseOut) {
-                self.logoImageView.layer.position.y += 200
-            }
             
-            self.performSegue(withIdentifier: "checkLog", sender: self)
+            
+            
             
             
         } else {
