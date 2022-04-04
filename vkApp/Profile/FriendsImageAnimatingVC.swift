@@ -40,8 +40,11 @@ class FriendsImageAnimatingVC: UIViewController {
         
         firstImageView.image = friend.images[showedPhotoIndex]
         secondImageView.transform = imageRightPosition
-        secondImageView.image = friend.images[showedPhotoIndex+1]
-        
+        if showedPhotoIndex != indexCount{
+            secondImageView.image = friend.images[showedPhotoIndex+1]
+        }else {
+            secondImageView.image = nil
+        }
         
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         view.addGestureRecognizer(panGR)
@@ -68,29 +71,37 @@ class FriendsImageAnimatingVC: UIViewController {
             
             if percent < 0 {
                 firstImageView.image = friend.images[showedPhotoIndex]
+                
                 if self.showedPhotoIndex != self.indexCount {
                     self.secondImageView.image = friend.images[self.showedPhotoIndex+1]
+                    
+                    firstImageView.transform = CGAffineTransform(scaleX: scaleMultiplication, y: scaleMultiplication)
+                    firstImageView.alpha = alphaMultiplication
+                    
+                    secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x + view.frame.maxX + 10, y: 0)
                 }else {
+                    
                     self.secondImageView.image = nil
+                    firstImageView.alpha = 1
+                    firstImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
                 }
                 
-                
-                firstImageView.transform = CGAffineTransform(scaleX: scaleMultiplication, y: scaleMultiplication)
-                firstImageView.alpha = alphaMultiplication
-                
-                secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x + view.frame.maxX + 10, y: 0)
             }else {
                 if showedPhotoIndex != 0 {
                     firstImageView.image = friend.images[showedPhotoIndex-1]
                     secondImageView.image = friend.images[showedPhotoIndex]
-                }else {
-                    firstImageView.image = friend.images[showedPhotoIndex]
-                    secondImageView.image = nil
+                    firstImageView.transform = CGAffineTransform(scaleX: min(abs(1-(1/scaleMultiplication)), 1), y: min(abs(1-(1/scaleMultiplication)), 1))
+                    firstImageView.alpha = abs(1-alphaMultiplication)
+                    secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
+                }else if showedPhotoIndex == 0{
+                    firstImageView.image = nil
+                    secondImageView.image = friend.images[showedPhotoIndex]
                     
+                    
+//                    firstImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
+                    secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
                 }
-                firstImageView.transform = CGAffineTransform(scaleX: min(abs(1-(1/scaleMultiplication)), 1), y: min(abs(1-(1/scaleMultiplication)), 1))
-                firstImageView.alpha = abs(1-alphaMultiplication)
-                secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
+               
             }
             
             
@@ -110,7 +121,6 @@ class FriendsImageAnimatingVC: UIViewController {
                     UIView.animate(withDuration: 0.1) {
                         
                         secondNewPos = CGAffineTransform(translationX: 0, y: 0)
-                        
                         
                         self.secondImageView.transform = secondNewPos
                         
@@ -152,8 +162,6 @@ class FriendsImageAnimatingVC: UIViewController {
                 }
                 
                 
-                
-                
             //листаем назад
             }else if percent > 50 {
                 
@@ -162,7 +170,6 @@ class FriendsImageAnimatingVC: UIViewController {
                     UIView.animate(withDuration: 0.1) {
                         
                         secondNewPos = CGAffineTransform(translationX: self.view.frame.maxX + 20, y: 0)
-                        
                         
                         self.secondImageView.transform = secondNewPos
                         
@@ -175,13 +182,15 @@ class FriendsImageAnimatingVC: UIViewController {
                         self.title = "\(self.showedPhotoIndex + 1) из \(self.friend.images.count)"
                         
                         self.secondImageView.image = self.friend.images[self.showedPhotoIndex]
-                        self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
+//                        self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
                         self.firstImageView.alpha = 0
                         
                         if self.showedPhotoIndex != 0 {
                             self.firstImageView.image = self.friend.images[self.showedPhotoIndex-1]
                         }else {
+                            
                             self.firstImageView.image = nil
+                            self.secondImageView.image = self.friend.images[self.showedPhotoIndex]
                         }
                         
                     }
@@ -190,17 +199,15 @@ class FriendsImageAnimatingVC: UIViewController {
                 
                 if self.showedPhotoIndex == 0 {
                     
-                    
-                    self.secondImageView.image = nil
                     UIView.animate(withDuration: 0.1) {
                         
                         self.firstImageView.transform = .identity
                         self.secondImageView.transform = .identity
                         
                     } completion: { _ in
-                        self.firstImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.firstImageView.image = nil
                         self.firstImageView.alpha = 1
-                        self.secondImageView.image = nil
+                        self.secondImageView.image = self.friend.images[self.showedPhotoIndex]
                     }
                     
                 }
@@ -209,6 +216,7 @@ class FriendsImageAnimatingVC: UIViewController {
             //В случае маленького свайпа отменяем перелистывание
             }else if percent < 0 && percent >= -50 {
                 UIView.animate(withDuration: 0.1) {
+                    
                     self.firstImageView.transform = .identity
                     self.firstImageView.alpha = 1
                     self.secondImageView.transform = CGAffineTransform(translationX: self.view.frame.maxX + 20, y: 0)
@@ -216,8 +224,14 @@ class FriendsImageAnimatingVC: UIViewController {
                 
             }else if percent > 0 && percent < 50 {
                 UIView.animate(withDuration: 0.1) {
-                    self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
-                    self.firstImageView.alpha = 0
+                    
+                    if self.showedPhotoIndex != 0 && self.showedPhotoIndex != self.indexCount{
+                        self.firstImageView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+                        self.firstImageView.alpha = 0
+                    }else {
+                        self.firstImageView.image = nil
+                    }
+
                     self.secondImageView.transform = CGAffineTransform(translationX: 0, y: 0)
                 }
             }
@@ -227,8 +241,6 @@ class FriendsImageAnimatingVC: UIViewController {
             break
         }
 
-        
-        
     }
 
 }
