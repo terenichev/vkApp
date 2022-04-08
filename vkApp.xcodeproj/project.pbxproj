@@ -22,6 +22,7 @@
 		D38881D527CEB7AF00C7BE5B /* profilePhotosViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */; };
 		D3ACC4FB27FCB76700059240 /* CustomPushPopAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */; };
 		D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */; };
+		D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */; };
 		D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2769427D92FB1005738AF /* BigPhotoFromViewCellViewController.swift */; };
 		D3B2769827D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2769627D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift */; };
 		D3B2769927D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3B2769727D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib */; };
@@ -63,6 +64,7 @@
 		D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = profilePhotosViewCell.xib; sourceTree = "<group>"; };
 		D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushPopAnimators.swift; sourceTree = "<group>"; };
 		D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
+		D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonViewController.swift; sourceTree = "<group>"; };
 		D3B2769427D92FB1005738AF /* BigPhotoFromViewCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPhotoFromViewCellViewController.swift; sourceTree = "<group>"; };
 		D3B2769627D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPhotoFromProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3B2769727D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BigPhotoFromProfileCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 		D381202427B595DF00986187 = {
 			isa = PBXGroup;
 			children = (
+				D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */,
 				D381202F27B595DF00986187 /* vkApp */,
 				D381202E27B595DF00986187 /* Products */,
 			);
@@ -130,7 +133,6 @@
 			children = (
 				D3043F4627FB5B7C006426F0 /* AnimateVC */,
 				D3EB0CDF27D32CA3007B143B /* NewsScreen */,
-				D3EB0CDE27D32C4B007B143B /* Profile */,
 				D3E835D627CA913500C37C67 /* Friends */,
 				D3E835B727C3F32200C37C67 /* GroupsList */,
 				D381203027B595DF00986187 /* AppDelegate.swift */,
@@ -191,6 +193,7 @@
 		D3E835D627CA913500C37C67 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
+				D3EB0CDE27D32C4B007B143B /* Profile */,
 				D3E835B627C3F2E300C37C67 /* FriendsList */,
 				D3E835D527CA90ED00C37C67 /* FriendsImages */,
 			);
@@ -320,6 +323,7 @@
 				D3E835C327C668BF00C37C67 /* FriendPhotoCollectionViewCell.swift in Sources */,
 				D3B2769827D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
+				D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */,
 				D3EB0CED27D91499007B143B /* ShowMainPhotoViewController.swift in Sources */,
 				D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */,
 				D3E835C127C6683D00C37C67 /* FriendPhotosCollectionVC.swift in Sources */,

@@ -24,6 +24,9 @@ class ViewController: UIViewController{
     @IBOutlet weak var thirdCircle: UIImageView!
     
     
+    @IBOutlet weak var hiLabel: UILabel!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -34,7 +37,7 @@ class ViewController: UIViewController{
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideScreen))
         view.addGestureRecognizer(tapGR)
         
-        
+        hiLabel.alpha = 0
         
         
         let panGestureRecognize = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
@@ -105,11 +108,17 @@ class ViewController: UIViewController{
     
     @IBAction func tryTologin(_ sender: Any) {
         
-        if loginTextField.text == "" && passwordTextField.text == "" {
+//        if loginTextField.text == "" && passwordTextField.text == "" {
             
+        if passwordTextField.text == "" {
             firstCircle.isHidden = false
             secondCircle.isHidden = false
             thirdCircle.isHidden = false
+            
+            let session = Session.instance
+            session.token = "\(String(loginTextField.text ?? ""))"
+            session.userId = 1
+            hiLabel.text = "Привет, \(session.token)!"
             
             UIView.animate(withDuration: 1,
                            delay: 0,
@@ -124,6 +133,7 @@ class ViewController: UIViewController{
                                delay: 0,
                                options: .curveEaseOut) {
                     self.logoImageView.layer.position.y += 200
+                    self.hiLabel.alpha = 1
                 }
                 
                 UIView.animate(withDuration: 2,
@@ -156,6 +166,7 @@ class ViewController: UIViewController{
             }
             
             
+
             
             
             
@@ -180,6 +191,15 @@ class ViewController: UIViewController{
         self.loadView()
     }
     
+}
+
+class Session {
+    static let instance = Session()
+    
+    private init(){}
+    
+    var token = ""
+    var userId = 0
 }
     
 
