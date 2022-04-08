@@ -53,7 +53,23 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        performSegue(withIdentifier: "showBigPhotoCell", sender: self)
-        performSegue(withIdentifier: "showAnimatingPhotos", sender: self)
+//        performSegue(withIdentifier: "showAnimatingPhotos", sender: self)
+        
+        
+        let friendsImageAnimatingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsImageAnimatingVC") as! FriendsImageAnimatingVC
+        
+        friendsImageAnimatingVC.transitioningDelegate = friendsImageAnimatingVC
+        
+        let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
+        let index = indexPath[0] as NSIndexPath
+//                destinationVC.imageFromProfilCell = profileForFriend.images[index.row]
+        friendsImageAnimatingVC.friend = profileForFriend
+        friendsImageAnimatingVC.showedPhotoIndex = index.row
+        friendsImageAnimatingVC.indexCount = profileForFriend.images.count - 1
+        
+//        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(friendsImageAnimatingVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -110,5 +126,14 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
-
+extension profileViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return AnimatorModal()
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return AnimatorModal()
+    }
+}
     

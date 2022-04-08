@@ -60,6 +60,9 @@ class FriendsImageAnimatingVC: UIViewController {
         switch recogniser.state {
             
         case .changed:
+            
+            let percentY = (recogniser.translation(in: view).y/view.frame.maxY) * 100
+            
             let percent = (recogniser.translation(in: view).x/view.frame.maxX) * 100
             let percentAbs = abs(percent)
             let scaleMultiplication = max((100 - percentAbs)/100, 1/3)
@@ -67,6 +70,11 @@ class FriendsImageAnimatingVC: UIViewController {
             let alphaMultiplication = max((100 - 1.5 * percentAbs)/100, 0)
             
 //            firstImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
+            
+            print(percentY)
+            if percentY > 30 {
+                self.navigationController?.popViewController(animated: true)
+            }
             
             
             if percent < 0 {
@@ -243,4 +251,15 @@ class FriendsImageAnimatingVC: UIViewController {
 
     }
 
+}
+
+extension FriendsImageAnimatingVC: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return AnimatorModal()
+    }
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        return AnimatorModal()
+    }
 }

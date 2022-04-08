@@ -151,7 +151,6 @@ class ViewController: UIViewController{
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
                             self.performSegue(withIdentifier: "checkLog", sender: nil)
-
                 })
                 
             }
@@ -169,6 +168,7 @@ class ViewController: UIViewController{
                 self.passwordTextField.text = ""
             })
             wrongPasswordAlert.addAction(alertOk)
+            
             present(wrongPasswordAlert, animated: true, completion: nil)
             
         }

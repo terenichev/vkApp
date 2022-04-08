@@ -98,8 +98,31 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         return String(sortedFriends.keys.sorted()[section])
     }
     
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! profileViewController
+        
+        profileVC.transitioningDelegate = profileVC
+        
+        
+
+             let keys = Array(sortedFriends.keys.sorted())
+             let friendsInKey: [Friend]
+             let friendToShow: Friend
+
+             friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
+             friendToShow = friendsInKey[indexPath.row]
+             profileVC.profileForFriend = friendToShow
+             profileVC.arrayImages = friendToShow.images
+        
+//        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
+        
+        self.navigationController?.pushViewController(profileVC, animated: true)
+    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
+        
+        
         if segue.identifier == "showFriendProfile",
            let destinationVC = segue.destination as? profileViewController,
            let indexPath = tableView.indexPathForSelectedRow {
@@ -113,6 +136,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
 
                 destinationVC.profileForFriend = friendToShow
                 destinationVC.arrayImages = friendToShow.images
+            
         }
     }
     
