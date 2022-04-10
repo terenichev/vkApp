@@ -15,13 +15,9 @@ class SingletonViewController: UIViewController {
 
         let session = Session.instance
         singletonLabel.text = "token: \(session.token), id:\(session.userId) "
-        
     }
     
     @IBAction func loginFromSingletonScreen(_ sender: Any) {
         self.performSegue(withIdentifier: "toFriendsList", sender: nil)
-        
     }
-    
-   
 }

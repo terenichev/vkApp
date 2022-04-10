@@ -23,6 +23,7 @@
 		D3ACC4FB27FCB76700059240 /* CustomPushPopAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */; };
 		D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */; };
 		D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */; };
+		D3ACC502280322AB00059240 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC501280322AB00059240 /* PopAnimator.swift */; };
 		D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2769427D92FB1005738AF /* BigPhotoFromViewCellViewController.swift */; };
 		D3B2769827D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2769627D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift */; };
 		D3B2769927D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3B2769727D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib */; };
@@ -65,6 +66,7 @@
 		D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushPopAnimators.swift; sourceTree = "<group>"; };
 		D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonViewController.swift; sourceTree = "<group>"; };
+		D3ACC501280322AB00059240 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		D3B2769427D92FB1005738AF /* BigPhotoFromViewCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPhotoFromViewCellViewController.swift; sourceTree = "<group>"; };
 		D3B2769627D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPhotoFromProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3B2769727D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BigPhotoFromProfileCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -101,14 +103,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D3043F4627FB5B7C006426F0 /* AnimateVC */ = {
+		D3043F4627FB5B7C006426F0 /* AnimateNavigationVC */ = {
 			isa = PBXGroup;
 			children = (
 				D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */,
 				D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */,
 				D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */,
 			);
-			path = AnimateVC;
+			path = AnimateNavigationVC;
 			sourceTree = "<group>";
 		};
 		D381202427B595DF00986187 = {
@@ -131,7 +133,8 @@
 		D381202F27B595DF00986187 /* vkApp */ = {
 			isa = PBXGroup;
 			children = (
-				D3043F4627FB5B7C006426F0 /* AnimateVC */,
+				D3ACC50028031F8700059240 /* OpenPhotoWithAnimating */,
+				D3043F4627FB5B7C006426F0 /* AnimateNavigationVC */,
 				D3EB0CDF27D32CA3007B143B /* NewsScreen */,
 				D3E835D627CA913500C37C67 /* Friends */,
 				D3E835B727C3F32200C37C67 /* GroupsList */,
@@ -145,6 +148,14 @@
 				D381203E27B595E100986187 /* Info.plist */,
 			);
 			path = vkApp;
+			sourceTree = "<group>";
+		};
+		D3ACC50028031F8700059240 /* OpenPhotoWithAnimating */ = {
+			isa = PBXGroup;
+			children = (
+				D3ACC501280322AB00059240 /* PopAnimator.swift */,
+			);
+			path = OpenPhotoWithAnimating;
 			sourceTree = "<group>";
 		};
 		D3E835B627C3F2E300C37C67 /* FriendsList */ = {
@@ -323,6 +334,7 @@
 				D3E835C327C668BF00C37C67 /* FriendPhotoCollectionViewCell.swift in Sources */,
 				D3B2769827D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
+				D3ACC502280322AB00059240 /* PopAnimator.swift in Sources */,
 				D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */,
 				D3EB0CED27D91499007B143B /* ShowMainPhotoViewController.swift in Sources */,
 				D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */,

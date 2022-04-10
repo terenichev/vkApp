@@ -15,16 +15,12 @@ class ViewController: UIViewController{
     @IBOutlet weak var loginTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     
-    
     @IBOutlet weak var goButton: UIButton!
     @IBOutlet weak var forgetPasswordButton: UIButton!
     
     @IBOutlet weak var firstCircle: UIImageView!
     @IBOutlet weak var secondCircle: UIImageView!
     @IBOutlet weak var thirdCircle: UIImageView!
-    
-    
-    @IBOutlet weak var hiLabel: UILabel!
     
     
     override func viewDidLoad() {
@@ -36,38 +32,6 @@ class ViewController: UIViewController{
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideScreen))
         view.addGestureRecognizer(tapGR)
-        
-        hiLabel.alpha = 0
-        
-        
-        let panGestureRecognize = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
-        goButton.addGestureRecognizer(panGestureRecognize)
-    }
-
-    @objc func viewPanned(_ recogniser: UIPanGestureRecognizer) {
-        
-        switch recogniser.state {
-            
-        case .changed:
-//            goButton.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: recogniser.translation(in: view).y)
-            goButton.transform = .init(rotationAngle: recogniser.translation(in: view).y/(180/3.14))
-            
-            
-            print(recogniser.translation(in: view).y/(180/3.14))
-            
-        case .ended:
-            if recogniser.translation(in: view).y/(180/3.14) > (3.14/2) {
-//                self.performSegue(withIdentifier: "checkLog", sender: self)
-                goButton.transform = .identity
-                
-            }else {
-                goButton.transform = .identity
-            }
-            
-        default:
-            break
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -118,7 +82,6 @@ class ViewController: UIViewController{
             let session = Session.instance
             session.token = "\(String(loginTextField.text ?? ""))"
             session.userId = 1
-            hiLabel.text = "Привет, \(session.token)!"
             
             UIView.animate(withDuration: 1,
                            delay: 0,
@@ -133,7 +96,6 @@ class ViewController: UIViewController{
                                delay: 0,
                                options: .curveEaseOut) {
                     self.logoImageView.layer.position.y += 200
-                    self.hiLabel.alpha = 1
                 }
                 
                 UIView.animate(withDuration: 2,
@@ -162,15 +124,7 @@ class ViewController: UIViewController{
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
                             self.performSegue(withIdentifier: "checkLog", sender: nil)
                 })
-                
             }
-            
-            
-
-            
-            
-            
-            
         } else {
             
             let wrongPasswordAlert = UIAlertController(title: "Error", message: "Введите верный логин и пароль", preferredStyle: .alert)
