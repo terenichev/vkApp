@@ -119,8 +119,3 @@ extension profileViewController: UIViewControllerTransitioningDelegate {
     }
 }
 
-// MARK: - UIViewControllerTransitioningDelegate
-
-extension profileViewController: UIViewControllerTransitioningDelegate {
-    
-}
