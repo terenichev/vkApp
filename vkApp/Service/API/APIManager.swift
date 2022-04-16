@@ -9,11 +9,15 @@ import Foundation
 
 enum ApiType {
     
+   // case login   надо реализовать когда-то здесь
     case getFriends
     case getUserPhotos
     case getUserGroups
     case getSearchGroups
-    
-    
+//    
+//    var baseURL: URL{
+//        return URL(string: "https://api.vk.com/method/")!
+//    }
+
     
 }
