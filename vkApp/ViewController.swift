@@ -79,9 +79,9 @@ class ViewController: UIViewController{
             secondCircle.isHidden = false
             thirdCircle.isHidden = false
             
-            let session = Session.instance
-            session.token = "\(String(loginTextField.text ?? ""))"
-            session.userId = 1
+//            let session = Singleton.instance
+//            session.token = "\(String(loginTextField.text ?? ""))"
+//            session.id = 1
             
             UIView.animate(withDuration: 1,
                            delay: 0,
@@ -121,7 +121,7 @@ class ViewController: UIViewController{
                     self.thirdCircle.alpha = 0.1
                 })
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(4), execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
                             self.performSegue(withIdentifier: "checkLog", sender: nil)
                 })
             }
@@ -147,14 +147,7 @@ class ViewController: UIViewController{
     
 }
 
-class Session {
-    static let instance = Session()
-    
-    private init(){}
-    
-    var token = ""
-    var userId = 0
-}
+
     
 
 

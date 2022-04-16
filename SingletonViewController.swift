@@ -13,8 +13,8 @@ class SingletonViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let session = Session.instance
-        singletonLabel.text = "token: \(session.token), id:\(session.userId) "
+        let session = Singleton.instance
+        singletonLabel.text = "token: \(String(describing: session.token)), id:\(String(describing: session.id)) "
     }
     
     @IBAction func loginFromSingletonScreen(_ sender: Any) {

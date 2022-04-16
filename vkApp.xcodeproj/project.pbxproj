@@ -24,6 +24,13 @@
 		D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */; };
 		D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */; };
 		D3ACC502280322AB00059240 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC501280322AB00059240 /* PopAnimator.swift */; };
+		D3ACC505280691BF00059240 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC504280691BF00059240 /* Singleton.swift */; };
+		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
+		D3ACC50B280B007600059240 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50A280B007600059240 /* APIManager.swift */; };
+		D3ACC50E280B00B100059240 /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* Friends.swift */; };
+		D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50F280B00E500059240 /* UserPhotos.swift */; };
+		D3ACC512280B010800059240 /* UserGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC511280B010800059240 /* UserGroups.swift */; };
+		D3ACC514280B011800059240 /* SearchGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC513280B011800059240 /* SearchGroups.swift */; };
 		D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2769427D92FB1005738AF /* BigPhotoFromViewCellViewController.swift */; };
 		D3B2769827D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B2769627D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift */; };
 		D3B2769927D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3B2769727D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib */; };
@@ -67,6 +74,13 @@
 		D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonViewController.swift; sourceTree = "<group>"; };
 		D3ACC501280322AB00059240 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
+		D3ACC504280691BF00059240 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
+		D3ACC507280692DD00059240 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		D3ACC50A280B007600059240 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		D3ACC50D280B00B100059240 /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
+		D3ACC50F280B00E500059240 /* UserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotos.swift; sourceTree = "<group>"; };
+		D3ACC511280B010800059240 /* UserGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroups.swift; sourceTree = "<group>"; };
+		D3ACC513280B011800059240 /* SearchGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroups.swift; sourceTree = "<group>"; };
 		D3B2769427D92FB1005738AF /* BigPhotoFromViewCellViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPhotoFromViewCellViewController.swift; sourceTree = "<group>"; };
 		D3B2769627D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigPhotoFromProfileCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3B2769727D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BigPhotoFromProfileCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -133,6 +147,7 @@
 		D381202F27B595DF00986187 /* vkApp */ = {
 			isa = PBXGroup;
 			children = (
+				D3ACC5032806919400059240 /* Service */,
 				D3ACC50028031F8700059240 /* OpenPhotoWithAnimating */,
 				D3043F4627FB5B7C006426F0 /* AnimateNavigationVC */,
 				D3EB0CDF27D32CA3007B143B /* NewsScreen */,
@@ -156,6 +171,44 @@
 				D3ACC501280322AB00059240 /* PopAnimator.swift */,
 			);
 			path = OpenPhotoWithAnimating;
+			sourceTree = "<group>";
+		};
+		D3ACC5032806919400059240 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				D3ACC509280B003F00059240 /* API */,
+				D3ACC506280692AB00059240 /* Auth */,
+				D3ACC504280691BF00059240 /* Singleton.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D3ACC506280692AB00059240 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				D3ACC507280692DD00059240 /* AuthViewController.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		D3ACC509280B003F00059240 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				D3ACC50A280B007600059240 /* APIManager.swift */,
+				D3ACC50C280B00A400059240 /* Models */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		D3ACC50C280B00A400059240 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				D3ACC50D280B00B100059240 /* Friends.swift */,
+				D3ACC50F280B00E500059240 /* UserPhotos.swift */,
+				D3ACC511280B010800059240 /* UserGroups.swift */,
+				D3ACC513280B011800059240 /* SearchGroups.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		D3E835B627C3F2E300C37C67 /* FriendsList */ = {
@@ -320,15 +373,18 @@
 				D38881CF27CE924800C7BE5B /* profileViewController.swift in Sources */,
 				D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */,
 				D3E835CE27CA551500C37C67 /* listOfFriends.swift in Sources */,
+				D3ACC514280B011800059240 /* SearchGroups.swift in Sources */,
 				D3EB0CE927D53010007B143B /* Posts.swift in Sources */,
 				D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */,
 				D3E835BF27C3F38800C37C67 /* Group.swift in Sources */,
 				D33BDC0527C2CCB100398A63 /* Friends.swift in Sources */,
+				D3ACC505280691BF00059240 /* Singleton.swift in Sources */,
 				D3E835BD27C3F37700C37C67 /* FavoriteGroupsCell.swift in Sources */,
 				D3EB0CE427D32D1B007B143B /* NewsTableViewCell.swift in Sources */,
 				D3043F4827FB5BC8006426F0 /* AnimatorModal.swift in Sources */,
 				D3EB0CE127D32D03007B143B /* NewsTableViewController.swift in Sources */,
 				D3E835B927C3F34800C37C67 /* FavoriteGroupsVC.swift in Sources */,
+				D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */,
 				D3E835C727C74F9C00C37C67 /* AllGroupsVC.swift in Sources */,
 				D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */,
 				D3E835C327C668BF00C37C67 /* FriendPhotoCollectionViewCell.swift in Sources */,
@@ -337,10 +393,14 @@
 				D3ACC502280322AB00059240 /* PopAnimator.swift in Sources */,
 				D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */,
 				D3EB0CED27D91499007B143B /* ShowMainPhotoViewController.swift in Sources */,
+				D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */,
+				D3ACC50B280B007600059240 /* APIManager.swift in Sources */,
 				D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */,
 				D3E835C127C6683D00C37C67 /* FriendPhotosCollectionVC.swift in Sources */,
 				D3E835D227CA6F6800C37C67 /* avatarUIView.swift in Sources */,
+				D3ACC50E280B00B100059240 /* Friends.swift in Sources */,
 				D381203327B595DF00986187 /* SceneDelegate.swift in Sources */,
+				D3ACC512280B010800059240 /* UserGroups.swift in Sources */,
 				D3E835D027CA690800C37C67 /* listOfGroups.swift in Sources */,
 				D3E835D427CA864D00C37C67 /* LikeControl.swift in Sources */,
 				D3E835C927C7526000C37C67 /* AllGroupsCell.swift in Sources */,
