@@ -129,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1065" y="-273"/>
+            <point key="canvasLocation" x="-2500" y="-84"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="tjw-iL-ek5">
@@ -161,11 +161,12 @@
                     <connections>
                         <outlet property="webView" destination="2f9-EA-skV" id="QPk-dP-bbt"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLoginVC" modalPresentationStyle="fullScreen" id="j4o-8S-zHr"/>
+                        <segue destination="8ad-Re-7jn" kind="presentation" identifier="secondHomeWork" modalPresentationStyle="fullScreen" id="0Oq-Hs-liX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOZ-Cd-1Fr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-849" y="643"/>
+            <point key="canvasLocation" x="-3584" y="-84"/>
         </scene>
         <!--Singleton View Controller-->
         <scene sceneID="jYn-Fv-Frr">
@@ -214,7 +215,79 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9zl-4k-BVs" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-310" y="-275"/>
+            <point key="canvasLocation" x="-1609" y="-84"/>
+        </scene>
+        <!--Second HomeworkVC-->
+        <scene sceneID="gND-1o-eGQ">
+            <objects>
+                <viewController id="8ad-Re-7jn" customClass="SecondHomeworkVC" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="g7V-HB-tZv">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ЗАПРОСЫ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rbd-9J-Vsr">
+                                <rect key="frame" x="165" y="329" width="84" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wen-qq-arh">
+                                <rect key="frame" x="112" y="358" width="190" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="список друзей"/>
+                                <connections>
+                                    <action selector="getFriendsList:" destination="8ad-Re-7jn" eventType="touchUpInside" id="A5r-bq-tKc"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O0a-NA-0MQ">
+                                <rect key="frame" x="127" y="408" width="161" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="мои фото"/>
+                                <connections>
+                                    <action selector="getMyPhotos:" destination="8ad-Re-7jn" eventType="touchUpInside" id="a2K-dq-Boj"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SH6-Qk-4bs">
+                                <rect key="frame" x="123" y="454" width="169" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="мои группы"/>
+                                <connections>
+                                    <action selector="getMyGroups:" destination="8ad-Re-7jn" eventType="touchUpInside" id="KdP-YL-nWd"/>
+                                </connections>
+                            </button>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="поиск групп" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgE-YG-Sjr">
+                                <rect key="frame" x="91" y="516" width="233" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="searchGroups:" destination="8ad-Re-7jn" eventType="editingDidEnd" id="s9J-Yg-c7O"/>
+                                </connections>
+                            </textField>
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="search groups" translatesAutoresizingMaskIntoConstraints="NO" id="qfK-fi-grr">
+                                <rect key="frame" x="0.0" y="572" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KeM-85-CVl"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <outlet property="groupsSearchBar" destination="qfK-fi-grr" id="ciV-ur-s0e"/>
+                        <outlet property="meGroupsRequest" destination="SH6-Qk-4bs" id="E08-ia-9Gc"/>
+                        <outlet property="myFriendsListRequest" destination="wen-qq-arh" id="vOw-Fx-RtP"/>
+                        <outlet property="myPhotosRequest" destination="O0a-NA-0MQ" id="zQx-v3-Dl6"/>
+                        <outlet property="searchGroupsTextField" destination="UgE-YG-Sjr" id="LIv-7F-mSq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="56G-3n-JJa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-784.05797101449286" y="-946.20535714285711"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="QaG-4s-3Pj">
@@ -927,21 +1000,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8a-2L-XRr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1887" y="1017"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="L9p-7p-G3L">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aiW-2a-aXf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DDi-xq-uo4" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="PpR-xx-t5s">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                </navigationController>
-            </objects>
-            <point key="canvasLocation" x="-1759" y="643"/>
         </scene>
     </scenes>
     <resources>

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D3043F4827FB5BC8006426F0 /* AnimatorModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */; };
+		D3045D38281E924D005F41FF /* SecondHomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D37281E924D005F41FF /* SecondHomeworkVC.swift */; };
 		D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */; };
 		D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */; };
 		D33BDC0527C2CCB100398A63 /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDC0427C2CCB100398A63 /* Friends.swift */; };
@@ -56,6 +57,7 @@
 
 /* Begin PBXFileReference section */
 		D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorModal.swift; sourceTree = "<group>"; };
+		D3045D37281E924D005F41FF /* SecondHomeworkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHomeworkVC.swift; sourceTree = "<group>"; };
 		D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		D33BDC0427C2CCB100398A63 /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 		D381202427B595DF00986187 = {
 			isa = PBXGroup;
 			children = (
+				D3045D37281E924D005F41FF /* SecondHomeworkVC.swift */,
 				D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */,
 				D381202F27B595DF00986187 /* vkApp */,
 				D381202E27B595DF00986187 /* Products */,
@@ -391,6 +394,7 @@
 				D3B2769827D9326F005738AF /* BigPhotoFromProfileCollectionViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
 				D3ACC502280322AB00059240 /* PopAnimator.swift in Sources */,
+				D3045D38281E924D005F41FF /* SecondHomeworkVC.swift in Sources */,
 				D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */,
 				D3EB0CED27D91499007B143B /* ShowMainPhotoViewController.swift in Sources */,
 				D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */,
