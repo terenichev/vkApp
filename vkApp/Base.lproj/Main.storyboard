@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="DDi-xq-uo4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dtQ-Cu-u18">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
@@ -113,6 +113,7 @@
                             <constraint firstItem="s46-GN-dEE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tya-GG-43f"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="S4E-uU-CFG"/>
                     <connections>
                         <outlet property="firstCircle" destination="JEo-ry-mbU" id="xUq-Kv-YAa"/>
                         <outlet property="forgetPasswordButton" destination="EGp-nV-3lq" id="utL-OH-iTG"/>
@@ -139,7 +140,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2f9-EA-skV">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -159,7 +160,7 @@
                     <navigationItem key="navigationItem" id="WRT-XC-UJR"/>
                     <connections>
                         <outlet property="webView" destination="2f9-EA-skV" id="QPk-dP-bbt"/>
-                        <segue destination="Z4b-iP-f1r" kind="push" id="dck-pF-Ldb"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLoginVC" modalPresentationStyle="fullScreen" id="j4o-8S-zHr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOZ-Cd-1Fr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -930,6 +931,7 @@
         <!--Navigation Controller-->
         <scene sceneID="L9p-7p-G3L">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="aiW-2a-aXf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DDi-xq-uo4" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="PpR-xx-t5s">
@@ -937,18 +939,11 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="dtQ-Cu-u18" kind="relationship" relationship="rootViewController" id="SKc-2a-NQD"/>
-                    </connections>
                 </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aiW-2a-aXf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1759" y="643"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="dck-pF-Ldb"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="circlebadge.fill" catalog="system" width="128" height="120"/>
         <image name="face.smiling" catalog="system" width="128" height="121"/>

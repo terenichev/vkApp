@@ -54,7 +54,9 @@ extension LoginController: WKNavigationDelegate {
             print(token)
             decisionHandler(.cancel)
             
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            performSegue(withIdentifier: "toLoginVC", sender: self)
+            
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsVC") as! FriendsViewController
             self.navigationController?.pushViewController(vc, animated: true)
             
 //            let vc = ViewController()
