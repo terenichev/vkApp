@@ -20,6 +20,14 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var searchGroupsTextField: UITextField!
     @IBOutlet weak var groupsSearchBar: UISearchBar!
     
+    private let session: URLSession = {
+        let config = URLSessionConfiguration.default
+        let session = URLSession(configuration: config)
+        return session
+    }()
+    
+    var usersArray:[Int] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         groupsSearchBar.delegate = self
@@ -53,18 +61,30 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
         urlComponents.host = "api.vk.com"
         urlComponents.path = "/method/friends.get"
         urlComponents.queryItems = [
-            URLQueryItem(name: "count", value: "5"),
+//            URLQueryItem(name: "count", value: "5"),
+//            URLQueryItem(name: "order", value: "hints"),
+//            URLQueryItem(name: "fields", value: "photo_200_orig"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
 
         guard let url = urlComponents.url else { return }
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        print(String(decoding: data!, as: UTF8.self))
-            print(error ?? "")
+        
+        print(url)
+        
+        request(url: url) { result in
+            switch result {
+                
+            case .success(let usersFromJSON):
+                print(usersFromJSON)
+                usersFromJSON.map({ (ids) in
+                    print("id =", ids)
+                })
+            case .failure(let error):
+                print("error", error)
+            }
         }
-        task.resume()
+
     }
     
     @IBAction func getMyPhotos(_ sender: UIButton) {
@@ -107,6 +127,7 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
             print(error ?? "")
         }
         task.resume()
+        
     }
     
     
@@ -115,6 +136,27 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
         
     }
     
+    func request(url: URL, completion: @escaping(Result<[Int], Error>) -> Void) {
+        session.dataTask(with: url) { (data, response, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("some error")
+                    completion(.failure(error))
+                    return
+                }
+                guard let data = data else { return }
+                
+                do {
+                    let usersFromJSON = try JSONDecoder().decode(User.self, from: data).response.ids
+                    
+                    completion(.success(usersFromJSON))
+                } catch let jsonError {
+                    print("Failed to decode JSON", jsonError)
+                    completion(.failure(jsonError))
+                }
+            }
+        }.resume()
+    }
     
 }
 

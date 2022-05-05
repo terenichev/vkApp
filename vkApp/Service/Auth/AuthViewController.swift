@@ -55,7 +55,8 @@ extension LoginController: WKNavigationDelegate {
             decisionHandler(.cancel)
             
 //            performSegue(withIdentifier: "toLoginVC", sender: self)
-            performSegue(withIdentifier: "secondHomeWork", sender: self)
+//            performSegue(withIdentifier: "secondHomeWork", sender: self)
+            performSegue(withIdentifier: "toLoginVC", sender: self)
             
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsVC") as! FriendsViewController
             self.navigationController?.pushViewController(vc, animated: true)

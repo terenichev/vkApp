@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-let tonyStark: Friend = Friend(mainImage: UIImage(named: "Тони"), name: "Тони Старк", images: [
+var tonyStark: Friend = Friend(mainImage: UIImage(named: "Тони"), name: "Тони Старк", images: [
     UIImage(named: "Тони1"),
     UIImage(named: "Тони2"),
     UIImage(named: "Тони3"),
@@ -73,9 +73,18 @@ let andrew: Friend = Friend(mainImage: UIImage(named: "Эндрю"), name: "Эн
     UIImage(named: "Эндрю")
     ], statusText: "❤️")
 
-let tobbie: Friend = Friend(mainImage: UIImage(named: "Тоби"), name: "Тоби Паркер", images: [
+let url = URL(string: "https://sun1-85.userapi.com/s/v1/ig2/fTt0ALDWn4KP2-W_wZvAgk8g9JlwtZVb9cXeYVrtK71qcmAQv0Ei5GhoqtHAGGJAFt8XDTUX8UPPJfw7PgJxW8Vg.jpg?size=400x400&quality=96&crop=0,552,1607,1607&ava=1")
+let data = try? Data(contentsOf: url!)
+
+
+var tobbie: Friend = Friend(mainImage: UIImage(named: "Тоби"), name: "Тоби Паркер", images: [
     UIImage(named: "Тоби1"),
     UIImage(named: "Тоби2"),
     UIImage(named: "Тоби3"),
+    UIImage(data: data!),
     UIImage(named: "Тоби")
     ], statusText: "Жаль гоблина")
+
+
+    
+    

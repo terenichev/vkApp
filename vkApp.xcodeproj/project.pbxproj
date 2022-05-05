@@ -28,7 +28,7 @@
 		D3ACC505280691BF00059240 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC504280691BF00059240 /* Singleton.swift */; };
 		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
 		D3ACC50B280B007600059240 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50A280B007600059240 /* APIManager.swift */; };
-		D3ACC50E280B00B100059240 /* GetFriends.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* GetFriends.swift */; };
+		D3ACC50E280B00B100059240 /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* FriendsList.swift */; };
 		D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50F280B00E500059240 /* UserPhotos.swift */; };
 		D3ACC512280B010800059240 /* UserGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC511280B010800059240 /* UserGroups.swift */; };
 		D3ACC514280B011800059240 /* SearchGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC513280B011800059240 /* SearchGroups.swift */; };
@@ -79,7 +79,7 @@
 		D3ACC504280691BF00059240 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		D3ACC507280692DD00059240 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		D3ACC50A280B007600059240 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		D3ACC50D280B00B100059240 /* GetFriends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetFriends.swift; sourceTree = "<group>"; };
+		D3ACC50D280B00B100059240 /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
 		D3ACC50F280B00E500059240 /* UserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotos.swift; sourceTree = "<group>"; };
 		D3ACC511280B010800059240 /* UserGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroups.swift; sourceTree = "<group>"; };
 		D3ACC513280B011800059240 /* SearchGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroups.swift; sourceTree = "<group>"; };
@@ -206,7 +206,7 @@
 		D3ACC50C280B00A400059240 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D3ACC50D280B00B100059240 /* GetFriends.swift */,
+				D3ACC50D280B00B100059240 /* FriendsList.swift */,
 				D3ACC50F280B00E500059240 /* UserPhotos.swift */,
 				D3ACC511280B010800059240 /* UserGroups.swift */,
 				D3ACC513280B011800059240 /* SearchGroups.swift */,
@@ -402,7 +402,7 @@
 				D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */,
 				D3E835C127C6683D00C37C67 /* FriendPhotosCollectionVC.swift in Sources */,
 				D3E835D227CA6F6800C37C67 /* avatarUIView.swift in Sources */,
-				D3ACC50E280B00B100059240 /* GetFriends.swift in Sources */,
+				D3ACC50E280B00B100059240 /* FriendsList.swift in Sources */,
 				D381203327B595DF00986187 /* SceneDelegate.swift in Sources */,
 				D3ACC512280B010800059240 /* UserGroups.swift in Sources */,
 				D3E835D027CA690800C37C67 /* listOfGroups.swift in Sources */,

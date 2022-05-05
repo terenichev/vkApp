@@ -35,6 +35,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         searchBar.delegate = self
+        
 
         self.sortedFriends = sort(friends: friends)
     }
@@ -68,11 +69,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         let keySorted = sortedFriends.keys.sorted()
-        
+
         let friends = sortedFriends[keySorted[section]]?.count ?? 0
-        
+
         return friends
     }
 
@@ -94,7 +95,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
+
         return String(sortedFriends.keys.sorted()[section])
     }
     
