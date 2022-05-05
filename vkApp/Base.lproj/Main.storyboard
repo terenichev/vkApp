@@ -116,7 +116,7 @@
                     <navigationItem key="navigationItem" id="S4E-uU-CFG"/>
                     <connections>
                         <outlet property="firstCircle" destination="JEo-ry-mbU" id="xUq-Kv-YAa"/>
-                        <outlet property="forgetPasswordButton" destination="EGp-nV-3lq" id="utL-OH-iTG"/>
+                        <outlet property="forgetPasswordButton" destination="EGp-nV-3lq" id="Rf9-1j-79N"/>
                         <outlet property="goButton" destination="mKl-JZ-SjQ" id="iFp-2d-xeH"/>
                         <outlet property="loginTextField" destination="Okf-5l-0n3" id="eGh-TV-66t"/>
                         <outlet property="logoImageView" destination="cgo-UQ-tB5" id="CEH-rx-7Nf"/>
@@ -125,11 +125,12 @@
                         <outlet property="secondCircle" destination="b3D-GV-jOf" id="nCY-CW-e6E"/>
                         <outlet property="thirdCircle" destination="Xtg-4b-ajz" id="E4A-Tu-jVh"/>
                         <segue destination="A28-Iz-IAy" kind="presentation" identifier="checkLog" modalPresentationStyle="fullScreen" id="mob-zY-ZI9"/>
+                        <segue destination="hsB-4m-HOV" kind="presentation" identifier="VKfriend" modalPresentationStyle="fullScreen" id="zlz-sZ-QOn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2500" y="-84"/>
+            <point key="canvasLocation" x="-2538" y="69"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="tjw-iL-ek5">
@@ -1002,6 +1003,9 @@
             <point key="canvasLocation" x="1887" y="1017"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="zlz-sZ-QOn"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="circlebadge.fill" catalog="system" width="128" height="120"/>
         <image name="face.smiling" catalog="system" width="128" height="121"/>

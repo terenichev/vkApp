@@ -54,9 +54,9 @@ extension LoginController: WKNavigationDelegate {
             print(token)
             decisionHandler(.cancel)
             
-//            performSegue(withIdentifier: "toLoginVC", sender: self)
-//            performSegue(withIdentifier: "secondHomeWork", sender: self)
             performSegue(withIdentifier: "toLoginVC", sender: self)
+//            performSegue(withIdentifier: "secondHomeWork", sender: self)
+            
             
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsVC") as! FriendsViewController
             self.navigationController?.pushViewController(vc, animated: true)
@@ -80,7 +80,7 @@ private extension LoginController {
         urlComponents.host = "oauth.vk.com"
         urlComponents.path = "/authorize"
         urlComponents.queryItems = [
-            URLQueryItem(name: "client_id", value: "8126570"),
+            URLQueryItem(name: "client_id", value: "8135752"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
             URLQueryItem(name: "scope", value: "offline, friends, photos, groups"),

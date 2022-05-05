@@ -17,7 +17,7 @@ struct Response: Codable {
     let id: Int
     let firstName, lastName: String
     let photoMaxOrig: String
-    let status: String
+    let status: String?
 
     enum CodingKeys: String, CodingKey {
         case id

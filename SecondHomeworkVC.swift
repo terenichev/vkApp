@@ -7,10 +7,7 @@
 
 import UIKit
 
-enum req {
-    case friends
-    case photos
-}
+
 
 class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var myFriendsListRequest: UIButton!
@@ -25,6 +22,8 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
         let session = URLSession(configuration: config)
         return session
     }()
+    
+    var request = Request()
     
     var usersArray:[Int] = []
     
@@ -61,8 +60,8 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
         urlComponents.host = "api.vk.com"
         urlComponents.path = "/method/friends.get"
         urlComponents.queryItems = [
-//            URLQueryItem(name: "count", value: "5"),
-//            URLQueryItem(name: "order", value: "hints"),
+            URLQueryItem(name: "count", value: "5"),
+            URLQueryItem(name: "order", value: "hints"),
 //            URLQueryItem(name: "fields", value: "photo_200_orig"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
@@ -77,6 +76,7 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
                 
             case .success(let usersFromJSON):
                 print(usersFromJSON)
+                self.usersArray = usersFromJSON
                 usersFromJSON.map({ (ids) in
                     print("id =", ids)
                 })
@@ -88,24 +88,52 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
     }
     
     @IBAction func getMyPhotos(_ sender: UIButton) {
+//        var urlComponents = URLComponents()
+//        urlComponents.scheme = "https"
+//        urlComponents.host = "api.vk.com"
+//        urlComponents.path = "/method/photos.get"
+//        urlComponents.queryItems = [
+//            URLQueryItem(name: "album_id", value: "profile"),
+//            URLQueryItem(name: "count", value: "2"),
+//            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+//            URLQueryItem(name: "v", value: "5.131")
+//        ]
+//
+//        guard let url = urlComponents.url else { return }
+//        let request = URLRequest(url: url)
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//        print(String(decoding: data!, as: UTF8.self))
+//            print(error ?? "")
+//        }
+//        task.resume()
+        
         var urlComponents = URLComponents()
         urlComponents.scheme = "https"
         urlComponents.host = "api.vk.com"
-        urlComponents.path = "/method/photos.get"
+        urlComponents.path = "/method/users.get"
         urlComponents.queryItems = [
-            URLQueryItem(name: "album_id", value: "profile"),
-            URLQueryItem(name: "count", value: "2"),
+            URLQueryItem(name: "user_ids", value: "\(self.usersArray)"),
+            URLQueryItem(name: "fields", value: "status , photo_max_orig"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
 
         guard let url = urlComponents.url else { return }
-        let request = URLRequest(url: url)
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-        print(String(decoding: data!, as: UTF8.self))
-            print(error ?? "")
+        print(url)
+//        let request = URLRequest(url: url)
+//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+//        print(String(decoding: data!, as: UTF8.self))
+//            print(error ?? "")
+//        }
+//        task.resume()
+        request.usersInfoRequest(url: url) { result in
+            switch result {
+            case .success(let users):
+                print(users.response[0].firstName)
+            case .failure(let error):
+                print("error", error)
+            }
         }
-        task.resume()
     }
     
     @IBAction func getMyGroups(_ sender: UIButton) {
@@ -147,9 +175,9 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
                 guard let data = data else { return }
                 
                 do {
-                    let usersFromJSON = try JSONDecoder().decode(UsersIdsArray.self, from: data).response.ids
+                    let usersIdsArrayFromJSON = try JSONDecoder().decode(UsersIdsArray.self, from: data).response.ids
                     
-                    completion(.success(usersFromJSON))
+                    completion(.success(usersIdsArrayFromJSON))
                 } catch let jsonError {
                     print("Failed to decode JSON", jsonError)
                     completion(.failure(jsonError))

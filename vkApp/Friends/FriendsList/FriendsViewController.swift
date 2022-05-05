@@ -23,6 +23,9 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         andrew,
         tobbie]
     
+    var a = 1
+    var users: User? = nil
+    
     var namesOfFriends: [String] = []
     var searchFriends: [Friend]!
     
@@ -38,6 +41,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
 
         self.sortedFriends = sort(friends: friends)
+        self.tableView.reloadData()
     }
     
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
@@ -87,8 +91,13 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         let friend: Friend = friends[indexPath.row]
         
-        cell.labelFriendsCell.text = friend.name
+//        cell.labelFriendsCell.text = friend.name
+        cell.labelFriendsCell.text = users?.response[0].firstName
         cell.imageFriendsCell.image = friend.mainImage
+        
+//        print(users)
+//        self.tableView.reloadData()
+
         
 
         return cell
