@@ -72,16 +72,13 @@ class ViewController: UIViewController{
     
     @IBAction func tryTologin(_ sender: Any) {
         
-//        if loginTextField.text == "" && passwordTextField.text == "" {
+
             
         if passwordTextField.text == "" {
             firstCircle.isHidden = false
             secondCircle.isHidden = false
             thirdCircle.isHidden = false
             
-//            let session = Singleton.instance
-//            session.token = "\(String(loginTextField.text ?? ""))"
-//            session.id = 1
             
             UIView.animate(withDuration: 1,
                            delay: 0,

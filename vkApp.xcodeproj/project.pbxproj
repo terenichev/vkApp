@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		D3043F4827FB5BC8006426F0 /* AnimatorModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */; };
 		D3045D38281E924D005F41FF /* SecondHomeworkVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D37281E924D005F41FF /* SecondHomeworkVC.swift */; };
+		D3045D3B282429BB005F41FF /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D3A282429BB005F41FF /* Request.swift */; };
+		D3045D3D28242D16005F41FF /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D3C28242D16005F41FF /* User.swift */; };
 		D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */; };
 		D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */; };
 		D33BDC0527C2CCB100398A63 /* Friends.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDC0427C2CCB100398A63 /* Friends.swift */; };
@@ -28,7 +30,7 @@
 		D3ACC505280691BF00059240 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC504280691BF00059240 /* Singleton.swift */; };
 		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
 		D3ACC50B280B007600059240 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50A280B007600059240 /* APIManager.swift */; };
-		D3ACC50E280B00B100059240 /* FriendsList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* FriendsList.swift */; };
+		D3ACC50E280B00B100059240 /* UsersIdsArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* UsersIdsArray.swift */; };
 		D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50F280B00E500059240 /* UserPhotos.swift */; };
 		D3ACC512280B010800059240 /* UserGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC511280B010800059240 /* UserGroups.swift */; };
 		D3ACC514280B011800059240 /* SearchGroups.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC513280B011800059240 /* SearchGroups.swift */; };
@@ -58,6 +60,8 @@
 /* Begin PBXFileReference section */
 		D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorModal.swift; sourceTree = "<group>"; };
 		D3045D37281E924D005F41FF /* SecondHomeworkVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHomeworkVC.swift; sourceTree = "<group>"; };
+		D3045D3A282429BB005F41FF /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		D3045D3C28242D16005F41FF /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		D33BDC0427C2CCB100398A63 /* Friends.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Friends.swift; sourceTree = "<group>"; };
@@ -79,7 +83,7 @@
 		D3ACC504280691BF00059240 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		D3ACC507280692DD00059240 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		D3ACC50A280B007600059240 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
-		D3ACC50D280B00B100059240 /* FriendsList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsList.swift; sourceTree = "<group>"; };
+		D3ACC50D280B00B100059240 /* UsersIdsArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UsersIdsArray.swift; sourceTree = "<group>"; };
 		D3ACC50F280B00E500059240 /* UserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotos.swift; sourceTree = "<group>"; };
 		D3ACC511280B010800059240 /* UserGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGroups.swift; sourceTree = "<group>"; };
 		D3ACC513280B011800059240 /* SearchGroups.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGroups.swift; sourceTree = "<group>"; };
@@ -127,6 +131,13 @@
 				D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */,
 			);
 			path = AnimateNavigationVC;
+			sourceTree = "<group>";
+		};
+		D3045D392824281F005F41FF /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
 			sourceTree = "<group>";
 		};
 		D381202427B595DF00986187 = {
@@ -197,6 +208,7 @@
 		D3ACC509280B003F00059240 /* API */ = {
 			isa = PBXGroup;
 			children = (
+				D3045D3A282429BB005F41FF /* Request.swift */,
 				D3ACC50A280B007600059240 /* APIManager.swift */,
 				D3ACC50C280B00A400059240 /* Models */,
 			);
@@ -206,10 +218,11 @@
 		D3ACC50C280B00A400059240 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				D3ACC50D280B00B100059240 /* FriendsList.swift */,
+				D3ACC50D280B00B100059240 /* UsersIdsArray.swift */,
 				D3ACC50F280B00E500059240 /* UserPhotos.swift */,
 				D3ACC511280B010800059240 /* UserGroups.swift */,
 				D3ACC513280B011800059240 /* SearchGroups.swift */,
+				D3045D3C28242D16005F41FF /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -260,6 +273,7 @@
 		D3E835D627CA913500C37C67 /* Friends */ = {
 			isa = PBXGroup;
 			children = (
+				D3045D392824281F005F41FF /* New Group */,
 				D3EB0CDE27D32C4B007B143B /* Profile */,
 				D3E835B627C3F2E300C37C67 /* FriendsList */,
 				D3E835D527CA90ED00C37C67 /* FriendsImages */,
@@ -376,6 +390,7 @@
 				D38881CF27CE924800C7BE5B /* profileViewController.swift in Sources */,
 				D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */,
 				D3E835CE27CA551500C37C67 /* listOfFriends.swift in Sources */,
+				D3045D3B282429BB005F41FF /* Request.swift in Sources */,
 				D3ACC514280B011800059240 /* SearchGroups.swift in Sources */,
 				D3EB0CE927D53010007B143B /* Posts.swift in Sources */,
 				D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */,
@@ -387,6 +402,7 @@
 				D3043F4827FB5BC8006426F0 /* AnimatorModal.swift in Sources */,
 				D3EB0CE127D32D03007B143B /* NewsTableViewController.swift in Sources */,
 				D3E835B927C3F34800C37C67 /* FavoriteGroupsVC.swift in Sources */,
+				D3045D3D28242D16005F41FF /* User.swift in Sources */,
 				D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */,
 				D3E835C727C74F9C00C37C67 /* AllGroupsVC.swift in Sources */,
 				D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */,
@@ -402,7 +418,7 @@
 				D3B2769527D92FB1005738AF /* BigPhotoFromViewCellViewController.swift in Sources */,
 				D3E835C127C6683D00C37C67 /* FriendPhotosCollectionVC.swift in Sources */,
 				D3E835D227CA6F6800C37C67 /* avatarUIView.swift in Sources */,
-				D3ACC50E280B00B100059240 /* FriendsList.swift in Sources */,
+				D3ACC50E280B00B100059240 /* UsersIdsArray.swift in Sources */,
 				D381203327B595DF00986187 /* SceneDelegate.swift in Sources */,
 				D3ACC512280B010800059240 /* UserGroups.swift in Sources */,
 				D3E835D027CA690800C37C67 /* listOfGroups.swift in Sources */,

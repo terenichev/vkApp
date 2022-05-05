@@ -147,7 +147,7 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
                 guard let data = data else { return }
                 
                 do {
-                    let usersFromJSON = try JSONDecoder().decode(User.self, from: data).response.ids
+                    let usersFromJSON = try JSONDecoder().decode(UsersIdsArray.self, from: data).response.ids
                     
                     completion(.success(usersFromJSON))
                 } catch let jsonError {

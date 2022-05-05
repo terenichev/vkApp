@@ -1,5 +1,5 @@
 //
-//  FriendsList.swift
+//  UsersIdsArray.swift
 //  vkApp
 //
 //  Created by Денис Тереничев on 16.04.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct User: Codable {
+struct UsersIdsArray: Codable {
     let response: FriendsList
 }
 
