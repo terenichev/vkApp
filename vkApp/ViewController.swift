@@ -24,7 +24,8 @@ class ViewController: UIViewController{
     
     let request = Request()
     var usersIds:[Int] = []
-    var myUsers: User?
+    var myUsers: DTO.Response?
+    var vkFriends = [tonyStark]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,7 @@ class ViewController: UIViewController{
         urlForUserIdsComponents.host = "api.vk.com"
         urlForUserIdsComponents.path = "/method/friends.get"
         urlForUserIdsComponents.queryItems = [
-            URLQueryItem(name: "count", value: "5"),
+//            URLQueryItem(name: "count", value: "5"),
             URLQueryItem(name: "order", value: "hints"),
 //            URLQueryItem(name: "fields", value: "photo_200_orig"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
@@ -110,8 +111,8 @@ class ViewController: UIViewController{
         urlComponents.host = "api.vk.com"
         urlComponents.path = "/method/users.get"
         urlComponents.queryItems = [
-            URLQueryItem(name: "user_ids", value: "\(usersIds)"),
-            URLQueryItem(name: "fields", value: "status , photo_max_orig"),
+            URLQueryItem(name: "user_ids", value: " \(usersIds)"),
+            URLQueryItem(name: "fields", value: "status,photo_max_orig"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -178,6 +179,33 @@ class ViewController: UIViewController{
                 })
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                    guard let array = self.myUsers else { return }
+                    print("MY USERS = ", array)
+                    print("myUsers?.response.count = ", array.response.count)
+                    print("myUsers!.response[0] = ",array.response[0])
+                    
+                    let arrayOfUsers = array.response
+                    
+                    
+                    
+                    
+                    for user in 0 ... arrayOfUsers.count - 1 {
+                        
+        //                var friend: Friend =  Friend.init(mainImage: tonyStark.mainImage, name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
+                        let url = URL(string:"\(arrayOfUsers[user].photoMaxOrig)")
+                        print(url!)
+                            if let data = try? Data(contentsOf: url!)
+                            {
+                                var friend: Friend =  Friend.init(mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
+                                self.vkFriends.append(friend)
+                            }
+                        
+                        
+                    }
+                    
+                    print("VKFRIENDS = ",self.vkFriends)
+                    
+                    
                     
                     self.performSegue(withIdentifier: "VKfriend", sender: self)
 //                            self.performSegue(withIdentifier: "checkLog", sender: nil)
@@ -211,9 +239,8 @@ class ViewController: UIViewController{
         
         if segue.identifier == "VKfriend",
            let destinationVC = segue.destination as? FriendsViewController {
-
-            print("ALOOOOOO")
-            destinationVC.users = myUsers
+            
+            destinationVC.friends = vkFriends
             
         }
     }
