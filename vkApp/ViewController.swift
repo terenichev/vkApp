@@ -124,16 +124,14 @@ class ViewController: UIViewController{
             case .success(let users):
 
                 self.myUsers = users
+                
                 print("myUsers:",self.myUsers)
             case .failure(let error):
                 print("error", error)
             }
         }
         
-//        print(myUsers)
         
-
-            
         if passwordTextField.text == "" {
             firstCircle.isHidden = false
             secondCircle.isHidden = false
@@ -199,7 +197,7 @@ class ViewController: UIViewController{
                                 var friend: Friend =  Friend.init(mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
                                 self.vkFriends.append(friend)
                             }
-                        
+                        Singleton.instance.friends = self.vkFriends
                         
                     }
                     
@@ -207,8 +205,8 @@ class ViewController: UIViewController{
                     
                     
                     
-                    self.performSegue(withIdentifier: "VKfriend", sender: self)
-//                            self.performSegue(withIdentifier: "checkLog", sender: nil)
+//                    self.performSegue(withIdentifier: "VKfriend", sender: self)
+                            self.performSegue(withIdentifier: "checkLog", sender: nil)
                     
                 })
                 
@@ -231,18 +229,6 @@ class ViewController: UIViewController{
     @IBAction func logOutActionExit(unwindSegue: UIStoryboardSegue){
         print("exit")
         self.loadView()
-    }
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "VKfriend",
-           let destinationVC = segue.destination as? FriendsViewController {
-            
-            destinationVC.friends = vkFriends
-            
-        }
     }
     
 }

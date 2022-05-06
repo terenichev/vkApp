@@ -11,17 +11,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var friends = [
-        tonyStark,
-        thor,
-        vandaMaksimov,
-        karolDenvers,
-        steeve,
-        strange,
-        scott,
-        tom,
-        andrew,
-        tobbie]
+    var friends = Singleton.instance.friends ?? [tonyStark]
     
     
     var users: [Friend]? = nil
