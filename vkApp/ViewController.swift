@@ -22,8 +22,29 @@ class ViewController: UIViewController{
     @IBOutlet weak var secondCircle: UIImageView!
     @IBOutlet weak var thirdCircle: UIImageView!
     
+<<<<<<< HEAD
     override func viewDidLoad() {
         super.viewDidLoad()
+=======
+    let request = Request()
+    var usersIds:[Int] = []
+    var myUsers: User?
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        var urlForUserIdsComponents = URLComponents()
+        urlForUserIdsComponents.scheme = "https"
+        urlForUserIdsComponents.host = "api.vk.com"
+        urlForUserIdsComponents.path = "/method/friends.get"
+        urlForUserIdsComponents.queryItems = [
+            URLQueryItem(name: "count", value: "5"),
+            URLQueryItem(name: "order", value: "hints"),
+//            URLQueryItem(name: "fields", value: "photo_200_orig"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+>>>>>>> parent of 05ddf24 (hw 3 in process)
 
         firstCircle.isHidden = true
         secondCircle.isHidden = true
@@ -71,6 +92,38 @@ class ViewController: UIViewController{
     
     @IBAction func tryTologin(_ sender: Any) {
         
+<<<<<<< HEAD
+=======
+        
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.vk.com"
+        urlComponents.path = "/method/users.get"
+        urlComponents.queryItems = [
+            URLQueryItem(name: "user_ids", value: "\(usersIds)"),
+            URLQueryItem(name: "fields", value: "status , photo_max_orig"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+
+        guard let urlGetUsers = urlComponents.url else { return }
+        print("urlGetUsers:",urlGetUsers)
+        request.usersInfoRequest(url: urlGetUsers) { result in
+            switch result {
+            case .success(let users):
+
+                self.myUsers = users
+                print("myUsers:",self.myUsers)
+            case .failure(let error):
+                print("error", error)
+            }
+        }
+        
+//        print(myUsers)
+        
+
+            
+>>>>>>> parent of 05ddf24 (hw 3 in process)
         if passwordTextField.text == "" {
             firstCircle.isHidden = false
             secondCircle.isHidden = false
@@ -115,8 +168,15 @@ class ViewController: UIViewController{
                     self.thirdCircle.alpha = 0.1
                 })
                 
+<<<<<<< HEAD
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
                             self.performSegue(withIdentifier: "checkLog", sender: nil)
+=======
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                    
+                    self.performSegue(withIdentifier: "VKfriend", sender: self)
+//                            self.performSegue(withIdentifier: "checkLog", sender: nil)
+>>>>>>> parent of 05ddf24 (hw 3 in process)
                     
                 })
                 
@@ -140,6 +200,23 @@ class ViewController: UIViewController{
         print("exit")
         self.loadView()
     }
+<<<<<<< HEAD
+=======
+    
+    
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "VKfriend",
+           let destinationVC = segue.destination as? FriendsViewController {
+
+            print("ALOOOOOO")
+            destinationVC.users = myUsers
+            
+        }
+    }
+    
+>>>>>>> parent of 05ddf24 (hw 3 in process)
 }
 
 

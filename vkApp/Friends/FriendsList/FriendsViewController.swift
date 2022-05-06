@@ -13,12 +13,17 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friends = [tonyStark, thor]
     
+<<<<<<< HEAD
     let request = Request()
     var usersIds: [Int] = []
     var myUsers: DTO.Response? = nil
     
     var users: [Friend]? = nil
     var userNames: [String] = []
+=======
+    var a = 1
+    var users: User? = nil
+>>>>>>> parent of 05ddf24 (hw 3 in process)
     
     var namesOfFriends: [String] = []
     var searchFriends: [Friend]!
@@ -97,8 +102,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         let friend: Friend = friends[indexPath.row]
         
-        cell.labelFriendsCell.text = friend.name
-        
+//        cell.labelFriendsCell.text = friend.name
+        cell.labelFriendsCell.text = users?.response[0].firstName
         cell.imageFriendsCell.image = friend.mainImage
         
 //        print(users)
@@ -108,7 +113,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
 
         return cell
     }
-    
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
@@ -131,8 +135,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
              friendToShow = friendsInKey[indexPath.row]
              profileVC.profileForFriend = friendToShow
              profileVC.arrayImages = friendToShow.images
-        
-        print("SHOW PROFILE")
         
 //        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
         

@@ -9,7 +9,7 @@ import Foundation
 
 protocol RequestProtocol {
     func usersIdsRequest(url: URL, completion: @escaping(Result<[Int], Error>) -> Void)
-    func usersInfoRequest(url: URL, completion: @escaping (Result<DTO.Response, Error>) -> Void)
+    func usersInfoRequest(url: URL, completion: @escaping (Result<User, Error>) -> Void)
 }
 
 class Request: RequestProtocol {
@@ -19,7 +19,7 @@ class Request: RequestProtocol {
         return session
     }()
     
-    func usersInfoRequest(url: URL, completion: @escaping (Result<DTO.Response, Error>) -> Void) {
+    func usersInfoRequest(url: URL, completion: @escaping (Result<User, Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.sync {
                 if let error = error {
@@ -30,7 +30,7 @@ class Request: RequestProtocol {
                 guard let data = data else { return }
                 
                 do {
-                    let usersFromJSON = try JSONDecoder().decode(DTO.Response.self, from: data)
+                    let usersFromJSON = try JSONDecoder().decode(User.self, from: data)
                     
                     completion(.success(usersFromJSON))
                 } catch let jsonError {
