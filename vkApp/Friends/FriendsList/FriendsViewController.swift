@@ -11,18 +11,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var friends = [
-        tonyStark,
-        thor,
-        vandaMaksimov,
-        karolDenvers,
-        steeve,
-        strange,
-        scott,
-        tom,
-        andrew,
-        tobbie]
+    var friends = [tonyStark, thor]
     
+    let request = Request()
+    var usersIds: [Int] = []
+    var myUsers: DTO.Response? = nil
     
     var users: [Friend]? = nil
     var userNames: [String] = []
@@ -35,14 +28,26 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     var chars:[String] = []
 
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        super.viewDidLoad()
+        searchBar.delegate = self
+        self.sortedFriends = sort(friends: friends)
+        
+        friendsGetRequest()
+        print(#function)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+//        searchBar.delegate = self
+//        self.sortedFriends = sort(friends: friends)
+//
+//        friendsGetRequest()
         
-        searchBar.delegate = self
-        
-
-        self.sortedFriends = sort(friends: friends)
-        self.tableView.reloadData()
+        print(#function)
+            self.tableView.reloadData()
+            print(self.friends)
     }
     
     private func sort(friends: [Friend]) -> [Character: [Friend]] {
@@ -79,7 +84,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
 
         let friends = sortedFriends[keySorted[section]]?.count ?? 0
 
-        return friends
+        return friends - 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -192,5 +197,97 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         self.sortedFriends = sort(friends: searchFriends)
         self.tableView.reloadData()
     }
+    
+    
+    // MARK: - Request
+    
+    func friendsGetRequest() {
+        
+        
+        var urlForUserIdsComponents = URLComponents()
+        urlForUserIdsComponents.scheme = "https"
+        urlForUserIdsComponents.host = "api.vk.com"
+        urlForUserIdsComponents.path = "/method/friends.get"
+        urlForUserIdsComponents.queryItems = [
+            URLQueryItem(name: "count", value: "5"),
+            URLQueryItem(name: "order", value: "hints"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetIds = urlForUserIdsComponents.url else { return }
+        print(urlGetIds)
+        
+            self.request.usersIdsRequest(url: urlGetIds, completion: { result in
+            switch result {
+            case .success(let usersFromJSON):
+                self.usersIds = usersFromJSON
+                print("usersIds = ", self.usersIds)
+            case .failure(let error):
+                print("error", error)
+            }
+        })
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0)) {
+        var urlComponentsForUserInfo = URLComponents()
+        urlComponentsForUserInfo.scheme = "https"
+        urlComponentsForUserInfo.host = "api.vk.com"
+        urlComponentsForUserInfo.path = "/method/users.get"
+        urlComponentsForUserInfo.queryItems = [
+            URLQueryItem(name: "user_ids", value: "\(self.usersIds)"),
+            URLQueryItem(name: "fields", value: "status,photo_max_orig"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        
+            guard let urlGetUsers = urlComponentsForUserInfo.url else { return }
+            print("urlGetUsers:",urlGetUsers)
+            self.request.usersInfoRequest(url: urlGetUsers) { result in
+                switch result {
+                case .success(let users):
+                    self.myUsers = users
+                    print("myUsers 1 = ", self.myUsers)
+                case .failure(let error):
+                    print("error", error)
+                }
+            }
+        
+        }
+       
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0)) {
+            
+            print("After 5 seconds")
+            
+            
+            
+            print("myUsers 2 = ", self.myUsers)
+            guard let array = self.myUsers
+            else {
+                print("guard return")
+                return }
+            //        print("MY USERS = ", array)
+            //        print("myUsers?.response.count = ", array.response.count)
+            //        print("myUsers!.response[0] = ",array.response[0])
+            
+            let arrayOfUsers = array.response
+            for user in 0 ... arrayOfUsers.count - 1 {
+                let url = URL(string:"\(arrayOfUsers[user].photoMaxOrig)")
+//                print(url!)
+                if let data = try? Data(contentsOf: url!)
+                {
+                    var friend: Friend =  Friend.init(mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
+                    self.friends.append(friend)
+                }
+            }
+            print("VKFRIENDS = ",self.friends)
+            
+            self.tableView.reloadData()
+        }
+            
+            
+        
+        
+    
+}
     
 }

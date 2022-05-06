@@ -21,7 +21,7 @@ class Request: RequestProtocol {
     
     func usersInfoRequest(url: URL, completion: @escaping (Result<DTO.Response, Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.sync {
                 if let error = error {
                     print("some error")
                     completion(.failure(error))
@@ -43,7 +43,7 @@ class Request: RequestProtocol {
     
     func usersIdsRequest(url: URL, completion: @escaping (Result<[Int], Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
-            DispatchQueue.main.async {
+            DispatchQueue.main.sync {
                 if let error = error {
                     print("some error")
                     completion(.failure(error))

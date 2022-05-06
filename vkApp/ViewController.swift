@@ -22,43 +22,9 @@ class ViewController: UIViewController{
     @IBOutlet weak var secondCircle: UIImageView!
     @IBOutlet weak var thirdCircle: UIImageView!
     
-    let request = Request()
-    var usersIds:[Int] = []
-    var myUsers: DTO.Response?
-    var vkFriends = [tonyStark]
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        var urlForUserIdsComponents = URLComponents()
-        urlForUserIdsComponents.scheme = "https"
-        urlForUserIdsComponents.host = "api.vk.com"
-        urlForUserIdsComponents.path = "/method/friends.get"
-        urlForUserIdsComponents.queryItems = [
-//            URLQueryItem(name: "count", value: "5"),
-            URLQueryItem(name: "order", value: "hints"),
-//            URLQueryItem(name: "fields", value: "photo_200_orig"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
 
-        guard let urlGetIds = urlForUserIdsComponents.url else { return }
-        
-        print(urlGetIds)
-        
-        request.usersIdsRequest(url: urlGetIds, completion: { result in
-            switch result {
-                
-            case .success(let usersFromJSON):
-                self.usersIds = usersFromJSON
-                print(self.usersIds)
-            case .failure(let error):
-                print("error", error)
-            }
-        })
-        
-      
-        
         firstCircle.isHidden = true
         secondCircle.isHidden = true
         thirdCircle.isHidden = true
@@ -105,35 +71,6 @@ class ViewController: UIViewController{
     
     @IBAction func tryTologin(_ sender: Any) {
         
-        
-        var urlComponents = URLComponents()
-        urlComponents.scheme = "https"
-        urlComponents.host = "api.vk.com"
-        urlComponents.path = "/method/users.get"
-        urlComponents.queryItems = [
-            URLQueryItem(name: "user_ids", value: " \(usersIds)"),
-            URLQueryItem(name: "fields", value: "status,photo_max_orig"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
-
-        guard let urlGetUsers = urlComponents.url else { return }
-        print("urlGetUsers:",urlGetUsers)
-        request.usersInfoRequest(url: urlGetUsers) { result in
-            switch result {
-            case .success(let users):
-
-                self.myUsers = users
-                print("myUsers:",self.myUsers)
-            case .failure(let error):
-                print("error", error)
-            }
-        }
-        
-//        print(myUsers)
-        
-
-            
         if passwordTextField.text == "" {
             firstCircle.isHidden = false
             secondCircle.isHidden = false
@@ -178,37 +115,8 @@ class ViewController: UIViewController{
                     self.thirdCircle.alpha = 0.1
                 })
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-                    guard let array = self.myUsers else { return }
-                    print("MY USERS = ", array)
-                    print("myUsers?.response.count = ", array.response.count)
-                    print("myUsers!.response[0] = ",array.response[0])
-                    
-                    let arrayOfUsers = array.response
-                    
-                    
-                    
-                    
-                    for user in 0 ... arrayOfUsers.count - 1 {
-                        
-        //                var friend: Friend =  Friend.init(mainImage: tonyStark.mainImage, name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
-                        let url = URL(string:"\(arrayOfUsers[user].photoMaxOrig)")
-                        print(url!)
-                            if let data = try? Data(contentsOf: url!)
-                            {
-                                var friend: Friend =  Friend.init(mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
-                                self.vkFriends.append(friend)
-                            }
-                        
-                        
-                    }
-                    
-                    print("VKFRIENDS = ",self.vkFriends)
-                    
-                    
-                    
-                    self.performSegue(withIdentifier: "VKfriend", sender: self)
-//                            self.performSegue(withIdentifier: "checkLog", sender: nil)
+                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+                            self.performSegue(withIdentifier: "checkLog", sender: nil)
                     
                 })
                 
@@ -232,19 +140,6 @@ class ViewController: UIViewController{
         print("exit")
         self.loadView()
     }
-    
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "VKfriend",
-           let destinationVC = segue.destination as? FriendsViewController {
-            
-            destinationVC.friends = vkFriends
-            
-        }
-    }
-    
 }
 
 
