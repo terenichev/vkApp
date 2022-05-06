@@ -46,12 +46,12 @@ class ViewController: UIViewController{
         
         print(urlGetIds)
         
-        request.usersIdsRequest(url: urlGetIds, completion: { result in
+        request.usersIdsRequest(url: urlGetIds, completion: { [weak self] result in
             switch result {
                 
             case .success(let usersFromJSON):
-                self.usersIds = usersFromJSON
-                print(self.usersIds)
+                self?.usersIds = usersFromJSON
+                print(self?.usersIds)
             case .failure(let error):
                 print("error", error)
             }
@@ -119,13 +119,13 @@ class ViewController: UIViewController{
 
         guard let urlGetUsers = urlComponents.url else { return }
         print("urlGetUsers:",urlGetUsers)
-        request.usersInfoRequest(url: urlGetUsers) { result in
+        request.usersInfoRequest(url: urlGetUsers) { [weak self] result in
             switch result {
             case .success(let users):
 
-                self.myUsers = users
+                self?.myUsers = users
                 
-                print("myUsers:",self.myUsers)
+                print("myUsers:",self?.myUsers)
             case .failure(let error):
                 print("error", error)
             }
@@ -178,30 +178,27 @@ class ViewController: UIViewController{
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
                     guard let array = self.myUsers else { return }
-                    print("MY USERS = ", array)
-                    print("myUsers?.response.count = ", array.response.count)
-                    print("myUsers!.response[0] = ",array.response[0])
+//                    print("MY USERS = ", array)
+//                    print("myUsers?.response.count = ", array.response.count)
+//                    print("myUsers!.response[0] = ",array.response[0])
                     
                     let arrayOfUsers = array.response
-                    
-                    
-                    
                     
                     for user in 0 ... arrayOfUsers.count - 1 {
                         
         //                var friend: Friend =  Friend.init(mainImage: tonyStark.mainImage, name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
                         let url = URL(string:"\(arrayOfUsers[user].photoMaxOrig)")
-                        print(url!)
+//                        print(url!)
                             if let data = try? Data(contentsOf: url!)
                             {
-                                var friend: Friend =  Friend.init(mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
+                                var friend: Friend =  Friend.init(id: arrayOfUsers[user].id, mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
                                 self.vkFriends.append(friend)
                             }
                         Singleton.instance.friends = self.vkFriends
                         
                     }
                     
-                    print("VKFRIENDS = ",self.vkFriends)
+//                    print("VKFRIENDS = ",self.vkFriends)
                     
                     
                     

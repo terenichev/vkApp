@@ -107,39 +107,70 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         profileVC.transitioningDelegate = profileVC
         
         
+        
+        let keys = Array(sortedFriends.keys.sorted())
+        let friendsInKey: [Friend]
+        let friendToShow: Friend
+        
+        friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
+        friendToShow = friendsInKey[indexPath.row]
+        
+        
+        
+        let request = Request()
+        
+        var urlComponentsGetPhotos = URLComponents()
+        urlComponentsGetPhotos.scheme = "https"
+        urlComponentsGetPhotos.host = "api.vk.com"
+        urlComponentsGetPhotos.path = "/method/users.get"
+        urlComponentsGetPhotos.queryItems = [
+            URLQueryItem(name: "owner_ids", value: " \(friendToShow.id)"),
+            URLQueryItem(name: "fields", value: "status,photo_max_orig"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
 
-             let keys = Array(sortedFriends.keys.sorted())
-             let friendsInKey: [Friend]
-             let friendToShow: Friend
-
-             friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
-             friendToShow = friendsInKey[indexPath.row]
-             profileVC.profileForFriend = friendToShow
-             profileVC.arrayImages = friendToShow.images
+        guard let urlGetPhotos = urlComponentsGetPhotos.url else { return }
+        print("urlGetUsers:",urlGetPhotos)
+        request.usersInfoRequest(url: urlGetPhotos) { [weak self] result in
+            switch result {
+            case .success(let responce):
+                print(responce)
+            case .failure(let error):
+                print("error", error)
+            }
+        }
+        
+        
+        
+        
+        
+        profileVC.profileForFriend = friendToShow
+        profileVC.arrayImages = friendToShow.images
         
         print("SHOW PROFILE")
         
-//        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
+        //        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
         
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
+        
         
         
         if segue.identifier == "showFriendProfile",
            let destinationVC = segue.destination as? profileViewController,
            let indexPath = tableView.indexPathForSelectedRow {
-
-                let keys = Array(sortedFriends.keys.sorted())
-                let friendsInKey: [Friend]
-                let friendToShow: Friend
-
-                friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
-                friendToShow = friendsInKey[indexPath.row]
-
-                destinationVC.profileForFriend = friendToShow
-                destinationVC.arrayImages = friendToShow.images
+            
+            let keys = Array(sortedFriends.keys.sorted())
+            let friendsInKey: [Friend]
+            let friendToShow: Friend
+            
+            friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
+            friendToShow = friendsInKey[indexPath.row]
+            
+            destinationVC.profileForFriend = friendToShow
+            destinationVC.arrayImages = friendToShow.images
             
         }
     }
