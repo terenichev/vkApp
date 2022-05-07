@@ -17,6 +17,7 @@ class profileViewController: UIViewController {
     @IBOutlet weak var container: UIView!
     
     var profileForFriend: Friend = tonyStark
+    
     var arrayImages: [UIImage?] = []
     
     let transition = PopAnimator()
@@ -41,6 +42,7 @@ class profileViewController: UIViewController {
 extension profileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        arrayImages.removeFirst()
         return arrayImages.count
     }
     
@@ -62,7 +64,7 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = MyCollectionView.dequeueReusableCell(withReuseIdentifier: profilePhotosViewCell.identifier, for: indexPath) as! profilePhotosViewCell
-        self.arrayImages.removeFirst()
+//        self.arrayImages.removeFirst()
         cell.configure(with: arrayImages[indexPath.row]!)
         cell.imageView.layer.cornerRadius = 5
         
