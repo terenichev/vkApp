@@ -10,6 +10,7 @@ import Foundation
 protocol RequestProtocol {
     func usersIdsRequest(url: URL, completion: @escaping(Result<[Int], Error>) -> Void)
     func usersInfoRequest(url: URL, completion: @escaping (Result<DTO.Response, Error>) -> Void)
+    func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void)
 }
 
 class Request: RequestProtocol {
@@ -55,6 +56,28 @@ class Request: RequestProtocol {
                     let usersIdsArrayFromJSON = try JSONDecoder().decode(UsersIdsArray.self, from: data).response.ids
                     
                     completion(.success(usersIdsArrayFromJSON))
+                } catch let jsonError {
+                    print("Failed to decode JSON", jsonError)
+                    completion(.failure(jsonError))
+                }
+            }
+        }.resume()
+    }
+    
+    func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void) {
+        session.dataTask(with: url) { (data, response, error) in
+            DispatchQueue.main.async {
+                if let error = error {
+                    print("some error")
+                    completion(.failure(error))
+                    return
+                }
+                guard let data = data else { return }
+                
+                do {
+                    let photoResponceFromJSON = try JSONDecoder().decode(UserPhotoURLResponse.self, from: data).response.items
+                    
+                    completion(.success(photoResponceFromJSON))
                 } catch let jsonError {
                     print("Failed to decode JSON", jsonError)
                     completion(.failure(jsonError))

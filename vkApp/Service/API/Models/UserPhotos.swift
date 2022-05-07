@@ -7,25 +7,50 @@
 
 import Foundation
 
-enum ParsePhoto {
-    struct Responce<T: Decodable>:Decodable {
-        let response: PhotosInAlbum<T>
-    }
+//struct UserPhotoURLResponse: Decodable {
+//    let responce: [Items]?
+//}
+//
+//struct Items: Decodable {
+//    let date: Int?
+//    let sizes: [Size]?
+//}
+//
+//struct Size: Decodable {
+//    let url: String?
+//}
     
-    
-    struct PhotosInAlbum<T:Decodable>: Decodable {
-        let count: Int
-        let photos: [T]
-    }
-    
-    enum Photos {
-        struct Photo: Codable {
-            let sizes: [Size]
-        }
-        
-        
-        struct Size: Codable {
-            let url: String
-        }
+// MARK: - UserPhotoURLResponse
+struct UserPhotoURLResponse: Codable {
+    let response: Response
+}
+
+// MARK: - Response
+struct Response: Codable {
+    let count: Int
+    let items: [Item]
+}
+
+// MARK: - Item
+struct Item: Codable {
+    let sizes: [Size]
+
+    enum CodingKeys: String, CodingKey {
+        case sizes
     }
 }
+
+// MARK: - Size
+struct Size: Codable {
+    let url: String
+}
+
+    
+    
+
+    
+
+
+
+
+

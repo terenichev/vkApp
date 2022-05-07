@@ -110,7 +110,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         let keys = Array(sortedFriends.keys.sorted())
         let friendsInKey: [Friend]
-        let friendToShow: Friend
+        var friendToShow: Friend
         
         friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
         friendToShow = friendsInKey[indexPath.row]
@@ -122,37 +122,54 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         var urlComponentsGetPhotos = URLComponents()
         urlComponentsGetPhotos.scheme = "https"
         urlComponentsGetPhotos.host = "api.vk.com"
-        urlComponentsGetPhotos.path = "/method/users.get"
+        urlComponentsGetPhotos.path = "/method/photos.get"
         urlComponentsGetPhotos.queryItems = [
-            URLQueryItem(name: "owner_ids", value: " \(friendToShow.id)"),
-            URLQueryItem(name: "fields", value: "status,photo_max_orig"),
+            URLQueryItem(name: "owner_id", value: "\(friendToShow.id)"),
+            URLQueryItem(name: "album_id", value: "profile"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
-
-        guard let urlGetPhotos = urlComponentsGetPhotos.url else { return }
-        print("urlGetUsers:",urlGetPhotos)
-        request.usersInfoRequest(url: urlGetPhotos) { [weak self] result in
+        
+        guard let urlGetPhotos = urlComponentsGetPhotos.url
+        else {
+            print("guard return")
+            return }
+                print("urlGetPhotos:",urlGetPhotos)
+        
+        request.usersPhotoRequest(url: urlGetPhotos) { [weak self] result in
             switch result {
-            case .success(let responce):
-                print(responce)
+                
+            case .success(let array):
+                //                print("ARRAY of Items = ", array)
+                var photoUrls: [String] = []
+                
+                array.map({ photoUrls.append($0.sizes.last!.url) })
+                
+                for photo in 0..<photoUrls.count {
+                    let url = URL(string:"\(photoUrls[photo])")
+                    
+                    if let data = try? Data(contentsOf: url!)
+                    {
+                        friendToShow.images.append(UIImage(data: data))
+                    }
+                }
+                
+                //                print("arraySizes = ", photoUrls)
             case .failure(let error):
                 print("error", error)
             }
         }
         
-        
-        
-        
-        
-        profileVC.profileForFriend = friendToShow
-        profileVC.arrayImages = friendToShow.images
-        
-        print("SHOW PROFILE")
-        
-        //        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
-        
-        self.navigationController?.pushViewController(profileVC, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+            profileVC.profileForFriend = friendToShow
+            profileVC.arrayImages = friendToShow.images
+            
+            print("SHOW PROFILE")
+            
+            //        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
+            
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        })
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
