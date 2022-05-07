@@ -23,8 +23,8 @@ class ViewController: UIViewController{
     @IBOutlet weak var thirdCircle: UIImageView!
     
     let request = Request()
-    var usersIds:[Int] = []
-    var myUsers: DTO.Response?
+    var usersIds:[FriendsItem?]? = []
+    
     var vkFriends = [tonyStark]
     
     override func viewDidLoad() {
@@ -37,7 +37,7 @@ class ViewController: UIViewController{
         urlForUserIdsComponents.queryItems = [
 //            URLQueryItem(name: "count", value: "5"),
             URLQueryItem(name: "order", value: "hints"),
-//            URLQueryItem(name: "fields", value: "photo_200_orig"),
+            URLQueryItem(name: "fields", value: "photo_200_orig, status"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -46,7 +46,7 @@ class ViewController: UIViewController{
         
         print(urlGetIds)
         
-        request.usersIdsRequest(url: urlGetIds, completion: { [weak self] result in
+        request.myFriendsReqest(url: urlGetIds, completion: { [weak self] result in
             switch result {
                 
             case .success(let usersFromJSON):
@@ -118,18 +118,18 @@ class ViewController: UIViewController{
         ]
 
         guard let urlGetUsers = urlComponents.url else { return }
-        print("urlGetUsers:",urlGetUsers)
-        request.usersInfoRequest(url: urlGetUsers) { [weak self] result in
-            switch result {
-            case .success(let users):
-
-                self?.myUsers = users
-                
-                print("myUsers:",self?.myUsers)
-            case .failure(let error):
-                print("error", error)
-            }
-        }
+//        print("urlGetUsers:",urlGetUsers)
+//        request.usersInfoRequest(url: urlGetUsers) { [weak self] result in
+//            switch result {
+//            case .success(let users):
+//
+//                self?.myUsers = users
+//
+//                print("myUsers:",self?.myUsers)
+//            case .failure(let error):
+//                print("error", error)
+//            }
+//        }
         
         
         if passwordTextField.text == "" {
@@ -177,28 +177,36 @@ class ViewController: UIViewController{
                 })
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-                    guard let array = self.myUsers else { return }
-//                    print("MY USERS = ", array)
-//                    print("myUsers?.response.count = ", array.response.count)
-//                    print("myUsers!.response[0] = ",array.response[0])
+//                    guard let array = self.myUsers else { return }
+//                    let arrayOfUsers = array.response
+//                    for user in 0 ... arrayOfUsers.count - 1 {
+//                        let url = URL(string:"\(arrayOfUsers[user].photoMaxOrig)")
+//                        print(url!)
+//                            if let data = try? Data(contentsOf: url!)
+//                            {
+//                                var friend: Friend =  Friend.init(id: arrayOfUsers[user].id, mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
+//                                self.vkFriends.append(friend)
+//                            }
+//                        Singleton.instance.friends = self.vkFriends
+//
+//                    }
                     
-                    let arrayOfUsers = array.response
-                    
-                    for user in 0 ... arrayOfUsers.count - 1 {
-                        
-        //                var friend: Friend =  Friend.init(mainImage: tonyStark.mainImage, name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
-                        let url = URL(string:"\(arrayOfUsers[user].photoMaxOrig)")
+                    guard let array = self.usersIds else { return }
+
+                    for friend in 0 ... array.count - 1 {
+                        let url = URL(string: array[friend]!.avatarUrl)
 //                        print(url!)
                             if let data = try? Data(contentsOf: url!)
                             {
-                                var friend: Friend =  Friend.init(id: arrayOfUsers[user].id, mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
+                                var friend: Friend =  Friend.init(id: array[friend]!.id, mainImage: UIImage(data: data), name: array[friend]!.firstName + " " + array[friend]!.lastName, images: [tonyStark.mainImage], statusText: array[friend]!.status ?? "")
                                 self.vkFriends.append(friend)
                             }
                         Singleton.instance.friends = self.vkFriends
                         
                     }
                     
-//                    print("VKFRIENDS = ",self.vkFriends)
+                    
+                    print("VKFRIENDS = ",self.vkFriends)
                     
                     
                     

@@ -71,19 +71,19 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
         
         print(url)
         
-        request(url: url) { result in
-            switch result {
-                
-            case .success(let usersFromJSON):
-                print(usersFromJSON)
-                self.usersArray = usersFromJSON
-                usersFromJSON.map({ (ids) in
-                    print("id =", ids)
-                })
-            case .failure(let error):
-                print("error", error)
-            }
-        }
+//        request(url: url) { result in
+//            switch result {
+//                
+//            case .success(let usersFromJSON):
+//                print(usersFromJSON)
+//                self.usersArray = usersFromJSON
+//                usersFromJSON.map({ (ids) in
+//                    print("id =", ids)
+//                })
+//            case .failure(let error):
+//                print("error", error)
+//            }
+//        }
 
     }
     
@@ -164,7 +164,7 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
         
     }
     
-    func request(url: URL, completion: @escaping(Result<[Int], Error>) -> Void) {
+    func request(url: URL, completion: @escaping(Result<Int, Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
@@ -175,7 +175,7 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
                 guard let data = data else { return }
                 
                 do {
-                    let usersIdsArrayFromJSON = try JSONDecoder().decode(UsersIdsArray.self, from: data).response.ids
+                    let usersIdsArrayFromJSON = try JSONDecoder().decode(MyFriends.self, from: data).response.items.count
                     
                     completion(.success(usersIdsArrayFromJSON))
                 } catch let jsonError {

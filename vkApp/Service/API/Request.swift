@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import RealmSwift
 
 protocol RequestProtocol {
-    func usersIdsRequest(url: URL, completion: @escaping(Result<[Int], Error>) -> Void)
+    func myFriendsReqest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void)
     func usersInfoRequest(url: URL, completion: @escaping (Result<DTO.Response, Error>) -> Void)
     func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void)
 }
@@ -42,7 +43,7 @@ class Request: RequestProtocol {
         }.resume()
     }
     
-    func usersIdsRequest(url: URL, completion: @escaping (Result<[Int], Error>) -> Void) {
+    func myFriendsReqest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
@@ -53,9 +54,12 @@ class Request: RequestProtocol {
                 guard let data = data else { return }
                 
                 do {
-                    let usersIdsArrayFromJSON = try JSONDecoder().decode(UsersIdsArray.self, from: data).response.ids
+                    let friendsArrayFromJSON = try JSONDecoder().decode(MyFriends.self, from: data).response.items
+                    let saving = try JSONDecoder().decode(MyFriends.self, from: data).response
                     
-                    completion(.success(usersIdsArrayFromJSON))
+//                    self.saveFriendsListData(saving)
+                    
+                    completion(.success(friendsArrayFromJSON))
                 } catch let jsonError {
                     print("Failed to decode JSON", jsonError)
                     completion(.failure(jsonError))
@@ -85,4 +89,21 @@ class Request: RequestProtocol {
             }
         }.resume()
     }
+    
+//    func saveFriendsListData (_ users: FriendsList) {
+//        do {
+//
+//            let realm = try Realm()
+//            print("REALM URL = ", realm.configuration.fileURL)
+//
+//            let oldUsers = realm.objects(FriendsList.self).filter("user == %@", users)
+//
+//            realm.beginWrite()
+//            realm.delete(oldUsers)
+//            realm.add(users)
+//
+//        } catch {
+//            print(error)
+//        }
+//    }
 }
