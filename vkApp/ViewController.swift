@@ -23,9 +23,9 @@ class ViewController: UIViewController{
     @IBOutlet weak var thirdCircle: UIImageView!
     
     let request = Request()
-    var usersIds:[FriendsItem?]? = []
+    var friendsListFromJSON:[FriendsItem?]? = []
     
-    var vkFriends = [tonyStark]
+    var vkFriends: [FriendsItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,8 +50,8 @@ class ViewController: UIViewController{
             switch result {
                 
             case .success(let usersFromJSON):
-                self?.usersIds = usersFromJSON
-                print(self?.usersIds)
+                self?.friendsListFromJSON = usersFromJSON
+                print(self?.friendsListFromJSON)
             case .failure(let error):
                 print("error", error)
             }
@@ -111,7 +111,7 @@ class ViewController: UIViewController{
         urlComponents.host = "api.vk.com"
         urlComponents.path = "/method/users.get"
         urlComponents.queryItems = [
-            URLQueryItem(name: "user_ids", value: " \(usersIds)"),
+            URLQueryItem(name: "user_ids", value: " \(friendsListFromJSON)"),
             URLQueryItem(name: "fields", value: "status,photo_max_orig"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
@@ -177,44 +177,29 @@ class ViewController: UIViewController{
                 })
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-//                    guard let array = self.myUsers else { return }
-//                    let arrayOfUsers = array.response
-//                    for user in 0 ... arrayOfUsers.count - 1 {
-//                        let url = URL(string:"\(arrayOfUsers[user].photoMaxOrig)")
-//                        print(url!)
-//                            if let data = try? Data(contentsOf: url!)
-//                            {
-//                                var friend: Friend =  Friend.init(id: arrayOfUsers[user].id, mainImage: UIImage(data: data), name: arrayOfUsers[user].firstName + " " + arrayOfUsers[user].lastName, images: [tonyStark.mainImage], statusText: arrayOfUsers[user].status ?? "")
-//                                self.vkFriends.append(friend)
-//                            }
-//                        Singleton.instance.friends = self.vkFriends
-//
-//                    }
                     
-                    guard let array = self.usersIds else { return }
-
+                    guard let array = self.friendsListFromJSON else { return }
+                    
                     for friend in 0 ... array.count - 1 {
-                        let url = URL(string: array[friend]!.avatarUrl)
-//                        print(url!)
-                            if let data = try? Data(contentsOf: url!)
-                            {
-                                var friend: Friend =  Friend.init(id: array[friend]!.id, mainImage: UIImage(data: data), name: array[friend]!.firstName + " " + array[friend]!.lastName, images: [tonyStark.mainImage], statusText: array[friend]!.status ?? "")
-                                self.vkFriends.append(friend)
-                            }
+                        
+                        let myFriend: FriendsItem =  FriendsItem.init()
+                        myFriend.id = array[friend]!.id
+                        myFriend.firstName = array[friend]!.firstName
+                        myFriend.lastName = array[friend]!.lastName
+                        myFriend.status = array[friend]!.status
+                        myFriend.avatarUrl = array[friend]!.avatarUrl
+                        
+                        self.vkFriends.append(myFriend)
+                        
                         Singleton.instance.friends = self.vkFriends
                         
                     }
                     
-                    
                     print("VKFRIENDS = ",self.vkFriends)
                     
-                    
-                    
-//                    self.performSegue(withIdentifier: "VKfriend", sender: self)
-                            self.performSegue(withIdentifier: "checkLog", sender: nil)
-                    
+                    //                    self.performSegue(withIdentifier: "VKfriend", sender: self)
+                    self.performSegue(withIdentifier: "checkLog", sender: nil)
                 })
-                
             }
         } else {
             

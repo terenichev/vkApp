@@ -12,16 +12,16 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var friends = Singleton.instance.friends ?? [tonyStark]
+    var friends = Singleton.instance.friends ?? []
     
     
-    var users: [Friend]? = nil
+    var users: [FriendsItem]? = nil
     var userNames: [String] = []
     
     var namesOfFriends: [String] = []
-    var searchFriends: [Friend]!
+    var searchFriends: [FriendsItem]!
     
-    var sortedFriends = [Character: [Friend]]()
+    var sortedFriends = [Character: [FriendsItem]]()
     
     var chars:[String] = []
 
@@ -36,13 +36,13 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         self.tableView.reloadData()
     }
     
-    private func sort(friends: [Friend]) -> [Character: [Friend]] {
+    private func sort(friends: [FriendsItem]) -> [Character: [FriendsItem]] {
         
-        var friendsDict = [Character: [Friend]]()
+        var friendsDict = [Character: [FriendsItem]]()
         
         friends.forEach() {friend in
             
-            guard let firstChar = friend.name.first else {return}
+            guard let firstChar = friend.firstName.first else {return}
            
             if var thisCharFriends = friendsDict[firstChar]{
                 
@@ -81,16 +81,16 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         
-        let friend: Friend = friends[indexPath.row]
+        let friend: FriendsItem = friends[indexPath.row]
         
-        cell.labelFriendsCell.text = friend.name
-        
-        cell.imageFriendsCell.image = friend.mainImage
-        
-//        print(users)
-//        self.tableView.reloadData()
+        let url = URL(string: friend.avatarUrl)
 
+            if let data = try? Data(contentsOf: url!)
+            {
+                cell.imageFriendsCell.image = UIImage(data: data)
+            }
         
+        cell.labelFriendsCell.text = friend.firstName + " " + friend.lastName
 
         return cell
     }
@@ -108,10 +108,10 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         profileVC.transitioningDelegate = profileVC
         
         let keys = Array(sortedFriends.keys.sorted())
-        let friendsInKey: [Friend]
-        var friendToShow: Friend
+        let friendsInKey: [FriendsItem]
+        var friendToShow: FriendsItem
         
-        friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
+        friendsInKey = sortedFriends[keys[indexPath.section]]!
         friendToShow = friendsInKey[indexPath.row]
         
         let request = Request()
@@ -133,42 +133,42 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             return }
                 print("urlGetPhotos:",urlGetPhotos)
         
-        request.usersPhotoRequest(url: urlGetPhotos) { [weak self] result in
-            switch result {
-                
-            case .success(let array):
-                //                print("ARRAY of Items = ", array)
-                var photoUrls: [String] = []
-                
-                array.map({ photoUrls.append($0.sizes.last!.url) })
-                
-                for photo in 0..<photoUrls.count {
-                    let url = URL(string:"\(photoUrls[photo])")
-                    
-                    if let data = try? Data(contentsOf: url!)
-                    {
-                        friendToShow.images.append(UIImage(data: data))
-                    }
-                }
-                
-                //                print("arraySizes = ", photoUrls)
-            case .failure(let error):
-                print("error", error)
-            }
-        }
-        friendToShow.images.removeFirst()
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            profileVC.profileForFriend = friendToShow
-            profileVC.arrayImages = friendToShow.images
-            print(friendToShow.images)
-            
-            print("SHOW PROFILE")
-            
-            //        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
-            
-            self.navigationController?.pushViewController(profileVC, animated: true)
-        })
+//        request.usersPhotoRequest(url: urlGetPhotos) { [weak self] result in
+//            switch result {
+//
+//            case .success(let array):
+//                //                print("ARRAY of Items = ", array)
+//                var photoUrls: [String] = []
+//
+//                array.map({ photoUrls.append($0.sizes.last!.url) })
+//
+//                for photo in 0..<photoUrls.count {
+//                    let url = URL(string:"\(photoUrls[photo])")
+//
+//                    if let data = try? Data(contentsOf: url!)
+//                    {
+//                        friendToShow.images.append(UIImage(data: data))
+//                    }
+//                }
+//
+//                //                print("arraySizes = ", photoUrls)
+//            case .failure(let error):
+//                print("error", error)
+//            }
+//        }
+//        friendToShow.images.removeFirst()
+//
+//        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+//            profileVC.profileForFriend = friendToShow
+//            profileVC.arrayImages = friendToShow.images
+//            print(friendToShow.images)
+//
+//            print("SHOW PROFILE")
+//
+//            //        self.present(friendsImageAnimatingVC, animated: true, completion: nil)
+//
+//            self.navigationController?.pushViewController(profileVC, animated: true)
+//        })
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
@@ -179,14 +179,14 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
            let indexPath = tableView.indexPathForSelectedRow {
             
             let keys = Array(sortedFriends.keys.sorted())
-            let friendsInKey: [Friend]
-            let friendToShow: Friend
+            let friendsInKey: [FriendsItem]
+            let friendToShow: FriendsItem
             
-            friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
+            friendsInKey = sortedFriends[keys[indexPath.section]]!
             friendToShow = friendsInKey[indexPath.row]
             
             destinationVC.profileForFriend = friendToShow
-            destinationVC.arrayImages = friendToShow.images
+//            destinationVC.arrayImages = friendToShow.images
             
         }
     }
@@ -220,7 +220,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         }
         else {
             for friend in friends {
-                if friend.name.lowercased().contains(searchText.lowercased()) {
+                let name = friend.firstName + " " + friend.lastName
+                if name.lowercased().contains(searchText.lowercased()) {
                     searchFriends.append(friend)
                 }
             }

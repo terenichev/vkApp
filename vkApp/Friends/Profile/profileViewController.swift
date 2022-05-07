@@ -16,7 +16,7 @@ class profileViewController: UIViewController {
     
     @IBOutlet weak var container: UIView!
     
-    var profileForFriend: Friend = tonyStark
+    var profileForFriend: FriendsItem?
     
     var arrayImages: [UIImage?] = []
     
@@ -31,9 +31,16 @@ class profileViewController: UIViewController {
         
         mainPhotoOfProfile.layer.cornerRadius = 50
     
-        mainPhotoOfProfile.image = profileForFriend.mainImage
-        nameInProfileLabel.text = profileForFriend.name
-        friendStatusInProfile.text = profileForFriend.statusText
+        let url = URL(string: profileForFriend!.avatarUrl)
+
+            if let data = try? Data(contentsOf: url!)
+            {
+                mainPhotoOfProfile.image = UIImage(data: data)
+            }
+        
+        
+        nameInProfileLabel.text = profileForFriend!.firstName + " " + profileForFriend!.lastName
+        friendStatusInProfile.text = profileForFriend?.status ?? ""
     
     }
     
@@ -51,13 +58,13 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         let friendsImageAnimatingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsImageAnimatingVC") as! FriendsImageAnimatingVC
         
         friendsImageAnimatingVC.transitioningDelegate = friendsImageAnimatingVC
-        
-        let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
-        let index = indexPath[0] as NSIndexPath
-        
-        friendsImageAnimatingVC.friend = profileForFriend
-        friendsImageAnimatingVC.showedPhotoIndex = index.row
-        friendsImageAnimatingVC.indexCount = profileForFriend.images.count - 1
+//
+//        let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
+//        let index = indexPath[0] as NSIndexPath
+//
+//        friendsImageAnimatingVC.friend = profileForFriend
+//        friendsImageAnimatingVC.showedPhotoIndex = index.row
+//        friendsImageAnimatingVC.indexCount = profileForFriend.images.count - 1
         
         self.navigationController?.pushViewController(friendsImageAnimatingVC, animated: true)
     }
@@ -86,7 +93,7 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         if segue.identifier == "showBigPhoto",
            let destinationVC = segue.destination as? ShowMainPhotoViewController
             {
-            destinationVC.image = profileForFriend.mainImage
+//            destinationVC.image = profileForFriend.mainImage
         }
         
         if segue.identifier == "showBigPhotoCell",
@@ -94,18 +101,18 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
             {
             let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
             let index = indexPath[0] as NSIndexPath
-            destinationVC.imageFromProfilCell = profileForFriend.images[index.row]
-            destinationVC.friend = profileForFriend
-            destinationVC.selectedIndex = index.row
+//            destinationVC.imageFromProfilCell = profileForFriend.images[index.row]
+//            destinationVC.friend = profileForFriend
+//            destinationVC.selectedIndex = index.row
         }
             if segue.identifier == "showAnimatingPhotos",
                let destinationVC = segue.destination as? FriendsImageAnimatingVC
                 {
-                let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
-                let index = indexPath[0] as NSIndexPath
-                destinationVC.friend = profileForFriend
-                destinationVC.showedPhotoIndex = index.row
-                destinationVC.indexCount = profileForFriend.images.count - 1
+//                let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
+//                let index = indexPath[0] as NSIndexPath
+//                destinationVC.friend = profileForFriend
+//                destinationVC.showedPhotoIndex = index.row
+//                destinationVC.indexCount = profileForFriend.images.count - 1
         }
     }
 }

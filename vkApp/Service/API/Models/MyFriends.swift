@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
 struct MyFriends: Codable {
     let response: FriendsList
@@ -29,4 +30,11 @@ class FriendsItem: Object, Codable {
         case lastName = "last_name"
         case avatarUrl = "photo_200_orig"
     }
+    
+//    init(id: Int, firstName: String, lastName: String, status: String?) {
+//        self.id = id
+//        self.firstName = firstName
+//        self.lastName = lastName
+//        self.status = status
+//    }
 }
