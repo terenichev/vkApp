@@ -7,19 +7,6 @@
 
 import Foundation
 
-//struct UserPhotoURLResponse: Decodable {
-//    let responce: [Items]?
-//}
-//
-//struct Items: Decodable {
-//    let date: Int?
-//    let sizes: [Size]?
-//}
-//
-//struct Size: Decodable {
-//    let url: String?
-//}
-    
 // MARK: - UserPhotoURLResponse
 struct UserPhotoURLResponse: Codable {
     let response: Response

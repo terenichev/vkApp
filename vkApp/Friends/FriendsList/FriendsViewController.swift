@@ -7,6 +7,7 @@
 
 import UIKit
 
+
 class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
@@ -156,6 +157,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             }
         }
         friendToShow.images.removeFirst()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             profileVC.profileForFriend = friendToShow
             profileVC.arrayImages = friendToShow.images

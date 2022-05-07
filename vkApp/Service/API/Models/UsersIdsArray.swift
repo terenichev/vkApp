@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 struct UsersIdsArray: Codable {
     let response: FriendsList
 }
