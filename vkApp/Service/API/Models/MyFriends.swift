@@ -19,7 +19,7 @@ class FriendsList: Codable {
 }
 
 class FriendsItem: Object, Codable {
-    @objc dynamic var id: Int = 0
+    @objc dynamic var id: Int32 = 22178345
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var status: String? = ""
@@ -30,11 +30,4 @@ class FriendsItem: Object, Codable {
         case lastName = "last_name"
         case avatarUrl = "photo_200_orig"
     }
-    
-//    init(id: Int, firstName: String, lastName: String, status: String?) {
-//        self.id = id
-//        self.firstName = firstName
-//        self.lastName = lastName
-//        self.status = status
-//    }
 }

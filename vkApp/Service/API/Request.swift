@@ -55,7 +55,7 @@ class Request: RequestProtocol {
                 
                 do {
                     let friendsArrayFromJSON = try JSONDecoder().decode(MyFriends.self, from: data).response.items
-                    let saving = try JSONDecoder().decode(MyFriends.self, from: data).response
+                    
                     
 //                    self.saveFriendsListData(saving)
                     
