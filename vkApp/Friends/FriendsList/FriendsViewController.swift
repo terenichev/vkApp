@@ -155,10 +155,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
                 print("error", error)
             }
         }
-        
+        friendToShow.images.removeFirst()
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             profileVC.profileForFriend = friendToShow
             profileVC.arrayImages = friendToShow.images
+            print(friendToShow.images)
             
             print("SHOW PROFILE")
             

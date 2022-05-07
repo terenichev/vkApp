@@ -42,6 +42,7 @@ class BigPhotoFromViewCellViewController: UIViewController {
 extension BigPhotoFromViewCellViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
         return friend.images.count
     }
     
