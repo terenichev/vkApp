@@ -62,7 +62,7 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = MyCollectionView.dequeueReusableCell(withReuseIdentifier: profilePhotosViewCell.identifier, for: indexPath) as! profilePhotosViewCell
-        
+        self.arrayImages.removeFirst()
         cell.configure(with: arrayImages[indexPath.row]!)
         cell.imageView.layer.cornerRadius = 5
         

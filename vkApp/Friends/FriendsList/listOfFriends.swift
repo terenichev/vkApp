@@ -10,11 +10,11 @@ import UIKit
 
 
 var tonyStark: Friend = Friend(id: 0, mainImage: UIImage(named: "Тони"), name: "Тони Старк", images: [
-    UIImage(named: "Тони1"),
-    UIImage(named: "Тони2"),
-    UIImage(named: "Тони3"),
-    UIImage(named: "Тони4"),
-    UIImage(named: "Тони")
+//    UIImage(named: "Тони1"),
+//    UIImage(named: "Тони2"),
+//    UIImage(named: "Тони3"),
+//    UIImage(named: "Тони4"),
+//    UIImage(named: "Тони")
     ], statusText: "Я - Железный Человек")
 
 let thor: Friend = Friend(id: 0, mainImage: UIImage(named: "Тор"), name: "Тор Бог Грома", images: [

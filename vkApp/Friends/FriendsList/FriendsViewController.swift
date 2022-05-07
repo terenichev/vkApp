@@ -106,16 +106,12 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         profileVC.transitioningDelegate = profileVC
         
-        
-        
         let keys = Array(sortedFriends.keys.sorted())
         let friendsInKey: [Friend]
         var friendToShow: Friend
         
         friendsInKey = sortedFriends[keys[indexPath.section]] ?? [tonyStark]
         friendToShow = friendsInKey[indexPath.row]
-        
-        
         
         let request = Request()
         
@@ -160,7 +156,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             profileVC.profileForFriend = friendToShow
             profileVC.arrayImages = friendToShow.images
             
