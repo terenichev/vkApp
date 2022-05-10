@@ -6,13 +6,23 @@
 //
 
 import UIKit
-
+import RealmSwift
 
 class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-    var friends = Singleton.instance.friends ?? []
+    var friends: [FriendsItem] {
+        do {
+            let realm = try Realm()
+            let friend = realm.objects(FriendsItem.self)
+            let friendsFromRealm = Array(friend)
+            return friendsFromRealm
+        } catch {
+            print(error)
+            return []
+        }
+    }
     
     var users: [FriendsItem]? = nil
     var userNames: [String] = []
@@ -28,7 +38,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         searchBar.delegate = self
         
         self.sortedFriends = sort(friends: friends)
@@ -109,8 +119,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         let keys = Array(sortedFriends.keys.sorted())
         let friendsInKey: [FriendsItem]
         var friendToShow: FriendsItem
-        
-        
         
         friendsInKey = sortedFriends[keys[indexPath.section]]!
         friendToShow = friendsInKey[indexPath.row]

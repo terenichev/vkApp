@@ -33,7 +33,6 @@ class Request: RequestProtocol {
                 
                 do {
                     let usersFromJSON = try JSONDecoder().decode(DTO.Response.self, from: data)
-                    
                     completion(.success(usersFromJSON))
                 } catch let jsonError {
                     print("Failed to decode JSON", jsonError)
@@ -90,9 +89,8 @@ class Request: RequestProtocol {
     
     func saveFriendsListData (_ friend: FriendsItem) {
         do {
-
             let realm = try Realm()
-            print("REALM URL = ", realm.configuration.fileURL)
+            print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
 
             let oldUsers = realm.objects(FriendsItem.self).filter("id == %@", friend.id)
 
