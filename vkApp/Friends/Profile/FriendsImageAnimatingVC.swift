@@ -13,21 +13,20 @@ class FriendsImageAnimatingVC: UIViewController {
     
     @IBOutlet weak var secondImageView: UIImageView!
     
-    var friend:Friend = tonyStark
-    var arrayImages:[UIImage?]? = nil
+    var arrayImages:[UIImage?]?
     var selectedIndex:Int = 1
     
     var firstImagePosition: CGAffineTransform!
     var secondImagePosition: CGAffineTransform!
     
     var showedPhotoIndex:Int = 0
-    var indexCount:Int = tonyStark.images.count - 1
+    var indexCount:Int = 0
    
     override func viewDidLoad() {
         super.viewDidLoad()
         
 
-        self.title = "\(showedPhotoIndex + 1) из \(self.friend.images.count)"
+        self.title = "\(showedPhotoIndex + 1) из \(self.arrayImages!.count)"
         
         let imageRightPosition = CGAffineTransform(translationX: view.frame.maxX + 20, y: 0)
         let imageCenterPosition = CGAffineTransform(translationX: 0, y: 0)
@@ -35,10 +34,10 @@ class FriendsImageAnimatingVC: UIViewController {
         firstImagePosition = imageCenterPosition
         secondImagePosition = imageRightPosition
         
-        firstImageView.image = friend.images[showedPhotoIndex]
+        firstImageView.image = arrayImages?[showedPhotoIndex]
         secondImageView.transform = imageRightPosition
         if showedPhotoIndex != indexCount{
-            secondImageView.image = friend.images[showedPhotoIndex+1]
+            secondImageView.image = arrayImages?[showedPhotoIndex+1]
         }else {
             secondImageView.image = nil
         }
@@ -66,10 +65,10 @@ class FriendsImageAnimatingVC: UIViewController {
             }
             
             if percent < 0 {
-                firstImageView.image = friend.images[showedPhotoIndex]
+                firstImageView.image = arrayImages?[showedPhotoIndex]
                 
                 if self.showedPhotoIndex != self.indexCount {
-                    self.secondImageView.image = friend.images[self.showedPhotoIndex+1]
+                    self.secondImageView.image = arrayImages?[self.showedPhotoIndex+1]
                     
                     firstImageView.transform = CGAffineTransform(scaleX: scaleMultiplication, y: scaleMultiplication)
                     firstImageView.alpha = alphaMultiplication
@@ -84,14 +83,14 @@ class FriendsImageAnimatingVC: UIViewController {
                 
             }else {
                 if showedPhotoIndex != 0 {
-                    firstImageView.image = friend.images[showedPhotoIndex-1]
-                    secondImageView.image = friend.images[showedPhotoIndex]
+                    firstImageView.image = arrayImages?[showedPhotoIndex-1]
+                    secondImageView.image = arrayImages?[showedPhotoIndex]
                     firstImageView.transform = CGAffineTransform(scaleX: min(abs(1-(1/scaleMultiplication)), 1), y: min(abs(1-(1/scaleMultiplication)), 1))
                     firstImageView.alpha = abs(1-alphaMultiplication)
                     secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
                 }else if showedPhotoIndex == 0{
                     firstImageView.image = nil
-                    secondImageView.image = friend.images[showedPhotoIndex]
+                    secondImageView.image = arrayImages?[showedPhotoIndex]
                     secondImageView.transform = CGAffineTransform(translationX: recogniser.translation(in: view).x, y: 0)
                 }
             }
@@ -116,12 +115,12 @@ class FriendsImageAnimatingVC: UIViewController {
                         self.firstImageView.transform = CGAffineTransform(translationX: 0, y: 0)
                         self.secondImageView.transform = CGAffineTransform(translationX: self.view.frame.maxX + 20, y: 0)
                         
-                        self.title = "\(self.showedPhotoIndex + 1) из \(self.friend.images.count)"
-                        self.firstImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.title = "\(self.showedPhotoIndex + 1) из \(self.arrayImages?.count)"
+                        self.firstImageView.image = self.arrayImages?[self.showedPhotoIndex]
                         self.firstImageView.alpha = 1
                         
                         if self.showedPhotoIndex != self.indexCount {
-                            self.secondImageView.image = self.friend.images[self.showedPhotoIndex+1]
+                            self.secondImageView.image = self.arrayImages?[self.showedPhotoIndex+1]
                         }else {
                             self.secondImageView.image = nil
                         }
@@ -134,7 +133,7 @@ class FriendsImageAnimatingVC: UIViewController {
                         self.firstImageView.transform = .identity
                         self.secondImageView.transform = .identity
                     } completion: { _ in
-                        self.firstImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.firstImageView.image = self.arrayImages?[self.showedPhotoIndex]
                         self.firstImageView.alpha = 1
                         self.secondImageView.image = nil
                     }
@@ -151,17 +150,17 @@ class FriendsImageAnimatingVC: UIViewController {
                         self.firstImageView.transform = CGAffineTransform(translationX: 0, y: 0)
                         self.secondImageView.transform = CGAffineTransform(translationX:0, y: 0)
                         
-                        self.title = "\(self.showedPhotoIndex + 1) из \(self.friend.images.count)"
+                        self.title = "\(self.showedPhotoIndex + 1) из \(self.arrayImages?.count)"
                         
-                        self.secondImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.secondImageView.image = self.arrayImages?[self.showedPhotoIndex]
 //                        self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
                         self.firstImageView.alpha = 0
                         
                         if self.showedPhotoIndex != 0 {
-                            self.firstImageView.image = self.friend.images[self.showedPhotoIndex-1]
+                            self.firstImageView.image = self.arrayImages?[self.showedPhotoIndex-1]
                         }else {
                             self.firstImageView.image = nil
-                            self.secondImageView.image = self.friend.images[self.showedPhotoIndex]
+                            self.secondImageView.image = self.arrayImages?[self.showedPhotoIndex]
                         }
                     }
                 }
@@ -173,7 +172,7 @@ class FriendsImageAnimatingVC: UIViewController {
                     } completion: { _ in
                         self.firstImageView.image = nil
                         self.firstImageView.alpha = 1
-                        self.secondImageView.image = self.friend.images[self.showedPhotoIndex]
+                        self.secondImageView.image = self.arrayImages?[self.showedPhotoIndex]
                     }
                 }
             //В случае маленького свайпа отменяем перелистывание

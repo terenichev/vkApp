@@ -58,15 +58,16 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         let friendsImageAnimatingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsImageAnimatingVC") as! FriendsImageAnimatingVC
         
         friendsImageAnimatingVC.transitioningDelegate = friendsImageAnimatingVC
-//
-//        let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
-//        let index = indexPath[0] as NSIndexPath
-//
-//        friendsImageAnimatingVC.friend = profileForFriend
-//        friendsImageAnimatingVC.showedPhotoIndex = index.row
-//        friendsImageAnimatingVC.indexCount = profileForFriend.images.count - 1
+
+        let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
+        let index = indexPath[0] as NSIndexPath
+
+        friendsImageAnimatingVC.arrayImages = arrayImages
+        friendsImageAnimatingVC.showedPhotoIndex = index.row
+        friendsImageAnimatingVC.indexCount = arrayImages.count - 1
         
         self.navigationController?.pushViewController(friendsImageAnimatingVC, animated: true)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

@@ -56,10 +56,8 @@ class Request: RequestProtocol {
                 do {
                     let friendsArrayFromJSON = try JSONDecoder().decode(MyFriends.self, from: data).response.items
                     
-                    
-//                    self.saveFriendsListData(saving)
-                    
                     completion(.success(friendsArrayFromJSON))
+                    
                 } catch let jsonError {
                     print("Failed to decode JSON", jsonError)
                     completion(.failure(jsonError))
@@ -90,20 +88,21 @@ class Request: RequestProtocol {
         }.resume()
     }
     
-//    func saveFriendsListData (_ users: FriendsList) {
-//        do {
-//
-//            let realm = try Realm()
-//            print("REALM URL = ", realm.configuration.fileURL)
-//
-//            let oldUsers = realm.objects(FriendsList.self).filter("user == %@", users)
-//
-//            realm.beginWrite()
-//            realm.delete(oldUsers)
-//            realm.add(users)
-//
-//        } catch {
-//            print(error)
-//        }
-//    }
+    func saveFriendsListData (_ friend: FriendsItem) {
+        do {
+
+            let realm = try Realm()
+            print("REALM URL = ", realm.configuration.fileURL)
+
+            let oldUsers = realm.objects(FriendsItem.self).filter("id == %@", friend.id)
+
+            realm.beginWrite()
+            realm.delete(oldUsers)
+            realm.add(friend)
+            try realm.commitWrite()
+
+        } catch {
+            print(error)
+        }
+    }
 }

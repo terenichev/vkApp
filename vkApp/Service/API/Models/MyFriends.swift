@@ -19,15 +19,17 @@ class FriendsList: Codable {
 }
 
 class FriendsItem: Object, Codable {
-    @objc dynamic var id: Int32 = 22178345
+    @objc dynamic var id: Int = 0
     @objc dynamic var firstName: String = ""
     @objc dynamic var lastName: String = ""
     @objc dynamic var status: String? = ""
     @objc dynamic var avatarUrl: String = ""
     
     enum CodingKeys: String, CodingKey {
+        case id = "id"
         case firstName = "first_name"
         case lastName = "last_name"
+        case status = "status"
         case avatarUrl = "photo_200_orig"
     }
 }

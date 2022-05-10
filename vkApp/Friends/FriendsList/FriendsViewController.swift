@@ -134,7 +134,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         else {
             print("guard return")
             return }
-                print("urlGetPhotos:",urlGetPhotos)
         
         request.usersPhotoRequest(url: urlGetPhotos) { [weak self] result in
             switch result {
@@ -166,15 +165,10 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             profileVC.profileForFriend = friendToShow
             profileVC.arrayImages = self.friendImagesForShow
 
-            
-            print("SHOW PROFILE images= ", self.friendImagesForShow)
-
             self.navigationController?.pushViewController(profileVC, animated: true)
         })
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
         
         if segue.identifier == "showFriendProfile",
            let destinationVC = segue.destination as? profileViewController,
@@ -188,8 +182,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             friendToShow = friendsInKey[indexPath.row]
             
             destinationVC.profileForFriend = friendToShow
-//            destinationVC.arrayImages = friendToShow.images
-            
         }
     }
     
