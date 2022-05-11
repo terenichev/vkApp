@@ -143,11 +143,11 @@ class ViewController: UIViewController{
                     self.thirdCircle.alpha = 0.1
                 })
                 
-                DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
+                
                     let friendToRealm = FriendsRequests()
                     friendToRealm.saveFriendsListData(self.friendsListFromJSON)
                     self.performSegue(withIdentifier: "checkLog", sender: nil)
-                })
+                
             }
         } else {
             
