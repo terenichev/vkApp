@@ -23,7 +23,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var thirdCircle: UIImageView!
     
     let request = Request()
-    var friendsListFromJSON:[FriendsItem?]? = []
+    var friendsListFromJSON:[FriendsItem] = []
     
     var vkFriends: [FriendsItem] = []
     
@@ -144,25 +144,8 @@ class ViewController: UIViewController{
                 })
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-                    
-                    guard let array = self.friendsListFromJSON else { return }
-                    
                     let friendToRealm = Request()
-                    
-                    for friend in 0 ... array.count - 1 {
-                        
-                        let myFriend: FriendsItem =  FriendsItem.init()
-                        myFriend.id = array[friend]!.id
-                        myFriend.firstName = array[friend]!.firstName
-                        myFriend.lastName = array[friend]!.lastName
-                        myFriend.status = array[friend]!.status
-                        myFriend.avatarUrl = array[friend]!.avatarUrl
-                        
-                        friendToRealm.saveFriendsListData(myFriend)
-                        self.vkFriends.append(myFriend)
-                        
-//                        Singleton.instance.friends = self.vkFriends
-                    }
+                    friendToRealm.saveFriendsListData(self.friendsListFromJSON)
                     self.performSegue(withIdentifier: "checkLog", sender: nil)
                 })
             }
