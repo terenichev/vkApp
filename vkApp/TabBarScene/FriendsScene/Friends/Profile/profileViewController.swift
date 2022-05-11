@@ -90,12 +90,6 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-
-        if segue.identifier == "showBigPhoto",
-           let destinationVC = segue.destination as? ShowMainPhotoViewController
-            {
-//            destinationVC.image = profileForFriend.mainImage
-        }
         
         if segue.identifier == "showBigPhotoCell",
            let destinationVC = segue.destination as? BigPhotoFromViewCellViewController

@@ -466,7 +466,6 @@
                         <outlet property="friendStatusInProfile" destination="kcY-mI-6vt" id="VVD-n3-CJ9"/>
                         <outlet property="mainPhotoOfProfile" destination="MfP-BC-A2n" id="Kf2-hG-YkS"/>
                         <outlet property="nameInProfileLabel" destination="0WF-Y0-kPA" id="9ry-mo-pgl"/>
-                        <segue destination="geA-RY-8so" kind="show" identifier="showBigPhoto" id="X8P-RF-n3t"/>
                         <segue destination="tKe-Yb-Bjl" kind="show" identifier="showBigPhotoCell" id="Ity-e9-cOR"/>
                     </connections>
                 </viewController>
@@ -520,85 +519,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OLJ-E6-b6s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4667" y="-273"/>
-        </scene>
-        <!--Show Main Photo View Controller-->
-        <scene sceneID="XKN-CB-I8F">
-            <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="geA-RY-8so" customClass="ShowMainPhotoViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="ZE7-ed-1Vi">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3bP-Cn-yxY">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cqC-Ye-l5y">
-                                <rect key="frame" x="20" y="802" width="50" height="30"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tbR-hS-Tw0" customClass="LikeControl" customModule="vkApp" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="30"/>
-                                        <subviews>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="heart.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Iz7-UM-QGV">
-                                                <rect key="frame" x="0.0" y="1.5" width="30" height="27.5"/>
-                                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cU7-xh-Hqw">
-                                                <rect key="frame" x="30" y="0.0" width="20" height="30"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="Iz7-UM-QGV" secondAttribute="trailing" constant="20" id="0zR-4D-8Yf"/>
-                                            <constraint firstAttribute="bottom" secondItem="Iz7-UM-QGV" secondAttribute="bottom" id="2Tz-Gj-2VQ"/>
-                                            <constraint firstItem="cU7-xh-Hqw" firstAttribute="top" secondItem="tbR-hS-Tw0" secondAttribute="top" id="G7f-v4-tw9"/>
-                                            <constraint firstItem="Iz7-UM-QGV" firstAttribute="top" secondItem="tbR-hS-Tw0" secondAttribute="top" id="Kdh-u8-1ot"/>
-                                            <constraint firstAttribute="bottom" secondItem="cU7-xh-Hqw" secondAttribute="bottom" id="Ncg-ar-ijg"/>
-                                            <constraint firstItem="cU7-xh-Hqw" firstAttribute="leading" secondItem="Iz7-UM-QGV" secondAttribute="trailing" id="QMC-qk-Eaz"/>
-                                            <constraint firstAttribute="trailing" secondItem="cU7-xh-Hqw" secondAttribute="trailing" id="UHT-Dx-oUj"/>
-                                            <constraint firstItem="Iz7-UM-QGV" firstAttribute="leading" secondItem="tbR-hS-Tw0" secondAttribute="leading" id="uDG-97-b4v"/>
-                                            <constraint firstAttribute="width" constant="50" id="uzL-gR-fIQ"/>
-                                            <constraint firstAttribute="height" constant="30" id="y0x-Ie-zi5"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="likePicture" destination="Iz7-UM-QGV" id="6ui-bI-w4b"/>
-                                            <outlet property="likesCountLabel" destination="cU7-xh-Hqw" id="hup-Wz-F8o"/>
-                                        </connections>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="1bk-ws-JsK"/>
-                                    <constraint firstItem="tbR-hS-Tw0" firstAttribute="top" secondItem="cqC-Ye-l5y" secondAttribute="top" id="Bfp-zJ-M07"/>
-                                    <constraint firstAttribute="width" constant="50" id="Pwr-Jy-vuc"/>
-                                    <constraint firstAttribute="trailing" secondItem="tbR-hS-Tw0" secondAttribute="trailing" id="Zvc-Nc-mVR"/>
-                                    <constraint firstItem="tbR-hS-Tw0" firstAttribute="leading" secondItem="cqC-Ye-l5y" secondAttribute="leading" id="aWi-PF-Oel"/>
-                                    <constraint firstAttribute="bottom" secondItem="tbR-hS-Tw0" secondAttribute="bottom" id="opY-Mg-S4P"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="4qI-kx-EzV"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="cqC-Ye-l5y" firstAttribute="leading" secondItem="4qI-kx-EzV" secondAttribute="leading" constant="20" id="6k4-Xm-VKw"/>
-                            <constraint firstItem="4qI-kx-EzV" firstAttribute="bottom" secondItem="3bP-Cn-yxY" secondAttribute="bottom" id="dj6-li-ICC"/>
-                            <constraint firstItem="4qI-kx-EzV" firstAttribute="bottom" secondItem="cqC-Ye-l5y" secondAttribute="bottom" constant="30" id="gPk-A6-l1S"/>
-                            <constraint firstItem="4qI-kx-EzV" firstAttribute="trailing" secondItem="3bP-Cn-yxY" secondAttribute="trailing" id="td0-eJ-Heu"/>
-                            <constraint firstItem="3bP-Cn-yxY" firstAttribute="leading" secondItem="4qI-kx-EzV" secondAttribute="leading" id="xWv-46-3Jh"/>
-                            <constraint firstItem="3bP-Cn-yxY" firstAttribute="top" secondItem="4qI-kx-EzV" secondAttribute="top" id="z94-ZS-11t"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="gsK-IQ-1ty"/>
-                    <connections>
-                        <outlet property="container" destination="cqC-Ye-l5y" id="MvF-F9-tXG"/>
-                        <outlet property="likeControl" destination="tbR-hS-Tw0" id="Rhc-Kg-hnh"/>
-                        <outlet property="likePicture" destination="Iz7-UM-QGV" id="IZ6-vz-oZ0"/>
-                        <outlet property="showMainPhoto" destination="3bP-Cn-yxY" id="y8L-Jh-WmZ"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FV3-TU-bUc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="4666.666666666667" y="-946.20535714285711"/>
         </scene>
         <!--Groups-->
         <scene sceneID="Gqb-qa-rgG">
@@ -692,10 +612,10 @@
             </objects>
             <point key="canvasLocation" x="2757.971014492754" y="1016.5178571428571"/>
         </scene>
-        <!--All GroupsVC-->
+        <!--Table View Controller-->
         <scene sceneID="LXf-ph-JQf">
             <objects>
-                <tableViewController id="Yue-oj-wjS" customClass="AllGroupsVC" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController id="Yue-oj-wjS" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="yw8-mq-Yye">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -871,7 +791,6 @@
     <resources>
         <image name="circlebadge.fill" catalog="system" width="128" height="120"/>
         <image name="free-png.ru-307" width="2048" height="2048"/>
-        <image name="heart.fill" catalog="system" width="128" height="109"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="newspaper" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
