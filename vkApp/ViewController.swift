@@ -22,7 +22,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var secondCircle: UIImageView!
     @IBOutlet weak var thirdCircle: UIImageView!
     
-    let request = Request()
+    let request = FriendsRequests()
     var friendsListFromJSON:[FriendsItem] = []
     
     var vkFriends: [FriendsItem] = []
@@ -144,7 +144,7 @@ class ViewController: UIViewController{
                 })
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-                    let friendToRealm = Request()
+                    let friendToRealm = FriendsRequests()
                     friendToRealm.saveFriendsListData(self.friendsListFromJSON)
                     self.performSegue(withIdentifier: "checkLog", sender: nil)
                 })

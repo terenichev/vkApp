@@ -13,7 +13,7 @@ protocol RequestProtocol {
     func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void)
 }
 
-class Request: RequestProtocol {
+class FriendsRequests: RequestProtocol {
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -31,7 +31,7 @@ class Request: RequestProtocol {
                 guard let data = data else { return }
                 
                 do {
-                    let friendsArrayFromJSON = try JSONDecoder().decode(MyFriends.self, from: data).response.items
+                    let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
                     
                     completion(.success(friendsArrayFromJSON))
                     

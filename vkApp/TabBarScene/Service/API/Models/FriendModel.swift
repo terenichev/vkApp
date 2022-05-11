@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 import UIKit
 
-struct MyFriends: Codable {
+struct FriendModel: Codable {
     let response: FriendsList
 }
 

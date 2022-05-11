@@ -23,7 +23,7 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
         return session
     }()
     
-    var request = Request()
+    var request = FriendsRequests()
     
     var usersArray:[Int] = []
     
@@ -100,7 +100,7 @@ class SecondHomeworkVC: UIViewController, UISearchBarDelegate {
                 guard let data = data else { return }
                 
                 do {
-                    let usersIdsArrayFromJSON = try JSONDecoder().decode(MyFriends.self, from: data).response.items.count
+                    let usersIdsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items.count
                     
                     completion(.success(usersIdsArrayFromJSON))
                 } catch let jsonError {

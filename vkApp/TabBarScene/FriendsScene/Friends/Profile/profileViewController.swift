@@ -88,28 +88,6 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         UIView.animate(withDuration: 0.5) {
         }
     }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "showBigPhotoCell",
-           let destinationVC = segue.destination as? BigPhotoFromViewCellViewController
-            {
-            let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
-            let index = indexPath[0] as NSIndexPath
-//            destinationVC.imageFromProfilCell = profileForFriend.images[index.row]
-//            destinationVC.friend = profileForFriend
-//            destinationVC.selectedIndex = index.row
-        }
-            if segue.identifier == "showAnimatingPhotos",
-               let destinationVC = segue.destination as? FriendsImageAnimatingVC
-                {
-//                let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
-//                let index = indexPath[0] as NSIndexPath
-//                destinationVC.friend = profileForFriend
-//                destinationVC.showedPhotoIndex = index.row
-//                destinationVC.indexCount = profileForFriend.images.count - 1
-        }
-    }
 }
 
 extension profileViewController: UIViewControllerTransitioningDelegate {

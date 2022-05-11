@@ -12,6 +12,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+
+    
     var friends: [FriendsItem] {
         do {
             let realm = try Realm()
@@ -126,7 +128,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         print("friendToShow ID = ",friendToShow.id)
         
-        let request = Request()
+        let request = FriendsRequests()
         
         var urlComponentsGetPhotos = URLComponents()
         urlComponentsGetPhotos.scheme = "https"

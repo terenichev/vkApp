@@ -115,7 +115,7 @@ class FriendsImageAnimatingVC: UIViewController {
                         self.firstImageView.transform = CGAffineTransform(translationX: 0, y: 0)
                         self.secondImageView.transform = CGAffineTransform(translationX: self.view.frame.maxX + 20, y: 0)
                         
-                        self.title = "\(self.showedPhotoIndex + 1) из \(self.arrayImages?.count)"
+                        self.title = "\(self.showedPhotoIndex + 1) из \(self.arrayImages!.count)"
                         self.firstImageView.image = self.arrayImages?[self.showedPhotoIndex]
                         self.firstImageView.alpha = 1
                         
@@ -150,7 +150,7 @@ class FriendsImageAnimatingVC: UIViewController {
                         self.firstImageView.transform = CGAffineTransform(translationX: 0, y: 0)
                         self.secondImageView.transform = CGAffineTransform(translationX:0, y: 0)
                         
-                        self.title = "\(self.showedPhotoIndex + 1) из \(self.arrayImages?.count)"
+                        self.title = "\(self.showedPhotoIndex + 1) из \(self.arrayImages!.count)"
                         
                         self.secondImageView.image = self.arrayImages?[self.showedPhotoIndex]
 //                        self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
