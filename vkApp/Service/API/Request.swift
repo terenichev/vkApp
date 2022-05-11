@@ -9,8 +9,7 @@ import Foundation
 import RealmSwift
 
 protocol RequestProtocol {
-    func myFriendsReqest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void)
-    func usersInfoRequest(url: URL, completion: @escaping (Result<DTO.Response, Error>) -> Void)
+    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void)
     func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void)
 }
 
@@ -20,29 +19,8 @@ class Request: RequestProtocol {
         let session = URLSession(configuration: config)
         return session
     }()
-    
-    func usersInfoRequest(url: URL, completion: @escaping (Result<DTO.Response, Error>) -> Void) {
-        session.dataTask(with: url) { (data, response, error) in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print("some error")
-                    completion(.failure(error))
-                    return
-                }
-                guard let data = data else { return }
-                
-                do {
-                    let usersFromJSON = try JSONDecoder().decode(DTO.Response.self, from: data)
-                    completion(.success(usersFromJSON))
-                } catch let jsonError {
-                    print("Failed to decode JSON", jsonError)
-                    completion(.failure(jsonError))
-                }
-            }
-        }.resume()
-    }
-    
-    func myFriendsReqest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void) {
+
+    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
@@ -89,6 +67,7 @@ class Request: RequestProtocol {
     
     func saveFriendsListData (_ friend: FriendsItem) {
         do {
+            let config = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
             let realm = try Realm()
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
 

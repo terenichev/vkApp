@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct Friend{
+struct FriendLocal{
     
     var id: Int
     var mainImage: UIImage?

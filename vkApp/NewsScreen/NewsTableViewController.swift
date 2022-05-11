@@ -9,8 +9,8 @@ import UIKit
 
 class NewsTableViewController: UITableViewController {
 
-    let posts:[Post] = [tonyPost, thorPost, strangePost]
-    var NewsOfFriend: Friend = tonyStark
+    let posts:[PostLocal] = [tonyPost, thorPost, strangePost]
+    var NewsOfFriend: FriendLocal = tonyStark
     let nums: [String] = ["first","second","third","fourth","fifth","sixth"]
     var ttt = "Единство предмета речи — это тема высказывания. Тема — это смысловое ядро текста, конденсированное и обобщённое содержание текста.Понятие «содержание высказывания» связано с категорией информативности речи и присуще только тексту. Оно сообщает читателю индивидуально-авторское понимание отношений между явлениями, их значимости во всех сферах придают ему смысловую цельность."
     

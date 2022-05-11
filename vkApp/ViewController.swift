@@ -36,14 +36,14 @@ class ViewController: UIViewController{
         urlForUserIdsComponents.path = "/method/friends.get"
         urlForUserIdsComponents.queryItems = [
             URLQueryItem(name: "order", value: "hints"),
-            URLQueryItem(name: "fields", value: "photo_200_orig, status"),
+            URLQueryItem(name: "fields", value: "photo_50, status"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
 
         guard let urlGetIds = urlForUserIdsComponents.url else { return }
 
-        request.myFriendsReqest(url: urlGetIds, completion: { [weak self] result in
+        request.myFriendsRequest(url: urlGetIds, completion: { [weak self] result in
             switch result {
                 
             case .success(let usersFromJSON):

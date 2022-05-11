@@ -11,7 +11,7 @@ class BigPhotoFromViewCellViewController: UIViewController {
     
     @IBOutlet weak var collectionBigPhoto: UICollectionView!
     
-    var friend:Friend = tonyStark
+    var friend:FriendLocal = tonyStark
     var arrayImages:[UIImage?]? = nil
     var selectedIndex:Int = 1
     

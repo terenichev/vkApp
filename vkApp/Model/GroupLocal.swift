@@ -7,7 +7,7 @@
 
 import UIKit
 
-class Group{
+class GroupLocal{
     
     let image: UIImage?
     let name: String

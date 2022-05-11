@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-struct Post {
+struct PostLocal {
     
-    let friend: Friend
+    let friend: FriendLocal
     let dateOfPost: String
     let textInPost: String?
     let likesCount: Int

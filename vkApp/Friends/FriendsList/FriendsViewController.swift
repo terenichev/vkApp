@@ -92,6 +92,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         let friend: FriendsItem = friends[indexPath.row]
         
+        
         let url = URL(string: friend.avatarUrl)
 
             if let data = try? Data(contentsOf: url!)

@@ -30,6 +30,6 @@ class FriendsItem: Object, Codable {
         case firstName = "first_name"
         case lastName = "last_name"
         case status = "status"
-        case avatarUrl = "photo_200_orig"
+        case avatarUrl = "photo_50"
     }
 }
