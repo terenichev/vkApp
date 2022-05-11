@@ -15,7 +15,7 @@ struct MyFriends: Codable {
 
 class FriendsList: Codable {
     var count: Int = 0
-    var items: [FriendsItem] = []
+    var items: [FriendsItem?] = []
 }
 
 class FriendsItem: Object, Codable {

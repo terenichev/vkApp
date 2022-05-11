@@ -23,7 +23,7 @@ class ViewController: UIViewController{
     @IBOutlet weak var thirdCircle: UIImageView!
     
     let request = Request()
-    var friendsListFromJSON:[FriendsItem] = []
+    var friendsListFromJSON:[FriendsItem?]? = []
     
     var vkFriends: [FriendsItem] = []
     
@@ -43,23 +43,15 @@ class ViewController: UIViewController{
 
         guard let urlGetIds = urlForUserIdsComponents.url else { return }
 
-        DispatchQueue.main.async {
-            self.request.myFriendsRequest(url: urlGetIds, completion: { [weak self] result in
-                switch result {
-                    
-                case .success(let usersFromJSON):
-                    
-                    print("usersFromJSON = ", usersFromJSON)
-                    self?.friendsListFromJSON = usersFromJSON
-                    
-                case .failure(let error):
-                    print("error", error)
-                }
-            })
-        }
-        DispatchQueue.global(qos: .utility).async {
-            
-        }
+        request.myFriendsRequest(url: urlGetIds, completion: { [weak self] result in
+            switch result {
+                
+            case .success(let usersFromJSON):
+                self?.friendsListFromJSON = usersFromJSON
+            case .failure(let error):
+                print("error", error)
+            }
+        })
         
         firstCircle.isHidden = true
         secondCircle.isHidden = true
@@ -67,7 +59,6 @@ class ViewController: UIViewController{
         
         let tapGR = UITapGestureRecognizer(target: self, action: #selector(hideScreen))
         view.addGestureRecognizer(tapGR)
-        print("EWQEWQEWQ")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -153,12 +144,25 @@ class ViewController: UIViewController{
                 })
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(3), execute: {
-                
-//                    let array = self.friendsListFromJSON
+                    
+                    guard let array = self.friendsListFromJSON else { return }
                     
                     let friendToRealm = Request()
-                    friendToRealm.saveFriendsListData(self.friendsListFromJSON)
                     
+                    for friend in 0 ... array.count - 1 {
+                        
+                        let myFriend: FriendsItem =  FriendsItem.init()
+                        myFriend.id = array[friend]!.id
+                        myFriend.firstName = array[friend]!.firstName
+                        myFriend.lastName = array[friend]!.lastName
+                        myFriend.status = array[friend]!.status
+                        myFriend.avatarUrl = array[friend]!.avatarUrl
+                        
+                        friendToRealm.saveFriendsListData(myFriend)
+                        self.vkFriends.append(myFriend)
+                        
+//                        Singleton.instance.friends = self.vkFriends
+                    }
                     self.performSegue(withIdentifier: "checkLog", sender: nil)
                 })
             }

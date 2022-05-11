@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 protocol RequestProtocol {
-    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem], Error>) -> Void)
+    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void)
     func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void)
 }
 
@@ -20,7 +20,7 @@ class Request: RequestProtocol {
         return session
     }()
 
-    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
+    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem?], Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
@@ -65,22 +65,21 @@ class Request: RequestProtocol {
         }.resume()
     }
     
-    func saveFriendsListData (_ friends: [FriendsItem]) {
+    func saveFriendsListData (_ friend: FriendsItem) {
         do {
             let config = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
             let realm = try Realm()
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
 
-            let oldUsers = realm.objects(FriendsItem.self)
+            let oldUsers = realm.objects(FriendsItem.self).filter("id == %@", friend.id)
 
             realm.beginWrite()
             realm.delete(oldUsers)
-            realm.add(friends)
+            realm.add(friend)
             try realm.commitWrite()
-            print("QWEQWEQWE")
 
         } catch {
-            print("REALM ERROR = ", error)
+            print(error)
         }
     }
 }
