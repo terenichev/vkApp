@@ -9,18 +9,7 @@ import UIKit
 
 class FavoriteGroupsViewController: UITableViewController {
 
-    var myGroups = [
-        thanosGroup,
-//        visionGroup,
-        darkholdGroup,
-        audiGroup,
-        venomGroup,
-        betGroup,
-        civilWarGroup,
-        infinityWarGroup,
-        igmGroup,
-        altronGroup
-    ]
+    var myGroups: [GroupLocal] = []
     
     
     override func viewDidLoad() {
@@ -67,14 +56,14 @@ class FavoriteGroupsViewController: UITableViewController {
     @IBAction func addSelectedGroup(segue: UIStoryboardSegue){
 //        if let sourceVC = segue.source as? AllGroupsVC,
 //           let indexPath = sourceVC.tableView.indexPathForSelectedRow{
-//            
+//
 //            let group = sourceVC.allGroups[indexPath.row]
-//            
+//
 //            if !myGroups.contains(where: {$0.name == group.name}) {
-//                
+//
 //            myGroups.append(group)
 //            tableView.reloadData()
-//                
+//
 //            }
 //        }
     }

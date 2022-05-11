@@ -161,7 +161,7 @@ class ViewController: UIViewController{
                         friendToRealm.saveFriendsListData(myFriend)
                         self.vkFriends.append(myFriend)
                         
-                        Singleton.instance.friends = self.vkFriends
+//                        Singleton.instance.friends = self.vkFriends
                     }
                     self.performSegue(withIdentifier: "checkLog", sender: nil)
                 })
