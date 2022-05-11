@@ -52,6 +52,8 @@ extension LoginController: WKNavigationDelegate {
             Singleton.instance.id = Int(id)
             Singleton.instance.token = token
             print(token)
+            
+            
             decisionHandler(.cancel)
             
             performSegue(withIdentifier: "toLoginVC", sender: self)

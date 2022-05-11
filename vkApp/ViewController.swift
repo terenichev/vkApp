@@ -45,7 +45,7 @@ class ViewController: UIViewController{
 
         request.myFriendsRequest(url: urlGetIds, completion: { [weak self] result in
             switch result {
-                
+
             case .success(let usersFromJSON):
                 self?.friendsListFromJSON = usersFromJSON
             case .failure(let error):

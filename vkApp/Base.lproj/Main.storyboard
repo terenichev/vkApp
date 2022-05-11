@@ -128,7 +128,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2538" y="69"/>
+            <point key="canvasLocation" x="-328" y="69"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="tjw-iL-ek5">
@@ -164,7 +164,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOZ-Cd-1Fr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3604" y="69"/>
+            <point key="canvasLocation" x="-1401" y="69"/>
         </scene>
         <!--Second HomeworkVC-->
         <scene sceneID="gND-1o-eGQ">

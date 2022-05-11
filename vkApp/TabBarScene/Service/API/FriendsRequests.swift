@@ -21,6 +21,7 @@ class FriendsRequests: RequestProtocol {
     }()
 
     func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
+        
         session.dataTask(with: url) { (data, response, error) in
             DispatchQueue.main.async {
                 if let error = error {
