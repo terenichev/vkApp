@@ -202,18 +202,13 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Друзья" largeTitleDisplayMode="never" id="kga-0L-Wow">
-                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="g9g-YT-SOT">
-                            <connections>
-                                <segue destination="Wc0-Ii-pNa" kind="unwind" unwindAction="logOutActionExitWithUnwindSegue:" id="282-6m-fhB"/>
-                            </connections>
-                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Выйти" id="g9g-YT-SOT"/>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="LfT-ei-YeA" id="uaS-jl-4Ve"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXk-V8-PN8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-                <exit id="Wc0-Ii-pNa" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3668.115942028986" y="-273.88392857142856"/>
         </scene>
@@ -516,6 +511,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="searchBar" destination="ez6-xu-qXB" id="DWt-v5-Mgw"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="V5m-7n-Qlo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="eAW-vk-Dlg" userLabel="Exit" sceneMemberID="exit"/>

@@ -10,6 +10,8 @@ import RealmSwift
 
 class GroupsViewController: UITableViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var searchBar: UISearchBar!
+    
     var groups: [Group] {
         do {
             let realm = try Realm()
@@ -21,12 +23,14 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
             return []
         }
     }
+    
+    var searchGroups: [Group]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        searchBar.delegate = self
-        
+        searchBar.delegate = self
+        searchGroups = groups
         self.tableView.reloadData()
     }
     
@@ -38,7 +42,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groups.count
+        return searchGroups.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -46,7 +50,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
             preconditionFailure("GroupsCell cannot")
         }
        
-        let group: Group = groups[indexPath.row]
+        let group: Group = searchGroups[indexPath.row]
         
         
         let url = URL(string: group.photo50)
@@ -86,23 +90,23 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     
     //Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-//    
-//        searchFriends = []
-//        
-//        if searchText == "" {
-//            searchFriends = friends
-//        }
-//        else {
-//            for friend in friends {
-//                let name = friend.firstName + " " + friend.lastName
-//                if name.lowercased().contains(searchText.lowercased()) {
-//                    searchFriends.append(friend)
-//                }
-//            }
-//        }
-//        
-//        self.sortedFriends = sort(friends: searchFriends)
-//        self.tableView.reloadData()
+    
+        searchGroups = []
+        
+        if searchText == "" {
+            searchGroups = groups
+        }
+        else {
+            for group in groups {
+                let name = group.name
+                if name.lowercased().contains(searchText.lowercased()) {
+                    searchGroups.append(group)
+                }
+            }
+        }
+    
+        self.tableView.reloadData()
     }
+
     
 }
