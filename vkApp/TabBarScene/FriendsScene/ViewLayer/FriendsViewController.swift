@@ -17,6 +17,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             let realm = try Realm()
             let friend = realm.objects(FriendsItem.self)
             let friendsFromRealm = Array(friend)
+            print("FRIENDS FROM REALM", friendsFromRealm)
             return friendsFromRealm
         } catch {
             print(error)
@@ -121,9 +122,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         friendsInKey = sortedFriends[keys[indexPath.section]]!
         friendToShow = friendsInKey[indexPath.row]
-        
-        print("friendToShow ID = ",friendToShow.id)
-        
+
         let request = FriendsRequests()
         
         var urlComponentsGetPhotos = URLComponents()

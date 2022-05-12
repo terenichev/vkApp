@@ -32,7 +32,6 @@ class GroupsRequests: GroupsRequestProtocol {
                 
                 do {
                     let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
-                    print("MY GROUPS = ", groupsArrayFromJSON)
                     completion(.success(groupsArrayFromJSON))
                     
                 } catch let jsonError {

@@ -52,15 +52,15 @@ extension LoginController: WKNavigationDelegate {
             Singleton.instance.id = Int(id)
             Singleton.instance.token = token
             print(token)
-            
-            
+ 
             decisionHandler(.cancel)
             
-            performSegue(withIdentifier: "toLoginVC", sender: self)
+//            performSegue(withIdentifier: "toLoginVC", sender: self)
 //            performSegue(withIdentifier: "secondHomeWork", sender: self)
             
             
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsVC") as! FriendsViewController
+//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsVC") as! FriendsViewController
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
             self.navigationController?.pushViewController(vc, animated: true)
             
 //            let vc = ViewController()
