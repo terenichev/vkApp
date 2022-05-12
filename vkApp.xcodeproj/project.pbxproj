@@ -116,8 +116,8 @@
 		D346C9FC282B7ECB00142368 /* GroupScene */ = {
 			isa = PBXGroup;
 			children = (
+				D346CA11282CCA6800142368 /* ViewLayer */,
 				D346CA02282C2ACA00142368 /* Service */,
-				D346CA09282C3A9B00142368 /* GroupsCell.swift */,
 			);
 			path = GroupScene;
 			sourceTree = "<group>";
@@ -125,9 +125,8 @@
 		D346C9FD282B819700142368 /* FriendsScene */ = {
 			isa = PBXGroup;
 			children = (
+				D346CA10282CCA5000142368 /* ViewLayer */,
 				D346CA0B282CC7CD00142368 /* Service */,
-				D346CA0C282CC87C00142368 /* FriendsCell */,
-				D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */,
 				D3EB0CDE27D32C4B007B143B /* ProfileScene */,
 			);
 			path = FriendsScene;
@@ -146,7 +145,6 @@
 			isa = PBXGroup;
 			children = (
 				D346CA03282C2AE100142368 /* Model */,
-				D346CA07282C2FA300142368 /* GroupsViewController.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -192,6 +190,32 @@
 				D3B3148527F86A0B00B46851 /* FriendsImageAnimatingVC.swift */,
 			);
 			path = ShowPhotosScene;
+			sourceTree = "<group>";
+		};
+		D346CA0F282CCA3300142368 /* GroupsCell */ = {
+			isa = PBXGroup;
+			children = (
+				D346CA09282C3A9B00142368 /* GroupsCell.swift */,
+			);
+			path = GroupsCell;
+			sourceTree = "<group>";
+		};
+		D346CA10282CCA5000142368 /* ViewLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */,
+				D346CA0C282CC87C00142368 /* FriendsCell */,
+			);
+			path = ViewLayer;
+			sourceTree = "<group>";
+		};
+		D346CA11282CCA6800142368 /* ViewLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D346CA07282C2FA300142368 /* GroupsViewController.swift */,
+				D346CA0F282CCA3300142368 /* GroupsCell */,
+			);
+			path = ViewLayer;
 			sourceTree = "<group>";
 		};
 		D381202427B595DF00986187 = {
