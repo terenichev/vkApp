@@ -10,7 +10,6 @@ import UIKit
 class FriendsImageAnimatingVC: UIViewController {
 
     @IBOutlet weak var firstImageView: UIImageView!
-    
     @IBOutlet weak var secondImageView: UIImageView!
     
     var arrayImages:[UIImage?]?
@@ -24,8 +23,6 @@ class FriendsImageAnimatingVC: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-
         self.title = "\(showedPhotoIndex + 1) из \(self.arrayImages!.count)"
         
         let imageRightPosition = CGAffineTransform(translationX: view.frame.maxX + 20, y: 0)
@@ -41,7 +38,6 @@ class FriendsImageAnimatingVC: UIViewController {
         }else {
             secondImageView.image = nil
         }
-        
         let panGR = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         view.addGestureRecognizer(panGR)
     }
@@ -63,7 +59,6 @@ class FriendsImageAnimatingVC: UIViewController {
             if percentY > 30 {
                 self.navigationController?.popViewController(animated: true)
             }
-            
             if percent < 0 {
                 firstImageView.image = arrayImages?[showedPhotoIndex]
                 
@@ -102,13 +97,9 @@ class FriendsImageAnimatingVC: UIViewController {
             if percent < -50 {
                 
                 if self.showedPhotoIndex < indexCount {
-                    
                     UIView.animate(withDuration: 0.1) {
-                        
                         secondNewPos = CGAffineTransform(translationX: 0, y: 0)
-                        
                         self.secondImageView.transform = secondNewPos
-                        
                     } completion: { _ in
                         self.showedPhotoIndex += 1
                         
@@ -153,7 +144,6 @@ class FriendsImageAnimatingVC: UIViewController {
                         self.title = "\(self.showedPhotoIndex + 1) из \(self.arrayImages!.count)"
                         
                         self.secondImageView.image = self.arrayImages?[self.showedPhotoIndex]
-//                        self.firstImageView.transform = CGAffineTransform(scaleX: 0, y: 0)
                         self.firstImageView.alpha = 0
                         
                         if self.showedPhotoIndex != 0 {
@@ -198,13 +188,3 @@ class FriendsImageAnimatingVC: UIViewController {
         }
     }
 }
-
-//extension FriendsImageAnimatingVC: UIViewControllerTransitioningDelegate {
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return AnimatorModal()
-//    }
-//    
-//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return AnimatorModal()
-//    }
-//}

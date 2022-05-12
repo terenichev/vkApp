@@ -32,80 +32,58 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     var sortedFriends = [Character: [FriendsItem]]()
     
     var chars:[String] = []
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         searchBar.delegate = self
-        
         self.sortedFriends = sort(friends: friends)
         self.tableView.reloadData()
     }
     
     private func sort(friends: [FriendsItem]) -> [Character: [FriendsItem]] {
-        
         var friendsDict = [Character: [FriendsItem]]()
-        
         friends.forEach() {friend in
-            
             guard let firstChar = friend.firstName.first else {return}
-           
             if var thisCharFriends = friendsDict[firstChar]{
-                
                 thisCharFriends.append(friend)
                 friendsDict[firstChar] = thisCharFriends
-                
             } else {
                 friendsDict[firstChar] = [friend]
             }
         }
-        
         return friendsDict
     }
     
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-
         return sortedFriends.keys.count
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-
         let keySorted = sortedFriends.keys.sorted()
-
         let friends = sortedFriends[keySorted[section]]?.count ?? 0
-
         return friends
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendsCell else {
             preconditionFailure("FriendsCell cannot")
         }
-        
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
-        
         let friend: FriendsItem = friends[indexPath.row]
-        
-        
         let url = URL(string: friend.avatarUrl)
-
-            if let data = try? Data(contentsOf: url!)
-            {
-                cell.imageFriendsCell.image = UIImage(data: data)
-            }
-        
+        if let data = try? Data(contentsOf: url!)
+        {
+            cell.imageFriendsCell.image = UIImage(data: data)
+        }
         cell.labelFriendsCell.text = friend.firstName + " " + friend.lastName
-
         return cell
     }
     
     
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-
         return String(sortedFriends.keys.sorted()[section])
     }
     
@@ -113,15 +91,13 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! profileViewController
         
-//        profileVC.transitioningDelegate = profileVC
-        
         let keys = Array(sortedFriends.keys.sorted())
         let friendsInKey: [FriendsItem]
         var friendToShow: FriendsItem
         
         friendsInKey = sortedFriends[keys[indexPath.section]]!
         friendToShow = friendsInKey[indexPath.row]
-
+        
         let request = FriendsRequests()
         
         var urlComponentsGetPhotos = URLComponents()
@@ -145,31 +121,25 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
                 
             case .success(let array):
                 var photoUrls: [String] = []
-                
                 array.map({ photoUrls.append($0.sizes.last!.url) })
                 var friendImages: [UIImage?] = []
-                
                 for photo in 0..<photoUrls.count {
                     let url = URL(string:"\(photoUrls[photo])")
-                    
-                    
                     if let data = try? Data(contentsOf: url!)
                     {
                         friendImages.append(UIImage(data: data))
                     }
                     self?.friendImagesForShow = friendImages
                 }
-                
-            
             case .failure(let error):
                 print("error", error)
             }
         }
-
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             profileVC.profileForFriend = friendToShow
             profileVC.arrayImages = self.friendImagesForShow
-
+            
             self.navigationController?.pushViewController(profileVC, animated: true)
         })
     }
@@ -194,9 +164,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     //Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-    
         searchFriends = []
-        
         if searchText == "" {
             searchFriends = friends
         }
@@ -208,9 +176,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         }
-        
         self.sortedFriends = sort(friends: searchFriends)
         self.tableView.reloadData()
     }
-    
 }

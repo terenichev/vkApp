@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		B209732DEF630F405D10B387 /* Pods_vkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */; };
-		D3043F4827FB5BC8006426F0 /* AnimatorModal.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */; };
 		D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D3A282429BB005F41FF /* FriendsRequests.swift */; };
 		D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */; };
 		D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */; };
@@ -26,8 +25,6 @@
 		D38881CF27CE924800C7BE5B /* profileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881CE27CE924800C7BE5B /* profileViewController.swift */; };
 		D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881D227CEB7AF00C7BE5B /* profilePhotosViewCell.swift */; };
 		D38881D527CEB7AF00C7BE5B /* profilePhotosViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */; };
-		D3ACC4FB27FCB76700059240 /* CustomPushPopAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */; };
-		D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */; };
 		D3ACC505280691BF00059240 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC504280691BF00059240 /* Singleton.swift */; };
 		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
 		D3ACC50E280B00B100059240 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* FriendModel.swift */; };
@@ -38,7 +35,6 @@
 
 /* Begin PBXFileReference section */
 		1109C46CCBA13C32019A8B22 /* Pods-vkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.release.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.release.xcconfig"; sourceTree = "<group>"; };
-		D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatorModal.swift; sourceTree = "<group>"; };
 		D3045D3A282429BB005F41FF /* FriendsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRequests.swift; sourceTree = "<group>"; };
 		D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
@@ -58,8 +54,6 @@
 		D38881CE27CE924800C7BE5B /* profileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profileViewController.swift; sourceTree = "<group>"; };
 		D38881D227CEB7AF00C7BE5B /* profilePhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profilePhotosViewCell.swift; sourceTree = "<group>"; };
 		D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = profilePhotosViewCell.xib; sourceTree = "<group>"; };
-		D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushPopAnimators.swift; sourceTree = "<group>"; };
-		D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D3ACC504280691BF00059240 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		D3ACC507280692DD00059240 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		D3ACC50D280B00B100059240 /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
@@ -95,9 +89,6 @@
 		D3043F4627FB5B7C006426F0 /* AnimateNavigationVC */ = {
 			isa = PBXGroup;
 			children = (
-				D3043F4727FB5BC8006426F0 /* AnimatorModal.swift */,
-				D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */,
-				D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */,
 			);
 			path = AnimateNavigationVC;
 			sourceTree = "<group>";
@@ -406,20 +397,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3ACC4FB27FCB76700059240 /* CustomPushPopAnimators.swift in Sources */,
 				D346CA01282C11C700142368 /* GroupModel.swift in Sources */,
 				D3B3148627F86A0B00B46851 /* FriendsImageAnimatingVC.swift in Sources */,
 				D381203527B595DF00986187 /* ViewController.swift in Sources */,
 				D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */,
 				D38881CF27CE924800C7BE5B /* profileViewController.swift in Sources */,
-				D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */,
 				D346CA08282C2FA300142368 /* GroupsViewController.swift in Sources */,
 				D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */,
 				D346CA15282D5E7100142368 /* GroupPhotoView.swift in Sources */,
 				D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */,
 				D3ACC505280691BF00059240 /* Singleton.swift in Sources */,
 				D346CA13282CD37C00142368 /* GroupRequests.swift in Sources */,
-				D3043F4827FB5BC8006426F0 /* AnimatorModal.swift in Sources */,
 				D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */,
 				D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,

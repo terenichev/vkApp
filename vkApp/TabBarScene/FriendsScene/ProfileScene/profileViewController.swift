@@ -20,8 +20,6 @@ class profileViewController: UIViewController {
     
     var arrayImages: [UIImage?] = []
     
-    let transition = PopAnimator()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,16 +30,12 @@ class profileViewController: UIViewController {
         mainPhotoOfProfile.layer.cornerRadius = 50
     
         let url = URL(string: profileForFriend!.avatarUrl)
-
             if let data = try? Data(contentsOf: url!)
             {
                 mainPhotoOfProfile.image = UIImage(data: data)
             }
-        
-        
         nameInProfileLabel.text = profileForFriend!.firstName + " " + profileForFriend!.lastName
         friendStatusInProfile.text = profileForFriend?.status ?? ""
-    
     }
     
 }
@@ -56,8 +50,6 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let friendsImageAnimatingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsImageAnimatingVC") as! FriendsImageAnimatingVC
-        
-//        friendsImageAnimatingVC.transitioningDelegate = friendsImageAnimatingVC
 
         let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
         let index = indexPath[0] as NSIndexPath
@@ -78,11 +70,7 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         return cell
         }
-      
-    
-    @IBAction func photoOutActionExit(unwindSegue: UIStoryboardSegue){
-    }
-    
+
     @objc func showMainPhoto() {
         performSegue(withIdentifier: "showBigPhoto", sender: self)
         UIView.animate(withDuration: 0.5) {
@@ -90,14 +78,4 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
-//extension profileViewController: UIViewControllerTransitioningDelegate {
-//    
-//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return AnimatorModal()
-//    }
-//    
-//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-//        return AnimatorModal()
-//    }
-//}
 
