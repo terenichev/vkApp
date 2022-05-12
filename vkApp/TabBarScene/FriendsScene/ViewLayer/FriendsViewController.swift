@@ -12,8 +12,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
-
-    
     var friends: [FriendsItem] {
         do {
             let realm = try Realm()
@@ -26,8 +24,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    var users: [FriendsItem]? = nil
-    var userNames: [String] = []
     var friendImagesForShow: [UIImage?] = []
     
     var namesOfFriends: [String] = []
@@ -179,25 +175,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             self.navigationController?.pushViewController(profileVC, animated: true)
         })
     }
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == "showFriendProfile",
-           let destinationVC = segue.destination as? profileViewController,
-           let indexPath = tableView.indexPathForSelectedRow {
-            
-            let keys = Array(sortedFriends.keys.sorted())
-            let friendsInKey: [FriendsItem]
-            let friendToShow: FriendsItem
-            
-            friendsInKey = sortedFriends[keys[indexPath.section]]!
-            friendToShow = friendsInKey[indexPath.row]
-            
-            destinationVC.profileForFriend = friendToShow
-        }
-    }
     
-    
-    // MARK: Search Bar Config
+    // MARK: - Search Bar Config
     
     //При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {

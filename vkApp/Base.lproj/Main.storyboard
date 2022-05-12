@@ -587,7 +587,7 @@
                             </scopeButtonTitles>
                         </searchBar>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="friendCell" rowHeight="50" id="5kV-SC-fms" customClass="FriendsCell" customModule="vkApp" customModuleProvider="target">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="groupCell" rowHeight="50" id="5kV-SC-fms" customClass="GroupsCell" customModule="vkApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="95.5" width="414" height="50"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5kV-SC-fms" id="vsu-EV-ccq">
@@ -624,7 +624,6 @@
                                                 <constraint firstItem="ZoH-EX-iX8" firstAttribute="top" secondItem="P8T-va-odC" secondAttribute="top" id="wGP-0G-gaA"/>
                                             </constraints>
                                             <connections>
-                                                <outlet property="avatarImage" destination="PnS-QN-Sbg" id="dvt-8u-ymU"/>
                                                 <outlet property="shadowView" destination="ZoH-EX-iX8" id="kva-g4-wNS"/>
                                             </connections>
                                         </view>
@@ -646,8 +645,8 @@
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <outlet property="imageFriendsCell" destination="PnS-QN-Sbg" id="OMS-6g-Ko4"/>
-                                    <outlet property="labelFriendsCell" destination="O9L-ya-qcO" id="mMf-hu-0nQ"/>
+                                    <outlet property="groupImage" destination="PnS-QN-Sbg" id="dmE-Qm-33n"/>
+                                    <outlet property="groupNameLabel" destination="O9L-ya-qcO" id="UiE-IB-823"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
