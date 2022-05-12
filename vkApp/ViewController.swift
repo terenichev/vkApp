@@ -36,6 +36,7 @@ class ViewController: UIViewController{
                        options: .curveEaseInOut) {
             self.firstCircle.layer.position.x -= 100
             self.thirdCircle.layer.position.x += 100
+            self.secondCircle.layer.position.y += 100
         } completion: { _ in
             
             let friendToRealm = FriendsRequests()

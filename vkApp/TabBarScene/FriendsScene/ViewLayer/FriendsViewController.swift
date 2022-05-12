@@ -121,7 +121,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
                 
             case .success(let array):
                 var photoUrls: [String] = []
-                array.map({ photoUrls.append($0.sizes.last!.url) })
+                array.forEach({ photoUrls.append($0.sizes.last!.url) })
                 var friendImages: [UIImage?] = []
                 for photo in 0..<photoUrls.count {
                     let url = URL(string:"\(photoUrls[photo])")

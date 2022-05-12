@@ -14,8 +14,6 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     
     var groups: [Group] {
         do {
-            let req = GroupsRequests()
-                        
             let realm = try Realm()
             let group = realm.objects(Group.self)
             let groupsFromRealm = Array(group)

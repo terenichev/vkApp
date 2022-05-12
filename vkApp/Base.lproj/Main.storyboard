@@ -261,7 +261,6 @@
                                 <rect key="frame" x="16" y="205" width="183.5" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Cyn-EC-gwY"/>
-                                    <constraint firstAttribute="width" relation="lessThanOrEqual" priority="999" constant="200" id="vJl-Fm-gXh"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Сообщение"/>
@@ -300,9 +299,9 @@
                             <constraint firstItem="5IG-rN-scv" firstAttribute="leading" secondItem="Wi2-NV-7KK" secondAttribute="leading" constant="10" id="YK7-Nr-yjb"/>
                             <constraint firstItem="0WF-Y0-kPA" firstAttribute="leading" secondItem="YiR-b9-2iD" secondAttribute="trailing" constant="20" id="dB6-1Q-hXb"/>
                             <constraint firstAttribute="trailing" secondItem="rYR-GJ-Cyu" secondAttribute="trailing" constant="16" id="est-2v-65G"/>
+                            <constraint firstItem="rYR-GJ-Cyu" firstAttribute="width" secondItem="FRN-QX-dZL" secondAttribute="width" multiplier="1.02725" id="giT-Jg-7Df"/>
                             <constraint firstItem="Wi2-NV-7KK" firstAttribute="trailing" secondItem="kcY-mI-6vt" secondAttribute="trailing" constant="20" id="hBZ-mS-iRn"/>
                             <constraint firstItem="kcY-mI-6vt" firstAttribute="top" secondItem="0WF-Y0-kPA" secondAttribute="bottom" constant="5" id="nbK-kf-LPO"/>
-                            <constraint firstItem="rYR-GJ-Cyu" firstAttribute="width" secondItem="FRN-QX-dZL" secondAttribute="width" multiplier="1.02667" id="r0d-S5-e3k"/>
                             <constraint firstItem="rYR-GJ-Cyu" firstAttribute="leading" secondItem="FRN-QX-dZL" secondAttribute="trailing" constant="10" id="tSL-ar-sVs"/>
                             <constraint firstItem="YiR-b9-2iD" firstAttribute="centerY" secondItem="MfP-BC-A2n" secondAttribute="centerY" id="y3X-q7-b5b"/>
                             <constraint firstItem="5IG-rN-scv" firstAttribute="top" secondItem="FRN-QX-dZL" secondAttribute="bottom" constant="45" id="zCb-iP-voS"/>
