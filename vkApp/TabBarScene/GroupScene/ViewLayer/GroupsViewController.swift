@@ -43,13 +43,13 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath) as? GroupsCell else {
-            preconditionFailure("FriendsCell cannot")
+            preconditionFailure("GroupsCell cannot")
         }
        
         let group: Group = groups[indexPath.row]
         
         
-        let url = URL(string: group.photo100)
+        let url = URL(string: group.photo50)
 
             if let data = try? Data(contentsOf: url!)
             {

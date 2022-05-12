@@ -594,7 +594,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8T-va-odC" customClass="avatarUIView" customModule="vkApp" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P8T-va-odC" customClass="GroupPhotoView" customModule="vkApp" customModuleProvider="target">
                                             <rect key="frame" x="20" y="5" width="40" height="40"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZoH-EX-iX8">
@@ -624,7 +624,8 @@
                                                 <constraint firstItem="ZoH-EX-iX8" firstAttribute="top" secondItem="P8T-va-odC" secondAttribute="top" id="wGP-0G-gaA"/>
                                             </constraints>
                                             <connections>
-                                                <outlet property="shadowView" destination="ZoH-EX-iX8" id="kva-g4-wNS"/>
+                                                <outlet property="groupImage" destination="PnS-QN-Sbg" id="rAt-RW-eEs"/>
+                                                <outlet property="shadowView" destination="ZoH-EX-iX8" id="2cJ-0q-6Ob"/>
                                             </connections>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="O9L-ya-qcO">
