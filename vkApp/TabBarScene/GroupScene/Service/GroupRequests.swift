@@ -47,14 +47,14 @@ class GroupsRequests: GroupsRequestProtocol {
             let config = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
             let realm = try Realm(configuration: config)
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
-
+            
             let oldGroups = realm.objects(Group.self)
-
+            
             realm.beginWrite()
             realm.delete(oldGroups)
             realm.add(groups)
             try realm.commitWrite()
-
+            
         } catch {
             print(error)
         }
