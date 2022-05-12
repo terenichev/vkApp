@@ -199,12 +199,12 @@ class FriendsImageAnimatingVC: UIViewController {
     }
 }
 
-extension FriendsImageAnimatingVC: UIViewControllerTransitioningDelegate {
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return AnimatorModal()
-    }
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return AnimatorModal()
-    }
-}
+//extension FriendsImageAnimatingVC: UIViewControllerTransitioningDelegate {
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return AnimatorModal()
+//    }
+//    
+//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return AnimatorModal()
+//    }
+//}

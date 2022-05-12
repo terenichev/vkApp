@@ -57,7 +57,7 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
         
         let friendsImageAnimatingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsImageAnimatingVC") as! FriendsImageAnimatingVC
         
-        friendsImageAnimatingVC.transitioningDelegate = friendsImageAnimatingVC
+//        friendsImageAnimatingVC.transitioningDelegate = friendsImageAnimatingVC
 
         let indexPath = self.MyCollectionView!.indexPathsForSelectedItems!
         let index = indexPath[0] as NSIndexPath
@@ -90,14 +90,14 @@ extension profileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
-extension profileViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return AnimatorModal()
-    }
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        return AnimatorModal()
-    }
-}
+//extension profileViewController: UIViewControllerTransitioningDelegate {
+//    
+//    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return AnimatorModal()
+//    }
+//    
+//    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+//        return AnimatorModal()
+//    }
+//}
 

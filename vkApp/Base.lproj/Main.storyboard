@@ -383,7 +383,7 @@
         <!--Friends-->
         <scene sceneID="jKz-ox-Eoj">
             <objects>
-                <navigationController title="Friends" automaticallyAdjustsScrollViewInsets="NO" id="E0X-5t-9og" customClass="CustomNavigationController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController title="Friends" automaticallyAdjustsScrollViewInsets="NO" id="E0X-5t-9og" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Друзья" image="person.2.fill" catalog="system" id="fle-5M-h88"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AFJ-P2-hKD">
@@ -405,7 +405,7 @@
         <!--Группы-->
         <scene sceneID="D5c-SJ-y66">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xcH-Ws-gZ5" customClass="CustomNavigationController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xcH-Ws-gZ5" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Группы" image="person.3.fill" catalog="system" id="r3O-au-goI"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="iDj-Wx-pBq">

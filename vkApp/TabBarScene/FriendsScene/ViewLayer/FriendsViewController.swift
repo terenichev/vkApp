@@ -17,7 +17,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             let realm = try Realm()
             let friend = realm.objects(FriendsItem.self)
             let friendsFromRealm = Array(friend)
-            print("FRIENDS FROM REALM", friendsFromRealm)
             return friendsFromRealm
         } catch {
             print(error)
@@ -114,7 +113,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! profileViewController
         
-        profileVC.transitioningDelegate = profileVC
+//        profileVC.transitioningDelegate = profileVC
         
         let keys = Array(sortedFriends.keys.sorted())
         let friendsInKey: [FriendsItem]
