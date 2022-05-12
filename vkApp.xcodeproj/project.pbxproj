@@ -28,7 +28,6 @@
 		D3ACC4FB27FCB76700059240 /* CustomPushPopAnimators.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */; };
 		D3ACC4FD27FCC20500059240 /* CustomNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */; };
 		D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */; };
-		D3ACC502280322AB00059240 /* PopAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC501280322AB00059240 /* PopAnimator.swift */; };
 		D3ACC505280691BF00059240 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC504280691BF00059240 /* Singleton.swift */; };
 		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
 		D3ACC50E280B00B100059240 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* FriendModel.swift */; };
@@ -61,7 +60,6 @@
 		D3ACC4FA27FCB76700059240 /* CustomPushPopAnimators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPushPopAnimators.swift; sourceTree = "<group>"; };
 		D3ACC4FC27FCC20500059240 /* CustomNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomNavigationController.swift; sourceTree = "<group>"; };
 		D3ACC4FE27FFFEB600059240 /* SingletonViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingletonViewController.swift; sourceTree = "<group>"; };
-		D3ACC501280322AB00059240 /* PopAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopAnimator.swift; sourceTree = "<group>"; };
 		D3ACC504280691BF00059240 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		D3ACC507280692DD00059240 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		D3ACC50D280B00B100059240 /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
@@ -136,7 +134,6 @@
 			isa = PBXGroup;
 			children = (
 				D3043F4627FB5B7C006426F0 /* AnimateNavigationVC */,
-				D3ACC50028031F8700059240 /* OpenPhotoWithAnimating */,
 			);
 			path = Animation;
 			sourceTree = "<group>";
@@ -253,14 +250,6 @@
 				D381203E27B595E100986187 /* Info.plist */,
 			);
 			path = vkApp;
-			sourceTree = "<group>";
-		};
-		D3ACC50028031F8700059240 /* OpenPhotoWithAnimating */ = {
-			isa = PBXGroup;
-			children = (
-				D3ACC501280322AB00059240 /* PopAnimator.swift */,
-			);
-			path = OpenPhotoWithAnimating;
 			sourceTree = "<group>";
 		};
 		D3ACC506280692AB00059240 /* Auth */ = {
@@ -433,7 +422,6 @@
 				D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
 				D346CA0A282C3A9B00142368 /* GroupsCell.swift in Sources */,
-				D3ACC502280322AB00059240 /* PopAnimator.swift in Sources */,
 				D3045D38281E924D005F41FF /* SecondHomeworkVC.swift in Sources */,
 				D3ACC4FF27FFFEB600059240 /* SingletonViewController.swift in Sources */,
 				D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */,
