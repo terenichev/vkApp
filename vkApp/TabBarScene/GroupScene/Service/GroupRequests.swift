@@ -59,12 +59,13 @@ class GroupsRequests: GroupsRequestProtocol {
         print(urlGetSearchGroups)
         
         session.dataTask(with: urlGetSearchGroups) { (data, response, error) in
+            
+            if let error = error {
+                print("some error")
+                completion(.failure(error))
+                return
+            }
             DispatchQueue.main.async {
-                if let error = error {
-                    print("some error")
-                    completion(.failure(error))
-                    return
-                }
                 guard let data = data else { return }
                 
                 do {
@@ -78,6 +79,39 @@ class GroupsRequests: GroupsRequestProtocol {
             }
         }.resume()
     }
+    
+    func addGroup(idGroup: Int,
+                  completion: @escaping(Result<JoinOrLeaveGroupModel, Error>) -> Void) {
+        var urlForAddGroupComponents = URLComponents()
+        urlForAddGroupComponents.scheme = "https"
+        urlForAddGroupComponents.host = "api.vk.com"
+        urlForAddGroupComponents.path = "/method/groups.join"
+        urlForAddGroupComponents.queryItems = [
+            URLQueryItem(name: "group_id", value: "\(idGroup)"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetSearchGroups = urlForAddGroupComponents.url else { return }
+        print(urlGetSearchGroups)
+        
+        let task = session.dataTask(with: urlGetSearchGroups) { data, response, error in
+            if let error = error {
+                return completion(.failure(error))
+            }
+            guard let data = data else {
+                return
+            }
+            do {
+                let groupJoin = try JSONDecoder().decode(JoinOrLeaveGroupModel.self, from: data)
+                completion(.success(groupJoin))
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
+            }
+        }
+        task.resume()
+    }
+
     
     func saveGroupsListData (_ groups: [Group]) {
         do {

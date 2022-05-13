@@ -26,12 +26,12 @@
 		D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881D227CEB7AF00C7BE5B /* profilePhotosViewCell.swift */; };
 		D38881D527CEB7AF00C7BE5B /* profilePhotosViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */; };
 		D3AA9E4D282E210900CA02C9 /* AllGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA9E4C282E210900CA02C9 /* AllGroupsViewController.swift */; };
-		D3AA9E4F282EB2CE00CA02C9 /* AllGroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA9E4E282EB2CE00CA02C9 /* AllGroupsCell.swift */; };
 		D3ACC505280691BF00059240 /* Singleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC504280691BF00059240 /* Singleton.swift */; };
 		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
 		D3ACC50E280B00B100059240 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* FriendModel.swift */; };
 		D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50F280B00E500059240 /* UserPhotos.swift */; };
 		D3B3148627F86A0B00B46851 /* FriendsImageAnimatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3148527F86A0B00B46851 /* FriendsImageAnimatingVC.swift */; };
+		D3D7C13A282ED72F00A933DC /* RealmCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D7C139282ED72F00A933DC /* RealmCacheService.swift */; };
 		D3E835D227CA6F6800C37C67 /* avatarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835D127CA6F6800C37C67 /* avatarUIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,7 +57,6 @@
 		D38881D227CEB7AF00C7BE5B /* profilePhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = profilePhotosViewCell.swift; sourceTree = "<group>"; };
 		D38881D327CEB7AF00C7BE5B /* profilePhotosViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = profilePhotosViewCell.xib; sourceTree = "<group>"; };
 		D3AA9E4C282E210900CA02C9 /* AllGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsViewController.swift; sourceTree = "<group>"; };
-		D3AA9E4E282EB2CE00CA02C9 /* AllGroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsCell.swift; sourceTree = "<group>"; };
 		D3ACC504280691BF00059240 /* Singleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Singleton.swift; sourceTree = "<group>"; };
 		D3ACC507280692DD00059240 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
 		D3ACC50D280B00B100059240 /* FriendModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendModel.swift; sourceTree = "<group>"; };
@@ -65,6 +64,7 @@
 		D3B3148327F6C31100B46851 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		D3B3148427F6C31100B46851 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		D3B3148527F86A0B00B46851 /* FriendsImageAnimatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsImageAnimatingVC.swift; sourceTree = "<group>"; };
+		D3D7C139282ED72F00A933DC /* RealmCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCacheService.swift; sourceTree = "<group>"; };
 		D3E835D127CA6F6800C37C67 /* avatarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = avatarUIView.swift; sourceTree = "<group>"; };
 		D749ACB0896C5474ED1A04F0 /* Pods-vkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.debug.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -131,6 +131,7 @@
 			isa = PBXGroup;
 			children = (
 				D346CA00282C11C700142368 /* GroupModel.swift */,
+				D3D7C139282ED72F00A933DC /* RealmCacheService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -175,7 +176,6 @@
 			children = (
 				D346CA14282D5E7100142368 /* GroupPhotoView.swift */,
 				D346CA09282C3A9B00142368 /* GroupsCell.swift */,
-				D3AA9E4E282EB2CE00CA02C9 /* AllGroupsCell.swift */,
 			);
 			path = GroupsCell;
 			sourceTree = "<group>";
@@ -402,12 +402,12 @@
 				D38881D427CEB7AF00C7BE5B /* profilePhotosViewCell.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
 				D346CA0A282C3A9B00142368 /* GroupsCell.swift in Sources */,
+				D3D7C13A282ED72F00A933DC /* RealmCacheService.swift in Sources */,
 				D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */,
 				D3AA9E4D282E210900CA02C9 /* AllGroupsViewController.swift in Sources */,
 				D3E835D227CA6F6800C37C67 /* avatarUIView.swift in Sources */,
 				D3ACC50E280B00B100059240 /* FriendModel.swift in Sources */,
 				D381203327B595DF00986187 /* SceneDelegate.swift in Sources */,
-				D3AA9E4F282EB2CE00CA02C9 /* AllGroupsCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

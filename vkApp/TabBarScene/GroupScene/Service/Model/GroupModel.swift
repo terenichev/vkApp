@@ -56,3 +56,7 @@ class Group: Object, Codable {
 
     }
 }
+
+struct JoinOrLeaveGroupModel: Decodable {
+    var response: Int
+}
