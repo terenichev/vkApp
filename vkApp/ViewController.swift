@@ -85,7 +85,6 @@ extension ViewController {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetGroups = urlForGroupComponents.url else { return }
-        print(urlGetGroups)
         
         groupsRequest.myGroupsRequest(url: urlGetGroups, completion: { [weak self] result in
             switch result {

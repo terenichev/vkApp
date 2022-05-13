@@ -57,19 +57,16 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath) as? GroupsCell else {
             preconditionFailure("GroupsCell cannot")
         }
-        
-        let group: Group = searchGroups[indexPath.row]
-        
-        
-        let url = URL(string: group.photo50)
-        
-        if let data = try? Data(contentsOf: url!)
-        {
-            cell.groupImage.image = UIImage(data: data)
+        if let groups = groupRespons {
+            let group: Group = groups[indexPath.row]
+            let url = URL(string: group.photo50)
+            
+            if let data = try? Data(contentsOf: url!)
+            {
+                cell.groupImage.image = UIImage(data: data)
+            }
+            cell.groupNameLabel.text = group.name
         }
-        
-        cell.groupNameLabel.text = group.name
-        
         return cell
     }
     
@@ -126,7 +123,7 @@ extension GroupsViewController {
             switch result {
             case .initial(let groupsData):
                 print("\(groupsData.count)")
-            case .update(let groups,
+            case .update(_,
                          deletions: let deletions,
                          insertions: let insertions,
                          modifications: let modifications):
