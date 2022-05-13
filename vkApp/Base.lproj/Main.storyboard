@@ -120,7 +120,7 @@
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vux-0W-auz" customClass="avatarUIView" customModule="vkApp" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vux-0W-auz" customClass="AvatarUIView" customModule="vkApp" customModuleProvider="target">
                                             <rect key="frame" x="20" y="5" width="40" height="40"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yUh-Uh-QQs">
@@ -215,7 +215,7 @@
         <!--Profile View Controller-->
         <scene sceneID="x5w-5P-BiZ">
             <objects>
-                <viewController storyboardIdentifier="profileVC" id="bu2-9c-R83" customClass="profileViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="profileVC" id="bu2-9c-R83" customClass="ProfileViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="N5e-1J-wuX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

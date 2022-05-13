@@ -7,7 +7,7 @@
 
 import UIKit
 
-class avatarUIView: UIView {
+class AvatarUIView: UIView {
 
     @IBOutlet var avatarImage: UIImageView!
     @IBOutlet var shadowView: UIView!
