@@ -23,12 +23,12 @@ class FriendsRequests: RequestProtocol {
     func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
         
         session.dataTask(with: url) { (data, response, error) in
+            if let error = error {
+                print("some error")
+                completion(.failure(error))
+                return
+            }
             DispatchQueue.main.async {
-                if let error = error {
-                    print("some error")
-                    completion(.failure(error))
-                    return
-                }
                 guard let data = data else { return }
                 
                 do {
@@ -46,12 +46,13 @@ class FriendsRequests: RequestProtocol {
     
     func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void) {
         session.dataTask(with: url) { (data, response, error) in
+            
+            if let error = error {
+                print("some error")
+                completion(.failure(error))
+                return
+            }
             DispatchQueue.main.async {
-                if let error = error {
-                    print("some error")
-                    completion(.failure(error))
-                    return
-                }
                 guard let data = data else { return }
                 
                 do {

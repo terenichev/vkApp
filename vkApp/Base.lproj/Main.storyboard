@@ -428,7 +428,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Поиск" id="ez6-xu-qXB">
+                        <searchBar key="tableHeaderView" contentMode="redraw" text="" placeholder="Поиск среди групп" id="ez6-xu-qXB">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="51"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             <textInputTraits key="textInputTraits"/>
@@ -509,6 +509,11 @@
                                 <segue destination="eAW-vk-Dlg" kind="unwind" unwindAction="logOutActionExitWithUnwindSegue:" id="38b-b0-0KW"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="addGroup" image="plus" catalog="system" id="1iO-bQ-eDH">
+                            <connections>
+                                <segue destination="8tc-Gg-WF2" kind="push" id="Z8p-Dq-LQ2"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="ez6-xu-qXB" id="DWt-v5-Mgw"/>
@@ -518,6 +523,73 @@
                 <exit id="eAW-vk-Dlg" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3668.115942028986" y="371.65178571428572"/>
+        </scene>
+        <!--Добавить-->
+        <scene sceneID="cGl-VJ-JxV">
+            <objects>
+                <tableViewController id="8tc-Gg-WF2" customClass="AllGroupsViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Hs9-yk-o7E">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Поиск группы" id="Qfj-fg-dmT">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="allGroupCell" id="636-8R-tfx" customClass="AllGroupsCell" customModule="vkApp" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="88.5" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="636-8R-tfx" id="cMk-MJ-4Ed">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Q5Q-Od-fPq">
+                                            <rect key="frame" x="20" y="2" width="40" height="40"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="40" id="H6i-bf-MyO"/>
+                                                <constraint firstAttribute="width" secondItem="Q5Q-Od-fPq" secondAttribute="height" multiplier="1:1" id="JFB-TT-A5W"/>
+                                            </constraints>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GC2-ut-xXn">
+                                            <rect key="frame" x="90" y="11.5" width="274" height="21"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="21" id="VRj-ss-hLo"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstItem="GC2-ut-xXn" firstAttribute="leading" secondItem="Q5Q-Od-fPq" secondAttribute="trailing" constant="30" id="0JI-is-UIG"/>
+                                        <constraint firstAttribute="trailing" secondItem="GC2-ut-xXn" secondAttribute="trailing" constant="50" id="3k7-R9-hwe"/>
+                                        <constraint firstItem="Q5Q-Od-fPq" firstAttribute="leading" secondItem="cMk-MJ-4Ed" secondAttribute="leading" constant="20" symbolic="YES" id="Yi9-Ky-Lk5"/>
+                                        <constraint firstItem="GC2-ut-xXn" firstAttribute="centerY" secondItem="cMk-MJ-4Ed" secondAttribute="centerY" id="kle-T9-VHa"/>
+                                        <constraint firstItem="Q5Q-Od-fPq" firstAttribute="centerY" secondItem="cMk-MJ-4Ed" secondAttribute="centerY" id="zf8-nn-pPn"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="allGroupImage" destination="Q5Q-Od-fPq" id="iNx-gG-mTi"/>
+                                    <outlet property="allGroupLabel" destination="GC2-ut-xXn" id="hyC-wx-foN"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="8tc-Gg-WF2" id="qEg-5I-cZh"/>
+                            <outlet property="delegate" destination="8tc-Gg-WF2" id="kzc-TO-CNw"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Добавить" id="9MZ-qQ-dAs"/>
+                    <connections>
+                        <outlet property="searchBar" destination="Qfj-fg-dmT" id="ePl-vg-toc"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PJK-Qn-EHO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4507.2463768115949" y="371.65178571428572"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="txr-AK-inQ">
@@ -545,6 +617,7 @@
         <image name="person.3.fill" catalog="system" width="128" height="61"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
         <image name="phone" catalog="system" width="128" height="115"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="Альтрон" width="898" height="898"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

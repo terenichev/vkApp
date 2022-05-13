@@ -54,11 +54,11 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         
         
         let url = URL(string: group.photo50)
-
-            if let data = try? Data(contentsOf: url!)
-            {
-                cell.groupImage.image = UIImage(data: data)
-            }
+        
+        if let data = try? Data(contentsOf: url!)
+        {
+            cell.groupImage.image = UIImage(data: data)
+        }
         
         cell.groupNameLabel.text = group.name
 
