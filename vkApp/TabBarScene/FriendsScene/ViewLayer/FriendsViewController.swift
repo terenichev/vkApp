@@ -42,19 +42,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         self.tableView.reloadData()
     }
     
-    private func sort(friends: [FriendsItem]) -> [Character: [FriendsItem]] {
-        var friendsDict = [Character: [FriendsItem]]()
-        friends.forEach() {friend in
-            guard let firstChar = friend.firstName.first else {return}
-            if var thisCharFriends = friendsDict[firstChar]{
-                thisCharFriends.append(friend)
-                friendsDict[firstChar] = thisCharFriends
-            } else {
-                friendsDict[firstChar] = [friend]
-            }
-        }
-        return friendsDict
-    }
     
     // MARK: - Table view data source
     
@@ -139,5 +126,22 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         }
         self.sortedFriends = sort(friends: searchFriends)
         self.tableView.reloadData()
+    }
+}
+
+// MARK: - Private
+private extension FriendsViewController {
+    func sort(friends: [FriendsItem]) -> [Character: [FriendsItem]] {
+        var friendsDict = [Character: [FriendsItem]]()
+        friends.forEach() {friend in
+            guard let firstChar = friend.firstName.first else {return}
+            if var thisCharFriends = friendsDict[firstChar]{
+                thisCharFriends.append(friend)
+                friendsDict[firstChar] = thisCharFriends
+            } else {
+                friendsDict[firstChar] = [friend]
+            }
+        }
+        return friendsDict
     }
 }

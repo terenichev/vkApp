@@ -30,7 +30,6 @@ class ViewController: UIViewController{
     }
     
     func circlesAnimate() {
-        
         UIView.animate(withDuration: 1,
                        delay: 0,
                        options: .curveEaseInOut) {
@@ -38,19 +37,17 @@ class ViewController: UIViewController{
             self.thirdCircle.layer.position.x += 100
             self.secondCircle.layer.position.y += 100
         } completion: { _ in
-            
             let friendToRealm = FriendsRequests()
             friendToRealm.saveFriendsListData(self.friendsListFromJSON)
-            
             let groupToRealm = GroupsRequests()
             groupToRealm.saveGroupsListData(self.groupsListFromJSON)
-            
             self.performSegue(withIdentifier: "checkLog", sender: self)
         }
     }
 }
 
-extension ViewController {
+// MARK: - Private
+private extension ViewController {
     func friendsGet() {
         friendsRequest.myFriendsRequest(completion: { [weak self] result in
             switch result {

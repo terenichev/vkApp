@@ -21,8 +21,7 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
     }
     
-    // MARK: - Table view data source
-    
+    // MARK: - Table View
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -65,10 +64,8 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
 
 
 // MARK: - Search Bar Config
-
 extension AllGroupsViewController {
     
-    //При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -84,25 +81,17 @@ extension AllGroupsViewController {
         searchBar.resignFirstResponder()
     }
     
-    
-    
-    //Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let text = searchText.isEmpty ? " " : searchText
         searchGroups = []
-
         service.searchGroupsRequest(searchText: text) { [weak self] result in
             switch result {
-                // если запрос успешен то в потоке майн запишем в константу гроуп результат запроса
             case .success(let group):
-                
                 self?.searchGroups = group
-                
                 DispatchQueue.main.async {
                     // перезагрузим данные
                     self?.tableView.reloadData()
                 }
-                // при не удачном запросе вернуть ошибку
             case .failure(let error):
                 print("\(error)")
             }

@@ -42,7 +42,6 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         createNotificationToken()
     }
     
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -76,7 +75,6 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
 
 // MARK: - Search Bar Config
 extension GroupsViewController {
-    //При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -110,7 +108,7 @@ extension GroupsViewController {
 }
 
 // MARK: - Realm Notification Token
-extension GroupsViewController {
+private extension GroupsViewController {
     func createNotificationToken() {
         notificationToken = groupRespons?.observe { [weak self] result in
             guard let self = self else { return }

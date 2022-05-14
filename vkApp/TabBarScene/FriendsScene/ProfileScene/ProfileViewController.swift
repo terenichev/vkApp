@@ -34,6 +34,7 @@ class ProfileViewController: UIViewController {
     }
 }
 
+// MARK: - Collection View
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -63,8 +64,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     }
 }
 
-
-extension ProfileViewController {
+// MARK: - Private
+private extension ProfileViewController {
     func setData() {
         nameInProfileLabel.text = profileForFriend.firstName + " " + profileForFriend.lastName
         friendStatusInProfile.text = profileForFriend.status ?? ""
