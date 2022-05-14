@@ -45,20 +45,23 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if arrayImages.count == arrayImageUrl.count {
-            
+            let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
+            let image = arrayImages[indexPath.row]
+            cell.configure(with: image)
+            return cell
         } else {
-            
-        }
-        let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
-        let image = UIImage(named: "not photo")!
-        DispatchQueue.global(qos: .utility).async {
-            let imageFromUrl = self.service.imageLoader(url: self.arrayImageUrl[indexPath.row])
-            DispatchQueue.main.async {
-                cell.configure(with: imageFromUrl)
+            let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
+            let image = UIImage(named: "not photo")!
+            DispatchQueue.global(qos: .utility).async {
+                let imageFromUrl = self.service.imageLoader(url: self.arrayImageUrl[indexPath.row])
+                self.arrayImages.append(imageFromUrl)
+                DispatchQueue.main.async {
+                    cell.configure(with: imageFromUrl)
+                }
             }
+            cell.configure(with: image)
+            return cell
         }
-        cell.configure(with: image)
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
