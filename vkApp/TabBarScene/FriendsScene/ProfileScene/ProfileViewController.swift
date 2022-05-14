@@ -50,8 +50,8 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         let index = indexPath[0] as NSIndexPath
 
 //        friendsImageAnimatingVC.arrayImages = arrayImages
-        friendsImageAnimatingVC.showedPhotoIndex = index.row
-        friendsImageAnimatingVC.indexCount = arrayImages.count - 1
+//        friendsImageAnimatingVC.showedPhotoIndex = index.row
+//        friendsImageAnimatingVC.indexCount = arrayImages.count - 1
         
         self.navigationController?.pushViewController(friendsImageAnimatingVC, animated: true)
     }
