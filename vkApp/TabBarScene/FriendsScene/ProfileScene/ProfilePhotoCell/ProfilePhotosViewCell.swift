@@ -21,6 +21,7 @@ class ProfilePhotosViewCell: UICollectionViewCell {
 
     public func configure(with image: UIImage) {
         imageView.image = image
+        imageView.layer.cornerRadius = 5
     }
     
     static func nib() -> UINib{

@@ -188,3 +188,9 @@ class FriendsImageAnimatingVC: UIViewController {
         }
     }
 }
+
+extension FriendsImageAnimatingVC {
+    func loadImage(index: Int) -> UIImage {
+        
+    }
+}
