@@ -21,6 +21,7 @@ class ProfileViewController: UIViewController {
     var profileForFriend: FriendsItem!
     
     var arrayImageUrl: [URL] = []
+    var arrayImages: [UIImage] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +43,24 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         return arrayImageUrl.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        if arrayImages.count == arrayImageUrl.count {
+            
+        } else {
+            
+        }
+        let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
+        let image = UIImage(named: "not photo")!
+        DispatchQueue.global(qos: .utility).async {
+            let imageFromUrl = self.service.imageLoader(url: self.arrayImageUrl[indexPath.row])
+            DispatchQueue.main.async {
+                cell.configure(with: imageFromUrl)
+            }
+        }
+        cell.configure(with: image)
+        return cell
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let friendsImageAnimatingVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsImageAnimatingVC") as! FriendsImageAnimatingVC
@@ -54,19 +73,6 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 //        friendsImageAnimatingVC.indexCount = arrayImages.count - 1
         
         self.navigationController?.pushViewController(friendsImageAnimatingVC, animated: true)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
-        let image = UIImage(named: "not photo")!
-        DispatchQueue.global(qos: .utility).async {
-            let imageFromUrl = self.service.imageLoader(url: self.arrayImageUrl[indexPath.row])
-            DispatchQueue.main.async {
-                cell.configure(with: imageFromUrl)
-            }
-        }
-        cell.configure(with: image)
-        return cell
     }
 
     @objc func showMainPhoto() {
