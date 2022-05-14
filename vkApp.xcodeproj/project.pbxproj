@@ -33,7 +33,6 @@
 		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
 		D3ACC50E280B00B100059240 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* FriendModel.swift */; };
 		D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50F280B00E500059240 /* UserPhotos.swift */; };
-		D3B3148627F86A0B00B46851 /* FriendsImageAnimatingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3B3148527F86A0B00B46851 /* FriendsImageAnimatingVC.swift */; };
 		D3D7C13A282ED72F00A933DC /* RealmCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D7C139282ED72F00A933DC /* RealmCacheService.swift */; };
 		D3E835D227CA6F6800C37C67 /* AvatarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */; };
 /* End PBXBuildFile section */
@@ -69,7 +68,6 @@
 		D3ACC50F280B00E500059240 /* UserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotos.swift; sourceTree = "<group>"; };
 		D3B3148327F6C31100B46851 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		D3B3148427F6C31100B46851 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
-		D3B3148527F86A0B00B46851 /* FriendsImageAnimatingVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsImageAnimatingVC.swift; sourceTree = "<group>"; };
 		D3D7C139282ED72F00A933DC /* RealmCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCacheService.swift; sourceTree = "<group>"; };
 		D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarUIView.swift; sourceTree = "<group>"; };
 		D749ACB0896C5474ED1A04F0 /* Pods-vkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.debug.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,8 +115,8 @@
 		D346C9FD282B819700142368 /* FriendsScene */ = {
 			isa = PBXGroup;
 			children = (
-				D346CA10282CCA5000142368 /* ViewLayer */,
 				D346CA0B282CC7CD00142368 /* Service */,
+				D346CA10282CCA5000142368 /* ViewLayer */,
 				D3EB0CDE27D32C4B007B143B /* ProfileScene */,
 			);
 			path = FriendsScene;
@@ -172,10 +170,8 @@
 		D346CA0E282CC92500142368 /* ShowPhotosScene */ = {
 			isa = PBXGroup;
 			children = (
-				D3B3148527F86A0B00B46851 /* FriendsImageAnimatingVC.swift */,
+				D3804D0C28300A8B0057F87B /* Cell */,
 				D3804D06282FF2360057F87B /* ShowPhotoViewController.swift */,
-				D3804D08282FF37F0057F87B /* PhotoCollectionViewCell.swift */,
-				D3804D09282FF37F0057F87B /* PhotoCollectionViewCell.xib */,
 			);
 			path = ShowPhotosScene;
 			sourceTree = "<group>";
@@ -206,6 +202,15 @@
 				D346CA0F282CCA3300142368 /* GroupsCell */,
 			);
 			path = ViewLayer;
+			sourceTree = "<group>";
+		};
+		D3804D0C28300A8B0057F87B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				D3804D08282FF37F0057F87B /* PhotoCollectionViewCell.swift */,
+				D3804D09282FF37F0057F87B /* PhotoCollectionViewCell.xib */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 		D381202427B595DF00986187 = {
@@ -398,7 +403,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D346CA01282C11C700142368 /* GroupModel.swift in Sources */,
-				D3B3148627F86A0B00B46851 /* FriendsImageAnimatingVC.swift in Sources */,
 				D381203527B595DF00986187 /* ViewController.swift in Sources */,
 				D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */,
 				D38881CF27CE924800C7BE5B /* ProfileViewController.swift in Sources */,

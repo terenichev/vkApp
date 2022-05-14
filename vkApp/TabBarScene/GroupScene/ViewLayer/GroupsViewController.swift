@@ -60,18 +60,16 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         if let groups = groupRespons {
             let group: Group = groups[indexPath.row]
             let url = URL(string: group.photo50)
-            
-            if let data = try? Data(contentsOf: url!)
-            {
-                cell.groupImage.image = UIImage(data: data)
+            cell.groupImage.image = UIImage(named: "not photo")
+            DispatchQueue.global(qos: .utility).async {
+                let imageFromUrl = self.service.imageLoader(url: url)
+                DispatchQueue.main.async {
+                    cell.groupImage.image = imageFromUrl
+                }
             }
             cell.groupNameLabel.text = group.name
         }
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
     }
 }
 
@@ -94,11 +92,8 @@ extension GroupsViewController {
         searchBar.resignFirstResponder()
     }
     
-    //Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         searchGroups = []
-        
         if searchText == "" {
             searchGroups = groups
         }
@@ -110,7 +105,6 @@ extension GroupsViewController {
                 }
             }
         }
-        
         self.tableView.reloadData()
     }
 }

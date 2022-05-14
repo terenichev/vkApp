@@ -34,7 +34,6 @@ class ShowPhotoViewController: UIViewController {
     }
 }
 
-
 extension ShowPhotoViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -76,6 +75,4 @@ extension ShowPhotoViewController: UICollectionViewDataSource, UICollectionViewD
             }
         }
     }
-    
-    
 }

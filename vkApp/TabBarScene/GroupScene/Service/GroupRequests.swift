@@ -61,8 +61,6 @@ class GroupsRequests {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetSearchGroups = urlForGroupSearchComponents.url else { return }
-        print(urlGetSearchGroups)
-        
         session.dataTask(with: urlGetSearchGroups) { (data, response, error) in
             if let error = error {
                 print("some error")
@@ -95,7 +93,6 @@ class GroupsRequests {
         ]
         guard let urlGetSearchGroups = urlForAddGroupComponents.url else { return }
         print(urlGetSearchGroups)
-        
         let task = session.dataTask(with: urlGetSearchGroups) { data, response, error in
             if let error = error {
                 return completion(.failure(error))
@@ -106,7 +103,7 @@ class GroupsRequests {
             do {
                 let groupJoin = try JSONDecoder().decode(JoinOrLeaveGroupModel.self, from: data)
                 DispatchQueue.main.async {
-                completion(.success(groupJoin))
+                    completion(.success(groupJoin))
                 }
             } catch let jsonError {
                 print("Failed to decode JSON", jsonError)
@@ -115,23 +112,33 @@ class GroupsRequests {
         }
         task.resume()
     }
-
+    
     
     func saveGroupsListData (_ groups: [Group]) {
         do {
             let config = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
             let realm = try Realm(configuration: config)
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
-            
             let oldGroups = realm.objects(Group.self)
-            
             realm.beginWrite()
             realm.delete(oldGroups)
             realm.add(groups)
             try realm.commitWrite()
-            
         } catch {
             print(error)
         }
+    }
+}
+
+extension GroupsRequests {
+    func imageLoader(url: URL?) -> UIImage {
+        var image: UIImage
+        if let data = try? Data(contentsOf: url!) {
+            guard let imageFromUrl = UIImage(data: data) else { return UIImage(named: "not photo")!}
+            image = imageFromUrl
+        } else {
+            image = UIImage(named: "not photo")!
+        }
+        return image
     }
 }
