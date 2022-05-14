@@ -47,8 +47,20 @@ class FriendsRequests {
         }.resume()
     }
     
-    func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void) {
-        session.dataTask(with: url) { (data, response, error) in
+    func usersPhotoRequest(id: Int, completion: @escaping (Result<[Item], Error>) -> Void) {
+        var urlComponentsGetPhotos = URLComponents()
+        urlComponentsGetPhotos.scheme = "https"
+        urlComponentsGetPhotos.host = "api.vk.com"
+        urlComponentsGetPhotos.path = "/method/photos.get"
+        urlComponentsGetPhotos.queryItems = [
+            URLQueryItem(name: "owner_id", value: "\(id)"),
+            URLQueryItem(name: "album_id", value: "profile"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetPhotos = urlComponentsGetPhotos.url
+        else { return }
+        session.dataTask(with: urlGetPhotos) { (data, response, error) in
             if let error = error {
                 print("some error")
                 completion(.failure(error))
