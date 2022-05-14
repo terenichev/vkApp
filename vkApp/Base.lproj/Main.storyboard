@@ -326,7 +326,7 @@
         <!--Show Photo View Controller-->
         <scene sceneID="dxc-6N-i3U">
             <objects>
-                <viewController storyboardIdentifier="ShowPhotoViewController" id="cMz-LT-Bcu" customClass="ShowPhotoViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ShowPhotoViewController" extendedLayoutIncludesOpaqueBars="YES" hidesBottomBarWhenPushed="YES" id="cMz-LT-Bcu" customClass="ShowPhotoViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="6iK-oh-eTS">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

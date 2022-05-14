@@ -71,7 +71,7 @@ private extension ProfileViewController {
         friendStatusInProfile.text = profileForFriend.status ?? ""
         mainPhotoOfProfile.layer.cornerRadius = 50
         mainPhotoOfProfile.image = UIImage(named: "not photo")
-        let url = URL(string: profileForFriend.avatarUrl)
+        let url = URL(string: profileForFriend.avatarMaxSizeUrl)
         DispatchQueue.global(qos: .utility).async {
             let imageFromUrl = self.service.imageLoader(url: url)
             DispatchQueue.main.async {
@@ -81,7 +81,7 @@ private extension ProfileViewController {
     }
     
     func loadFriendData() {
-        service.usersPhotoRequest(id: profileForFriend.id ) { [weak self] result in
+        service.friendsPhotoRequest(id: profileForFriend.id ) { [weak self] result in
             switch result {
             case .success(let array):
                 var arrayImagesString: [String] = []

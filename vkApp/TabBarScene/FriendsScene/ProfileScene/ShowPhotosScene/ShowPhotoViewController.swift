@@ -71,7 +71,6 @@ extension ShowPhotoViewController: UICollectionViewDataSource, UICollectionViewD
             let cells = collectionBigPhoto.visibleCells
             for cell in cells {
                 let selectedIndexPath = self.collectionBigPhoto.indexPath(for: cell)
-                print(selectedIndexPath!)
                 self.title = "\((selectedIndexPath?[1])! + 1) из \(self.arrayImageUrl.count)"
             }
         }

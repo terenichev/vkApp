@@ -20,12 +20,12 @@ class ResponseGroup: Codable {
 class Group: Object, Codable {
     @objc dynamic var id: Int = 0
     @objc dynamic var name: String = ""
-    @objc dynamic var photo50: String = ""
+    @objc dynamic var photo100: String = ""
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case name = "name"
-        case photo50 = "photo_50"
+        case photo100 = "photo_100"
     }
 }
 

@@ -62,7 +62,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         let friend: FriendsItem = friends[indexPath.row]
-        let url = URL(string: friend.avatarUrl)
+        let url = URL(string: friend.avatarMiddleSizeUrl)
         cell.imageFriendsCell.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .utility).async {
             let imageFromUrl = self.service.imageLoader(url: url)

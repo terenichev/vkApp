@@ -39,7 +39,7 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
             return UITableViewCell()
         }
         let group: Group = searchGroups[indexPath.row]
-        let url = URL(string: group.photo50)
+        let url = URL(string: group.photo100)
         cell.groupImage.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .utility).async {
             let imageFromUrl = self.service.imageLoader(url: url)
