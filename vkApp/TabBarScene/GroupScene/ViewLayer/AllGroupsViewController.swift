@@ -39,14 +39,16 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
             return UITableViewCell()
         }
         let group: Group = searchGroups[indexPath.row]
+        let url = URL(string: group.photo50)
+        cell.groupImage.image = UIImage(named: "not photo")
+        DispatchQueue.global(qos: .utility).async {
+            let imageFromUrl = self.service.imageLoader(url: url)
+            DispatchQueue.main.async {
+                cell.groupImage.image = imageFromUrl
+            }
+        }
         cell.id = group.id
         cell.name = group.name
-        
-        let url = URL(string: group.photo50)
-        if let data = try? Data(contentsOf: url!)
-        {
-            cell.groupImage.image = UIImage(data: data)
-        }
         cell.groupNameLabel.text = group.name
         return cell
     }
