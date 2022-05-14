@@ -52,19 +52,7 @@ class ViewController: UIViewController{
 
 extension ViewController {
     func friendsGet() {
-        var urlForUserIdsComponents = URLComponents()
-        urlForUserIdsComponents.scheme = "https"
-        urlForUserIdsComponents.host = "api.vk.com"
-        urlForUserIdsComponents.path = "/method/friends.get"
-        urlForUserIdsComponents.queryItems = [
-            URLQueryItem(name: "order", value: "hints"),
-            URLQueryItem(name: "fields", value: "photo_50, status"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
-        guard let urlGetIds = urlForUserIdsComponents.url else { return }
-        
-        friendsRequest.myFriendsRequest(url: urlGetIds, completion: { [weak self] result in
+        friendsRequest.myFriendsRequest(completion: { [weak self] result in
             switch result {
             case .success(let usersFromJSON):
                 self?.friendsListFromJSON = usersFromJSON
@@ -75,18 +63,7 @@ extension ViewController {
     }
     
     func groupsGet() {
-        var urlForGroupComponents = URLComponents()
-        urlForGroupComponents.scheme = "https"
-        urlForGroupComponents.host = "api.vk.com"
-        urlForGroupComponents.path = "/method/groups.get"
-        urlForGroupComponents.queryItems = [
-            URLQueryItem(name: "extended", value: "1"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
-        guard let urlGetGroups = urlForGroupComponents.url else { return }
-        
-        groupsRequest.myGroupsRequest(url: urlGetGroups, completion: { [weak self] result in
+        groupsRequest.myGroupsRequest(completion: { [weak self] result in
             switch result {
             case .success(let groupsFromJSON):
                 self?.groupsListFromJSON = groupsFromJSON
