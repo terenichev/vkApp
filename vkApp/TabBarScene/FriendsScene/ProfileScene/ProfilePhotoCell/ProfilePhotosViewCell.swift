@@ -1,5 +1,5 @@
 //
-//  vandaViewCell.swift
+//  ProfilePhotosViewCell.swift
 //  vkApp
 //
 //  Created by Денис Тереничев on 01.03.2022.
@@ -12,7 +12,7 @@ class ProfilePhotosViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     
     
-    static let identifier = "profilePhotosViewCell"
+    static let identifier = "ProfilePhotosViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -24,6 +24,6 @@ class ProfilePhotosViewCell: UICollectionViewCell {
     }
     
     static func nib() -> UINib{
-        return UINib(nibName: "profilePhotosViewCell", bundle: nil)
+        return UINib(nibName: "ProfilePhotosViewCell", bundle: nil)
     }
 }

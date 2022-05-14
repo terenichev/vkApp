@@ -12,6 +12,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    let service = FriendsRequests()
+    
     var friends: [FriendsItem] {
         do {
             let realm = try Realm()
@@ -74,9 +76,12 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         let friends = sortedFriends[firstChar]!
         let friend: FriendsItem = friends[indexPath.row]
         let url = URL(string: friend.avatarUrl)
-        if let data = try? Data(contentsOf: url!)
-        {
-            cell.imageFriendsCell.image = UIImage(data: data)
+        cell.imageFriendsCell.image = UIImage(named: "not photo")
+        DispatchQueue.global(qos: .utility).async {
+            let imageFromUrl = self.service.imageLoader(url: url)
+                DispatchQueue.main.async {
+                    cell.imageFriendsCell.image = imageFromUrl
+                }
         }
         cell.labelFriendsCell.text = friend.firstName + " " + friend.lastName
         return cell

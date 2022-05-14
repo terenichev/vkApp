@@ -7,6 +7,7 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
 class FriendsRequests {
     private let session: URLSession = {
@@ -82,5 +83,18 @@ class FriendsRequests {
         } catch {
             print(error)
         }
+    }
+}
+
+extension FriendsRequests {
+    func imageLoader(url: URL?) -> UIImage {
+        var image: UIImage
+        if let data = try? Data(contentsOf: url!) {
+            guard let imageFromUrl = UIImage(data: data) else { return UIImage(named: "not photo")!}
+            image = imageFromUrl
+        } else {
+            image = UIImage(named: "not photo")!
+        }
+        return image
     }
 }

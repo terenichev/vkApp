@@ -32,6 +32,7 @@ extension LoginController: WKNavigationDelegate {
             let url = navigationResponse.response.url,
             url.path == "/blank.html",
             let fragment = url.fragment
+                
         else {
             decisionHandler(.allow)
             return
@@ -54,17 +55,10 @@ extension LoginController: WKNavigationDelegate {
             print(token)
  
             decisionHandler(.cancel)
-            
-//            performSegue(withIdentifier: "toLoginVC", sender: self)
-//            performSegue(withIdentifier: "secondHomeWork", sender: self)
-            
-            
-//            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "FriendsVC") as! FriendsViewController
+
             let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
             self.navigationController?.pushViewController(vc, animated: true)
             
-//            let vc = ViewController()
-//            navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

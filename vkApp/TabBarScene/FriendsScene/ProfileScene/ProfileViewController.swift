@@ -43,7 +43,7 @@ class ProfileViewController: UIViewController {
 extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
+        print(#function)
         return arrayImages.count
     }
     
@@ -67,7 +67,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 
         cell.configure(with: arrayImages[indexPath.row]!)
         cell.imageView.layer.cornerRadius = 5
-        
+        print(#function)
         return cell
         }
 
