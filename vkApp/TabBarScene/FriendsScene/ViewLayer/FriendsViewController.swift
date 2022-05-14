@@ -87,9 +87,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return String(sortedFriends.keys.sorted()[section])
     }
+    
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
@@ -101,8 +103,50 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         friendsInKey = sortedFriends[keys[indexPath.section]]!
         friendToShow = friendsInKey[indexPath.row]
         
-        profileVC.profileForFriend = friendToShow
-        self.navigationController?.pushViewController(profileVC, animated: true)
+        let request = FriendsRequests()
+        
+        var urlComponentsGetPhotos = URLComponents()
+        urlComponentsGetPhotos.scheme = "https"
+        urlComponentsGetPhotos.host = "api.vk.com"
+        urlComponentsGetPhotos.path = "/method/photos.get"
+        urlComponentsGetPhotos.queryItems = [
+            URLQueryItem(name: "owner_id", value: "\(friendToShow.id)"),
+            URLQueryItem(name: "album_id", value: "profile"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        
+        guard let urlGetPhotos = urlComponentsGetPhotos.url
+        else {
+            print("guard return")
+            return }
+        
+        request.usersPhotoRequest(url: urlGetPhotos) { [weak self] result in
+            switch result {
+                
+            case .success(let array):
+                var photoUrls: [String] = []
+                array.forEach({ photoUrls.append($0.sizes.last!.url) })
+                var friendImages: [UIImage?] = []
+                for photo in 0..<photoUrls.count {
+                    let url = URL(string:"\(photoUrls[photo])")
+                    if let data = try? Data(contentsOf: url!)
+                    {
+                        friendImages.append(UIImage(data: data))
+                    }
+                    self?.friendImagesForShow = friendImages
+                }
+            case .failure(let error):
+                print("error", error)
+            }
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
+            profileVC.profileForFriend = friendToShow
+            profileVC.arrayImages = self.friendImagesForShow
+            
+            self.navigationController?.pushViewController(profileVC, animated: true)
+        })
     }
     
     // MARK: - Search Bar Config
