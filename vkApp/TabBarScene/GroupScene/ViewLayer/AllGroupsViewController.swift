@@ -8,7 +8,7 @@
 import UIKit
 
 final class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
-
+    
     @IBOutlet weak var searchBar: UISearchBar!
     
     let service = GroupsRequests()
@@ -19,7 +19,6 @@ final class AllGroupsViewController: UITableViewController, UISearchBarDelegate 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(#function)
         searchBar.delegate = self
     }
     
@@ -101,6 +100,6 @@ extension AllGroupsViewController {
                 print("\(error)")
             }
         }
-            self.tableView.reloadData()
+        self.tableView.reloadData()
     }
 }

@@ -19,7 +19,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     
     private var groupsFirebase = [FirebaseCommunity]()
-    private var ref = Database.database().reference(withPath: "Communities")
+    private var fireBaseReference = Database.database().reference(withPath: "Communities")
     
     var groups: [Group] {
         do {
@@ -49,7 +49,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         searchGroups = groups
         createNotificationToken()
-        ref.observe(.value) { snapshot in
+        fireBaseReference.observe(.value) { snapshot in
             var communities: [FirebaseCommunity] = []
             for child in snapshot.children {
                 if let snapshot = child as? DataSnapshot,
@@ -109,7 +109,7 @@ extension GroupsViewController: AddGroupDelegate {
             case .success(let success):
                 if success.response == 1 {
                     let com = FirebaseCommunity(name: name, id: id)
-                    let reference = self.ref.child(name.lowercased())
+                    let reference = self.fireBaseReference.child(name.lowercased())
                     reference.setValue(com.toAnyObject())
                     self.service.myGroupsRequest()
                     DispatchQueue.main.async {

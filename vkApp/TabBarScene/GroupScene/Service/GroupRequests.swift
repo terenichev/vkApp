@@ -8,8 +8,6 @@
 import Foundation
 import RealmSwift
 
-
-
 class GroupsRequests {
     
     private let session: URLSession = {
@@ -90,7 +88,6 @@ class GroupsRequests {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetSearchGroups = urlForAddGroupComponents.url else { return }
-        print("ADD GROUP URL", urlGetSearchGroups)
         let task = session.dataTask(with: urlGetSearchGroups) { data, response, error in
             if let error = error {
                 return completion(.failure(error))
