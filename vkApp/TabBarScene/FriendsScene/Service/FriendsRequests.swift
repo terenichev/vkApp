@@ -82,14 +82,11 @@ class FriendsRequests {
             let config = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
             let realm = try Realm(configuration: config)
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
-
             let oldFriends = realm.objects(FriendsItem.self)
-
             realm.beginWrite()
             realm.delete(oldFriends)
             realm.add(friends)
             try realm.commitWrite()
-
         } catch {
             print(error)
         }
