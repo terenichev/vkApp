@@ -7,13 +7,15 @@
 
 import UIKit
 
-class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
-    
+final class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
+
     @IBOutlet weak var searchBar: UISearchBar!
     
     let service = GroupsRequests()
     
     var searchGroups: [Group] = []
+    
+    weak var delegate: AddGroupDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +31,6 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return searchGroups.count
     }
-    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard
@@ -61,6 +62,8 @@ class AllGroupsViewController: UITableViewController, UISearchBarDelegate {
         
         print("name = ", name)
         print("id = ", id)
+        delegate?.addGroup(id: id, name: name)
+        navigationController?.popViewController(animated: true)
     }
 }
 

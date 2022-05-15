@@ -16,7 +16,7 @@ class FriendsRequests {
         return session
     }()
 
-    func myFriendsRequest(completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
+    func myFriendsRequest() {
         var urlForUserIdsComponents = URLComponents()
         urlForUserIdsComponents.scheme = "https"
         urlForUserIdsComponents.host = "api.vk.com"
@@ -30,19 +30,17 @@ class FriendsRequests {
         guard let urlGetIds = urlForUserIdsComponents.url else { return }
         session.dataTask(with: urlGetIds) { (data, response, error) in
             if let error = error {
-                print("some error")
-                completion(.failure(error))
+                print("can not load friends, error = ", error)
                 return
             }
             guard let data = data else { return }
             do {
                 let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
                 DispatchQueue.main.async {
-                    completion(.success(friendsArrayFromJSON))
+                    self.saveFriendsListData(friendsArrayFromJSON)
                 }
-            } catch let jsonError {
-                print("Failed to decode JSON", jsonError)
-                completion(.failure(jsonError))
+            } catch {
+                print("Failed to decode friends JSON")
             }
         }.resume()
     }

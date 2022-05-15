@@ -520,11 +520,12 @@
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="addGroup" image="plus" catalog="system" id="1iO-bQ-eDH">
                             <connections>
-                                <segue destination="8tc-Gg-WF2" kind="push" id="Z8p-Dq-LQ2"/>
+                                <action selector="addGroup:" destination="3I8-4t-QJg" id="l4D-Gk-pow"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="plusBarButtonItem" destination="1iO-bQ-eDH" id="vHI-K1-6wX"/>
                         <outlet property="searchBar" destination="ez6-xu-qXB" id="wGh-sn-tgU"/>
                     </connections>
                 </tableViewController>
@@ -536,7 +537,7 @@
         <!--Добавить-->
         <scene sceneID="cGl-VJ-JxV">
             <objects>
-                <tableViewController id="8tc-Gg-WF2" customClass="AllGroupsViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="AllGroupsViewController" id="8tc-Gg-WF2" customClass="AllGroupsViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="Hs9-yk-o7E">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -619,12 +620,12 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Добавить" id="9MZ-qQ-dAs"/>
                     <connections>
-                        <outlet property="searchBar" destination="Qfj-fg-dmT" id="f9Q-bn-XX9"/>
+                        <outlet property="searchBar" destination="Qfj-fg-dmT" id="m3a-qg-4r6"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJK-Qn-EHO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4507.2463768115949" y="371.65178571428572"/>
+            <point key="canvasLocation" x="4510" y="372"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="txr-AK-inQ">

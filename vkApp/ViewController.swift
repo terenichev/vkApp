@@ -25,8 +25,6 @@ class ViewController: UIViewController{
         super.viewDidLoad()
         
         circlesAnimate()
-        friendsGet()
-        groupsGet()
     }
     
     func circlesAnimate() {
@@ -37,37 +35,10 @@ class ViewController: UIViewController{
             self.thirdCircle.layer.position.x += 100
             self.secondCircle.layer.position.y += 100
         } completion: { _ in
-            let friendToRealm = FriendsRequests()
-            friendToRealm.saveFriendsListData(self.friendsListFromJSON)
-            let groupToRealm = GroupsRequests()
-            groupToRealm.saveGroupsListData(self.groupsListFromJSON)
+            self.friendsRequest.myFriendsRequest()
+            self.groupsRequest.myGroupsRequest()
             self.performSegue(withIdentifier: "checkLog", sender: self)
         }
-    }
-}
-
-// MARK: - Private
-private extension ViewController {
-    func friendsGet() {
-        friendsRequest.myFriendsRequest(completion: { [weak self] result in
-            switch result {
-            case .success(let usersFromJSON):
-                self?.friendsListFromJSON = usersFromJSON
-            case .failure(let error):
-                print("error", error)
-            }
-        })
-    }
-    
-    func groupsGet() {
-        groupsRequest.myGroupsRequest(completion: { [weak self] result in
-            switch result {
-            case .success(let groupsFromJSON):
-                self?.groupsListFromJSON = groupsFromJSON
-            case .failure(let error):
-                print("error", error)
-            }
-        })
     }
 }
     

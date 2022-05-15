@@ -18,7 +18,7 @@ class GroupsRequests {
         return session
     }()
     
-    func myGroupsRequest(completion: @escaping (Result<[Group], Error>) -> Void) {
+    func myGroupsRequest() {
         var urlForGroupComponents = URLComponents()
         urlForGroupComponents.scheme = "https"
         urlForGroupComponents.host = "api.vk.com"
@@ -31,19 +31,17 @@ class GroupsRequests {
         guard let urlGetGroups = urlForGroupComponents.url else { return }
         session.dataTask(with: urlGetGroups) { (data, response, error) in
             if let error = error {
-                print("some error")
-                completion(.failure(error))
+                print("can not load groups, error = ", error)
                 return
             }
             guard let data = data else { return }
             do {
                 let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
                 DispatchQueue.main.async {
-                    completion(.success(groupsArrayFromJSON))
+                    self.saveGroupsListData(groupsArrayFromJSON)
                 }
-            } catch let jsonError {
-                print("Failed to decode JSON", jsonError)
-                completion(.failure(jsonError))
+            } catch {
+                print("Failed to decode groups JSON")
             }
         }.resume()
     }
@@ -92,7 +90,7 @@ class GroupsRequests {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetSearchGroups = urlForAddGroupComponents.url else { return }
-        print(urlGetSearchGroups)
+        print("ADD GROUP URL", urlGetSearchGroups)
         let task = session.dataTask(with: urlGetSearchGroups) { data, response, error in
             if let error = error {
                 return completion(.failure(error))
