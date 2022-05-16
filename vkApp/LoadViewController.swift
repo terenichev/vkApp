@@ -24,6 +24,8 @@ class LoadViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.friendsRequest.myFriendsRequest()
+        self.groupsRequest.myGroupsRequest()
         circlesAnimate()
     }
     
@@ -35,8 +37,6 @@ class LoadViewController: UIViewController{
             self.thirdCircle.layer.position.x += 100
             self.secondCircle.layer.position.y += 100
         } completion: { _ in
-            self.friendsRequest.myFriendsRequest()
-            self.groupsRequest.myGroupsRequest()
             self.performSegue(withIdentifier: "checkLog", sender: self)
         }
     }
