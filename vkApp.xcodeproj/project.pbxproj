@@ -50,7 +50,7 @@
 		D3804D4528302AA30057F87B /* FirebaseStorageCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = D3804D4428302AA30057F87B /* FirebaseStorageCombine-Community */; };
 		D381203127B595DF00986187 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D381203027B595DF00986187 /* AppDelegate.swift */; };
 		D381203327B595DF00986187 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D381203227B595DF00986187 /* SceneDelegate.swift */; };
-		D381203527B595DF00986187 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D381203427B595DF00986187 /* ViewController.swift */; };
+		D381203527B595DF00986187 /* LoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D381203427B595DF00986187 /* LoadViewController.swift */; };
 		D381203827B595DF00986187 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D381203627B595DF00986187 /* Main.storyboard */; };
 		D381203A27B595E100986187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D381203927B595E100986187 /* Assets.xcassets */; };
 		D381203D27B595E100986187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D381203B27B595E100986187 /* LaunchScreen.storyboard */; };
@@ -62,6 +62,15 @@
 		D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC507280692DD00059240 /* AuthViewController.swift */; };
 		D3ACC50E280B00B100059240 /* FriendModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50D280B00B100059240 /* FriendModel.swift */; };
 		D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3ACC50F280B00E500059240 /* UserPhotos.swift */; };
+		D3C4B4CA2831573700AEBBC3 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4C92831573700AEBBC3 /* NewsViewController.swift */; };
+		D3C4B4CE2831581300AEBBC3 /* OwnerNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4CC2831581300AEBBC3 /* OwnerNewsCell.swift */; };
+		D3C4B4CF2831581300AEBBC3 /* OwnerNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4CD2831581300AEBBC3 /* OwnerNewsCell.xib */; };
+		D3C4B4D32831587000AEBBC3 /* TextInNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */; };
+		D3C4B4D42831587000AEBBC3 /* TextInNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4D22831587000AEBBC3 /* TextInNewsCell.xib */; };
+		D3C4B4D7283158B500AEBBC3 /* PhotosInNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D5283158B500AEBBC3 /* PhotosInNewsCell.swift */; };
+		D3C4B4D8283158B500AEBBC3 /* PhotosInNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4D6283158B500AEBBC3 /* PhotosInNewsCell.xib */; };
+		D3C4B4DB2831594000AEBBC3 /* BottomOfNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */; };
+		D3C4B4DC2831594000AEBBC3 /* BottomOfNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */; };
 		D3D7C13A282ED72F00A933DC /* RealmCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D7C139282ED72F00A933DC /* RealmCacheService.swift */; };
 		D3E835D227CA6F6800C37C67 /* AvatarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */; };
 /* End PBXBuildFile section */
@@ -84,7 +93,7 @@
 		D381202D27B595DF00986187 /* vkApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = vkApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D381203027B595DF00986187 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D381203227B595DF00986187 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		D381203427B595DF00986187 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		D381203427B595DF00986187 /* LoadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadViewController.swift; sourceTree = "<group>"; };
 		D381203727B595DF00986187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		D381203927B595E100986187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D381203C27B595E100986187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -99,6 +108,15 @@
 		D3ACC50F280B00E500059240 /* UserPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPhotos.swift; sourceTree = "<group>"; };
 		D3B3148327F6C31100B46851 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
 		D3B3148427F6C31100B46851 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		D3C4B4C92831573700AEBBC3 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		D3C4B4CC2831581300AEBBC3 /* OwnerNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerNewsCell.swift; sourceTree = "<group>"; };
+		D3C4B4CD2831581300AEBBC3 /* OwnerNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerNewsCell.xib; sourceTree = "<group>"; };
+		D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInNewsCell.swift; sourceTree = "<group>"; };
+		D3C4B4D22831587000AEBBC3 /* TextInNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextInNewsCell.xib; sourceTree = "<group>"; };
+		D3C4B4D5283158B500AEBBC3 /* PhotosInNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosInNewsCell.swift; sourceTree = "<group>"; };
+		D3C4B4D6283158B500AEBBC3 /* PhotosInNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosInNewsCell.xib; sourceTree = "<group>"; };
+		D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOfNewsCell.swift; sourceTree = "<group>"; };
+		D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomOfNewsCell.xib; sourceTree = "<group>"; };
 		D3D7C139282ED72F00A933DC /* RealmCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCacheService.swift; sourceTree = "<group>"; };
 		D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarUIView.swift; sourceTree = "<group>"; };
 		D749ACB0896C5474ED1A04F0 /* Pods-vkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.debug.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -155,6 +173,7 @@
 		D346C9FB282B7E3E00142368 /* TabBarScene */ = {
 			isa = PBXGroup;
 			children = (
+				D3C4B4C6283156C300AEBBC3 /* NewsScene */,
 				D346C9FD282B819700142368 /* FriendsScene */,
 				D346C9FC282B7ECB00142368 /* GroupScene */,
 			);
@@ -164,8 +183,8 @@
 		D346C9FC282B7ECB00142368 /* GroupScene */ = {
 			isa = PBXGroup;
 			children = (
-				D346CA11282CCA6800142368 /* ViewLayer */,
 				D346CA02282C2ACA00142368 /* Service */,
+				D346CA11282CCA6800142368 /* ViewLayer */,
 			);
 			path = GroupScene;
 			sourceTree = "<group>";
@@ -293,11 +312,10 @@
 		D381202F27B595DF00986187 /* vkApp */ = {
 			isa = PBXGroup;
 			children = (
+				D3C4B4C528314FD200AEBBC3 /* Delegate */,
 				D3ACC506280692AB00059240 /* Auth */,
 				D346C9FB282B7E3E00142368 /* TabBarScene */,
-				D381203027B595DF00986187 /* AppDelegate.swift */,
-				D381203227B595DF00986187 /* SceneDelegate.swift */,
-				D381203427B595DF00986187 /* ViewController.swift */,
+				D381203427B595DF00986187 /* LoadViewController.swift */,
 				D381203627B595DF00986187 /* Main.storyboard */,
 				D381203927B595E100986187 /* Assets.xcassets */,
 				D381203B27B595E100986187 /* LaunchScreen.storyboard */,
@@ -323,6 +341,63 @@
 				D3ACC50F280B00E500059240 /* UserPhotos.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		D3C4B4C528314FD200AEBBC3 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				D381203027B595DF00986187 /* AppDelegate.swift */,
+				D381203227B595DF00986187 /* SceneDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
+		D3C4B4C6283156C300AEBBC3 /* NewsScene */ = {
+			isa = PBXGroup;
+			children = (
+				D3C4B4C8283156EB00AEBBC3 /* ViewLayer */,
+				D3C4B4C7283156CE00AEBBC3 /* Service */,
+			);
+			path = NewsScene;
+			sourceTree = "<group>";
+		};
+		D3C4B4C7283156CE00AEBBC3 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		D3C4B4C8283156EB00AEBBC3 /* ViewLayer */ = {
+			isa = PBXGroup;
+			children = (
+				D3C4B4CB2831577400AEBBC3 /* Cells */,
+				D3C4B4C92831573700AEBBC3 /* NewsViewController.swift */,
+			);
+			path = ViewLayer;
+			sourceTree = "<group>";
+		};
+		D3C4B4CB2831577400AEBBC3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D3C4B4D02831581D00AEBBC3 /* XIBs */,
+				D3C4B4CC2831581300AEBBC3 /* OwnerNewsCell.swift */,
+				D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */,
+				D3C4B4D5283158B500AEBBC3 /* PhotosInNewsCell.swift */,
+				D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */,
+				D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		D3C4B4D02831581D00AEBBC3 /* XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				D3C4B4CD2831581300AEBBC3 /* OwnerNewsCell.xib */,
+				D3C4B4D22831587000AEBBC3 /* TextInNewsCell.xib */,
+				D3C4B4D6283158B500AEBBC3 /* PhotosInNewsCell.xib */,
+			);
+			path = XIBs;
 			sourceTree = "<group>";
 		};
 		D3EB0CDE27D32C4B007B143B /* ProfileScene */ = {
@@ -437,9 +512,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D3C4B4DC2831594000AEBBC3 /* BottomOfNewsCell.xib in Resources */,
 				D381203D27B595E100986187 /* LaunchScreen.storyboard in Resources */,
 				D3804D0B282FF37F0057F87B /* PhotoCollectionViewCell.xib in Resources */,
+				D3C4B4CF2831581300AEBBC3 /* OwnerNewsCell.xib in Resources */,
+				D3C4B4D42831587000AEBBC3 /* TextInNewsCell.xib in Resources */,
 				D381203A27B595E100986187 /* Assets.xcassets in Resources */,
+				D3C4B4D8283158B500AEBBC3 /* PhotosInNewsCell.xib in Resources */,
 				D381203827B595DF00986187 /* Main.storyboard in Resources */,
 				D38881D527CEB7AF00C7BE5B /* ProfilePhotosViewCell.xib in Resources */,
 				D3804D0E283029010057F87B /* GoogleService-Info.plist in Resources */,
@@ -496,25 +575,30 @@
 			buildActionMask = 2147483647;
 			files = (
 				D346CA01282C11C700142368 /* GroupModel.swift in Sources */,
-				D381203527B595DF00986187 /* ViewController.swift in Sources */,
+				D381203527B595DF00986187 /* LoadViewController.swift in Sources */,
 				D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */,
 				D38881CF27CE924800C7BE5B /* ProfileViewController.swift in Sources */,
 				D346CA08282C2FA300142368 /* GroupsViewController.swift in Sources */,
 				D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */,
 				D346CA15282D5E7100142368 /* GroupPhotoView.swift in Sources */,
 				D3804D07282FF2360057F87B /* ShowPhotoViewController.swift in Sources */,
+				D3C4B4D7283158B500AEBBC3 /* PhotosInNewsCell.swift in Sources */,
 				D369487C2830EF15003FC0FE /* FireBaseCommunity.swift in Sources */,
 				D3804D0A282FF37F0057F87B /* PhotoCollectionViewCell.swift in Sources */,
 				D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */,
 				D3ACC505280691BF00059240 /* Singleton.swift in Sources */,
 				D346CA13282CD37C00142368 /* GroupRequests.swift in Sources */,
+				D3C4B4D32831587000AEBBC3 /* TextInNewsCell.swift in Sources */,
 				D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */,
 				D38881D427CEB7AF00C7BE5B /* ProfilePhotosViewCell.swift in Sources */,
+				D3C4B4CA2831573700AEBBC3 /* NewsViewController.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
 				D346CA0A282C3A9B00142368 /* GroupsCell.swift in Sources */,
 				D3D7C13A282ED72F00A933DC /* RealmCacheService.swift in Sources */,
 				D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */,
 				D3AA9E4D282E210900CA02C9 /* AllGroupsViewController.swift in Sources */,
+				D3C4B4CE2831581300AEBBC3 /* OwnerNewsCell.swift in Sources */,
+				D3C4B4DB2831594000AEBBC3 /* BottomOfNewsCell.swift in Sources */,
 				D3E835D227CA6F6800C37C67 /* AvatarUIView.swift in Sources */,
 				D3ACC50E280B00B100059240 /* FriendModel.swift in Sources */,
 				D381203327B595DF00986187 /* SceneDelegate.swift in Sources */,

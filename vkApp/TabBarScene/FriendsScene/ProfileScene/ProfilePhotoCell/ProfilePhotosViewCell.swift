@@ -11,12 +11,10 @@ class ProfilePhotosViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
     
-    
     static let identifier = "ProfilePhotosViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     public func configure(with image: UIImage) {

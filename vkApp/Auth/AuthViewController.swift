@@ -38,6 +38,7 @@ extension LoginController: WKNavigationDelegate {
             return
         }
 
+        print(url)
         let params = fragment
             .components(separatedBy: "&")
             .map { $0.components(separatedBy: "=")}
@@ -56,7 +57,7 @@ extension LoginController: WKNavigationDelegate {
  
             decisionHandler(.cancel)
 
-            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! ViewController
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ViewController") as! LoadViewController
             self.navigationController?.pushViewController(vc, animated: true)
             
         }

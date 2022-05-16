@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController{
+class LoadViewController: UIViewController{
     
     @IBOutlet weak var firstCircle: UIImageView!
     @IBOutlet weak var secondCircle: UIImageView!
