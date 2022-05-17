@@ -26,6 +26,12 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    let realm = RealmCacheService()
+    private var notificationToken: NotificationToken?
+    private var friendRespons: Results<FriendsItem>? {
+        realm.read(FriendsItem.self)
+    }
+    
     var friendImagesForShow: [UIImage?] = []
     
     var namesOfFriends: [String] = []
@@ -37,6 +43,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        
+        service.myFriendsRequest()
+        createNotificationToken()
+        
         searchBar.delegate = self
         self.sortedFriends = sort(friends: friends)
         self.tableView.reloadData()
@@ -46,22 +57,18 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return sortedFriends.keys.count
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let keySorted = sortedFriends.keys.sorted()
-        let friends = sortedFriends[keySorted[section]]?.count ?? 0
-        return friends
+        return self.friends.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendsCell else {
             preconditionFailure("FriendsCell cannot")
         }
-        let firstChar = sortedFriends.keys.sorted()[indexPath.section]
-        let friends = sortedFriends[firstChar]!
-        let friend: FriendsItem = friends[indexPath.row]
+        let friend: FriendsItem = self.friends[indexPath.row]
         let url = URL(string: friend.avatarMiddleSizeUrl)
         cell.imageFriendsCell.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .utility).async {
@@ -74,19 +81,15 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return String(sortedFriends.keys.sorted()[section])
-    }
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
         
-        let keys = Array(sortedFriends.keys.sorted())
+//        let keys = Array(sortedFriends.keys.sorted())
         let friendsInKey: [FriendsItem]
         var friendToShow: FriendsItem
         
-        friendsInKey = sortedFriends[keys[indexPath.section]]!
-        friendToShow = friendsInKey[indexPath.row]
+//        friendsInKey = sortedFriends[keys[indexPath.section]]!
+        friendToShow = self.friends[indexPath.row]
         
         profileVC.profileForFriend = friendToShow
         self.navigationController?.pushViewController(profileVC, animated: true)
@@ -143,5 +146,38 @@ private extension FriendsViewController {
             }
         }
         return friendsDict
+    }
+}
+
+// MARK: - Realm Notification Token
+private extension FriendsViewController {
+    func createNotificationToken() {
+        notificationToken = friendRespons?.observe { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .initial(let friendsData):
+                print("notificationToken, friendsData = \(friendsData.count)")
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            case .update(_,
+                         deletions: let deletions,
+                         insertions: let insertions,
+                         modifications: let modifications):
+                let deletionsIndexpath = deletions.map { IndexPath(row: $0, section: 0) }
+                let insertionsIndexpath = insertions.map { IndexPath(row: $0, section: 0) }
+                let modificationsIndexpath = modifications.map { IndexPath(row: $0, section: 0) }
+                
+                DispatchQueue.main.async {
+                    self.tableView.beginUpdates()
+                    self.tableView.deleteRows(at: deletionsIndexpath, with: .none)
+                    self.tableView.insertRows(at: insertionsIndexpath, with: .none)
+                    self.tableView.reloadRows(at: modificationsIndexpath, with: .none)
+                    self.tableView.endUpdates()
+                }
+            case .error(let error):
+                print("\(error)")
+            }
+        }
     }
 }

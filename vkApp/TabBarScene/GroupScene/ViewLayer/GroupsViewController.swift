@@ -7,7 +7,6 @@
 
 import UIKit
 import RealmSwift
-import Firebase
 
 protocol AddGroupDelegate: AnyObject {
     func addGroup(id: Int, name: String)
@@ -17,10 +16,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
 
     @IBOutlet weak var plusBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    private var groupsFirebase = [FirebaseCommunity]()
-    private var fireBaseReference = Database.database().reference(withPath: "Communities")
-    
+       
     var groups: [Group] {
         do {
             let realm = try Realm()
@@ -48,19 +44,8 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchGroups = groups
+        service.myGroupsRequest()
         createNotificationToken()
-        fireBaseReference.observe(.value) { snapshot in
-            var communities: [FirebaseCommunity] = []
-            for child in snapshot.children {
-                if let snapshot = child as? DataSnapshot,
-                   let group = FirebaseCommunity(snapshot: snapshot) {
-                    communities.append(group)
-                }
-            }
-            print("Добавлена группа")
-            communities.forEach { print($0.groupName) }
-            print(communities.count)
-        }
     }
     
     @IBAction func addGroup(_ sender: Any) {
@@ -108,9 +93,6 @@ extension GroupsViewController: AddGroupDelegate {
             switch result {
             case .success(let success):
                 if success.response == 1 {
-                    let com = FirebaseCommunity(name: name, id: id)
-                    let reference = self.fireBaseReference.child(name.lowercased())
-                    reference.setValue(com.toAnyObject())
                     self.service.myGroupsRequest()
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
@@ -164,7 +146,8 @@ private extension GroupsViewController {
             guard let self = self else { return }
             switch result {
             case .initial(let groupsData):
-                print("\(groupsData.count)")
+                print("notificationToken, groupsData = \(groupsData.count)")
+                self.tableView.reloadData()
             case .update(_,
                          deletions: let deletions,
                          insertions: let insertions,
@@ -175,9 +158,9 @@ private extension GroupsViewController {
                 
                 DispatchQueue.main.async {
                     self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletionsIndexpath, with: .automatic)
-                    self.tableView.insertRows(at: insertionsIndexpath, with: .automatic)
-                    self.tableView.reloadRows(at: modificationsIndexpath, with: .automatic)
+                    self.tableView.deleteRows(at: deletionsIndexpath, with: .none)
+                    self.tableView.insertRows(at: insertionsIndexpath, with: .none)
+                    self.tableView.reloadRows(at: modificationsIndexpath, with: .none)
                     self.tableView.endUpdates()
                 }
             case .error(let error):

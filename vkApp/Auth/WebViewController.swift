@@ -1,30 +1,34 @@
 //
-//  AuthViewController.swift
+//  WebViewController.swift
 //  vkApp
 //
-//  Created by Денис Тереничев on 13.04.2022.
+//  Created by Денис Тереничев on 17.05.2022.
 //
 
 import UIKit
 import WebKit
 
-final class LoginController: UIViewController {
+class WebViewController: UIViewController {
+
     @IBOutlet weak var webView: WKWebView!
     
     override func loadView() {
         super.loadView()
         view = webView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureWebView()
         loadAuth()
     }
+    
+
+
 }
 
-// MARK: - WKNavigationDelegate
-extension LoginController: WKNavigationDelegate {
+extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationResponse: WKNavigationResponse,
                  decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
@@ -53,15 +57,21 @@ extension LoginController: WKNavigationDelegate {
             Singleton.instance.id = Int(id)
             Singleton.instance.token = token
             print(token)
+
             decisionHandler(.cancel)
-            performSegue(withIdentifier: "ToTabBarScene", sender: nil)
+            
+            print("push")
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoadViewController") as! ViewController
+            print(vc)
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+//            performSegue(withIdentifier: "toLoginVC", sender: nil)
         }
-        print("push")
+        
     }
 }
 
-// MARK: - Private
-private extension LoginController {
+private extension WebViewController {
     func configureWebView() {
         navigationController?.navigationBar.isHidden = true
         webView.navigationDelegate = self
@@ -76,7 +86,7 @@ private extension LoginController {
             URLQueryItem(name: "client_id", value: "8135752"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-            URLQueryItem(name: "scope", value: "offline, friends, photos, groups, wall"),
+            URLQueryItem(name: "scope", value: "offline, friends, photos, groups"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "revoke", value: "0")
         ]
