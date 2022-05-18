@@ -10,57 +10,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController storyboardIdentifier="LoadViewController" id="BYZ-38-t0r" customClass="ViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zmV-bg-mNE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
-                                <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circlebadge.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="PBa-Ed-sOz">
-                                        <rect key="frame" x="150" y="392.5" width="33" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circlebadge.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="VlJ-Tt-V4Z">
-                                        <rect key="frame" x="191" y="392.5" width="33" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="circlebadge.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="3il-fq-9Ia">
-                                        <rect key="frame" x="232" y="392.5" width="33" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </imageView>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zmV-bg-mNE" secondAttribute="trailing" id="Df3-eC-Ofs"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="zmV-bg-mNE" secondAttribute="bottom" id="epX-62-2tR"/>
-                            <constraint firstItem="zmV-bg-mNE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="q3q-Xp-ndz"/>
-                            <constraint firstItem="zmV-bg-mNE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="s0o-3E-QfW"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" id="S4E-uU-CFG"/>
-                    <connections>
-                        <outlet property="firstCircle" destination="PBa-Ed-sOz" id="0Qa-fx-WAx"/>
-                        <outlet property="secondCircle" destination="VlJ-Tt-V4Z" id="ntp-j7-xSw"/>
-                        <outlet property="thirdCircle" destination="3il-fq-9Ia" id="NNO-oM-hQ3"/>
-                        <segue destination="Z4b-iP-f1r" kind="presentation" identifier="checkLog" modalPresentationStyle="fullScreen" id="IlH-xt-BDq"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1491" y="839"/>
-        </scene>
         <!--Login Controller-->
         <scene sceneID="tjw-iL-ek5">
             <objects>
@@ -89,13 +38,12 @@
                     <navigationItem key="navigationItem" id="WRT-XC-UJR"/>
                     <connections>
                         <outlet property="webView" destination="2f9-EA-skV" id="QPk-dP-bbt"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="toLoginVC" modalPresentationStyle="fullScreen" id="bDU-c3-uqY"/>
                         <segue destination="Z4b-iP-f1r" kind="presentation" identifier="ToTabBarScene" modalPresentationStyle="fullScreen" id="A5L-WM-eiH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOZ-Cd-1Fr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="320" y="69"/>
+            <point key="canvasLocation" x="1728" y="69"/>
         </scene>
         <!--Друзья-->
         <scene sceneID="QaG-4s-3Pj">
@@ -208,6 +156,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="searchBar" destination="LfT-ei-YeA" id="uaS-jl-4Ve"/>
+                        <segue destination="bu2-9c-R83" kind="presentation" modalPresentationStyle="fullScreen" id="Myb-vf-mRs"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZXk-V8-PN8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -222,7 +171,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MfP-BC-A2n">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MfP-BC-A2n">
                                 <rect key="frame" x="20" y="60" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="8GM-eV-27D"/>
@@ -657,11 +606,7 @@
             <point key="canvasLocation" x="5418.840579710145" y="371.65178571428572"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="A5L-WM-eiH"/>
-    </inferredMetricsTieBreakers>
     <resources>
-        <image name="circlebadge.fill" catalog="system" width="128" height="120"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.3.fill" catalog="system" width="128" height="61"/>

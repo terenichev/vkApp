@@ -25,7 +25,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             return []
         }
     }
-    
+
     let realm = RealmCacheService()
     private var notificationToken: NotificationToken?
     private var friendRespons: Results<FriendsItem>? {
@@ -34,10 +34,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     var friendImagesForShow: [UIImage?] = []
     
-    var namesOfFriends: [String] = []
     var searchFriends: [FriendsItem]!
-    
-    var sortedFriends = [Character: [FriendsItem]]()
     
     var chars:[String] = []
     
@@ -49,7 +46,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         createNotificationToken()
         
         searchBar.delegate = self
-        self.sortedFriends = sort(friends: friends)
+        self.searchFriends = friends
         self.tableView.reloadData()
     }
     
@@ -61,14 +58,14 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.friends.count
+        return self.searchFriends.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendsCell else {
             preconditionFailure("FriendsCell cannot")
         }
-        let friend: FriendsItem = self.friends[indexPath.row]
+        let friend: FriendsItem = self.searchFriends[indexPath.row]
         let url = URL(string: friend.avatarMiddleSizeUrl)
         cell.imageFriendsCell.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .utility).async {
@@ -84,20 +81,16 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
         
-//        let keys = Array(sortedFriends.keys.sorted())
-        let friendsInKey: [FriendsItem]
         var friendToShow: FriendsItem
         
-//        friendsInKey = sortedFriends[keys[indexPath.section]]!
-        friendToShow = self.friends[indexPath.row]
+        friendToShow = self.searchFriends[indexPath.row]
         
         profileVC.profileForFriend = friendToShow
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
-    // MARK: - Search Bar Config
-    
-    //При нажатии на строку поиска скрываем navigationBar с анимацией
+// MARK: - Search Bar Config
+    ///При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -113,9 +106,9 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         searchBar.resignFirstResponder()
     }
     
-    //Реализация поиска независимо от введенного регистра
+    ///Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchFriends = []
+        self.searchFriends = []
         if searchText == "" {
             searchFriends = friends
         }
@@ -127,25 +120,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
                 }
             }
         }
-        self.sortedFriends = sort(friends: searchFriends)
         self.tableView.reloadData()
-    }
-}
-
-// MARK: - Private
-private extension FriendsViewController {
-    func sort(friends: [FriendsItem]) -> [Character: [FriendsItem]] {
-        var friendsDict = [Character: [FriendsItem]]()
-        friends.forEach() {friend in
-            guard let firstChar = friend.firstName.first else {return}
-            if var thisCharFriends = friendsDict[firstChar]{
-                thisCharFriends.append(friend)
-                friendsDict[firstChar] = thisCharFriends
-            } else {
-                friendsDict[firstChar] = [friend]
-            }
-        }
-        return friendsDict
     }
 }
 
