@@ -9,15 +9,20 @@ import UIKit
 
 class TextInNewsCell: UITableViewCell {
 
+    @IBOutlet weak var newsText: UITextView!
+    
+    static let identifier = "TextInNewsCell"
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    public func configure(with text: String) {
+        newsText.text = text
+    }
+    
+    static func nib() -> UINib{
+        return UINib(nibName: "TextInNewsCell", bundle: nil)
     }
     
 }

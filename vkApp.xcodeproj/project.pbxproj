@@ -115,9 +115,9 @@
 		D346C9FB282B7E3E00142368 /* TabBarScene */ = {
 			isa = PBXGroup;
 			children = (
-				D3C4B4C6283156C300AEBBC3 /* NewsScene */,
 				D346C9FD282B819700142368 /* FriendsScene */,
 				D346C9FC282B7ECB00142368 /* GroupScene */,
+				D3C4B4C6283156C300AEBBC3 /* NewsScene */,
 			);
 			path = TabBarScene;
 			sourceTree = "<group>";
@@ -311,8 +311,8 @@
 		D3C4B4C8283156EB00AEBBC3 /* ViewLayer */ = {
 			isa = PBXGroup;
 			children = (
-				D3C4B4CB2831577400AEBBC3 /* Cells */,
 				D3C4B4C92831573700AEBBC3 /* NewsViewController.swift */,
+				D3C4B4CB2831577400AEBBC3 /* Cells */,
 			);
 			path = ViewLayer;
 			sourceTree = "<group>";
@@ -325,7 +325,6 @@
 				D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */,
 				D3C4B4D5283158B500AEBBC3 /* PhotosInNewsCell.swift */,
 				D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */,
-				D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -336,6 +335,7 @@
 				D3C4B4CD2831581300AEBBC3 /* OwnerNewsCell.xib */,
 				D3C4B4D22831587000AEBBC3 /* TextInNewsCell.xib */,
 				D3C4B4D6283158B500AEBBC3 /* PhotosInNewsCell.xib */,
+				D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */,
 			);
 			path = XIBs;
 			sourceTree = "<group>";
