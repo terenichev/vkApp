@@ -40,14 +40,20 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
-        service.myFriendsRequest()
         createNotificationToken()
         
         searchBar.delegate = self
         self.searchFriends = friends
-        self.tableView.reloadData()
+        tableView.reloadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.global(qos: .background).async {
+            self.service.myFriendsRequest()
+        }
     }
     
     
@@ -68,7 +74,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         let friend: FriendsItem = self.searchFriends[indexPath.row]
         let url = URL(string: friend.avatarMiddleSizeUrl)
         cell.imageFriendsCell.image = UIImage(named: "not photo")
-        DispatchQueue.global(qos: .utility).async {
+        DispatchQueue.global(qos: .default).async {
             let imageFromUrl = self.service.imageLoader(url: url)
                 DispatchQueue.main.async {
                     cell.imageFriendsCell.image = imageFromUrl
@@ -132,9 +138,7 @@ private extension FriendsViewController {
             switch result {
             case .initial(let friendsData):
                 print("notificationToken, friendsData = \(friendsData.count)")
-                DispatchQueue.main.async {
                     self.tableView.reloadData()
-                }
             case .update(_,
                          deletions: let deletions,
                          insertions: let insertions,
@@ -142,6 +146,19 @@ private extension FriendsViewController {
                 let deletionsIndexpath = deletions.map { IndexPath(row: $0, section: 0) }
                 let insertionsIndexpath = insertions.map { IndexPath(row: $0, section: 0) }
                 let modificationsIndexpath = modifications.map { IndexPath(row: $0, section: 0) }
+                
+                var friendsUpdate: [FriendsItem] {
+                    do {
+                        let realm = try Realm()
+                        let friend = realm.objects(FriendsItem.self)
+                        let friendsFromRealm = Array(friend)
+                        return friendsFromRealm
+                    } catch {
+                        print(error)
+                        return []
+                    }
+                }
+                self.searchFriends = friendsUpdate
                 
                 DispatchQueue.main.async {
                     self.tableView.beginUpdates()

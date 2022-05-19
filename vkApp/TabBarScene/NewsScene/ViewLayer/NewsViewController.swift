@@ -27,14 +27,14 @@ class NewsViewController: UITableViewController {
     }
 
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("NewsCell cannot") }
-        tableView.register(OwnerNewsCell.self, forCellReuseIdentifier: "OwnerNewsCell")
-        
-        cell.configure(with: UIImage(named: "not photo")!, name: "Иван Иванов", dateOfNews: "28 минут назад")
-
-        return cell
-    }
+//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("NewsCell cannot") }
+//        tableView.register(OwnerNewsCell.self, forCellReuseIdentifier: "OwnerNewsCell")
+//        
+//        cell.configure(with: UIImage(named: "not photo")!, name: "Иван Иванов", dateOfNews: "28 минут назад")
+//
+//        return cell
+//    }
     
 
     /*

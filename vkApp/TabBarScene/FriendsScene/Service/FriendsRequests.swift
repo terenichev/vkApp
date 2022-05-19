@@ -82,9 +82,11 @@ class FriendsRequests {
             let realm = try Realm()
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
             let oldFriends = realm.objects(FriendsItem.self)
+            
             let arrayOldFriends = Array(oldFriends)
-            if arrayOldFriends .isEmpty {
+            if friends.count != arrayOldFriends.count {
                 realm.beginWrite()
+                realm.delete(arrayOldFriends)
                 realm.add(friends)
                 try realm.commitWrite()
             }

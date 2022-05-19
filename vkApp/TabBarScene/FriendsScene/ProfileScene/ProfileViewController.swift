@@ -44,7 +44,7 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
         let image = UIImage(named: "not photo")!
-        DispatchQueue.global(qos: .utility).async {
+        DispatchQueue.global(qos: .default).async {
             let imageFromUrl = self.service.imageLoader(url: self.arrayImageUrl[indexPath.row])
             DispatchQueue.main.async {
                 cell.configure(with: imageFromUrl)
@@ -72,7 +72,7 @@ private extension ProfileViewController {
         mainPhotoOfProfile.layer.cornerRadius = 50
         mainPhotoOfProfile.image = UIImage(named: "not photo")
         let url = URL(string: profileForFriend.avatarMaxSizeUrl)
-        DispatchQueue.global(qos: .utility).async {
+        DispatchQueue.global(qos: .default).async {
             let imageFromUrl = self.service.imageLoader(url: url)
             DispatchQueue.main.async {
                 self.mainPhotoOfProfile.image = imageFromUrl
@@ -86,9 +86,12 @@ private extension ProfileViewController {
             case .success(let array):
                 var arrayImagesString: [String] = []
                 array.forEach({ arrayImagesString.append($0.sizes.last!.url) })
+                var reversedPhotosArray: [URL] = []
                 for string in arrayImagesString {
                     let url = URL(string: string)
-                    self?.arrayImageUrl.append(url!)
+                    reversedPhotosArray.append(url!)
+                    self?.arrayImageUrl = reversedPhotosArray.reversed()
+                    
                     DispatchQueue.main.async {
                         self?.myCollectionView.reloadData()
                     }

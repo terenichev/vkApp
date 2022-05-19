@@ -115,9 +115,10 @@ class GroupsRequests {
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
             let oldGroups = realm.objects(Group.self)
             let arrayOldGroups = Array(oldGroups)
-            if arrayOldGroups .isEmpty {
+            if groups.count != arrayOldGroups.count {
                 realm.beginWrite()
                 realm.add(groups)
+                realm.delete(arrayOldGroups)
                 try realm.commitWrite()
             }
         } catch {

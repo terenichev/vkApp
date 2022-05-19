@@ -44,8 +44,15 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchGroups = groups
-        service.myGroupsRequest()
         createNotificationToken()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        DispatchQueue.global(qos: .default).async {
+            self.service.myGroupsRequest()
+        }
     }
     
     @IBAction func addGroup(_ sender: Any) {
@@ -62,7 +69,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return groupRespons?.count ?? 0
+        return searchGroups?.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -73,7 +80,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
             let group: Group = groups[indexPath.row]
             let url = URL(string: group.photo100)
             cell.groupImage.image = UIImage(named: "not photo")
-            DispatchQueue.global(qos: .utility).async {
+            DispatchQueue.global(qos: .default).async {
                 let imageFromUrl = self.service.imageLoader(url: url)
                 DispatchQueue.main.async {
                     cell.groupImage.image = imageFromUrl
@@ -155,6 +162,19 @@ private extension GroupsViewController {
                 let deletionsIndexpath = deletions.map { IndexPath(row: $0, section: 0) }
                 let insertionsIndexpath = insertions.map { IndexPath(row: $0, section: 0) }
                 let modificationsIndexpath = modifications.map { IndexPath(row: $0, section: 0) }
+                
+                var groupsUpdate: [Group] {
+                    do {
+                        let realm = try Realm()
+                        let group = realm.objects(Group.self)
+                        let groupsFromRealm = Array(group)
+                        return groupsFromRealm
+                    } catch {
+                        print(error)
+                        return []
+                    }
+                }
+                self.searchGroups = groupsUpdate
                 
                 DispatchQueue.main.async {
                     self.tableView.beginUpdates()

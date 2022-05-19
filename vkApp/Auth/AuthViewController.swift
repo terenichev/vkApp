@@ -52,6 +52,7 @@ extension LoginController: WKNavigationDelegate {
         if let token = params["access_token"], let id = params["user_id"] {
             Singleton.instance.id = Int(id)
             Singleton.instance.token = token
+            
             print(token)
             decisionHandler(.cancel)
             performSegue(withIdentifier: "ToTabBarScene", sender: nil)
