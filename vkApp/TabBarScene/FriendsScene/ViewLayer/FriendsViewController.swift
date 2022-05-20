@@ -80,6 +80,17 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
                     cell.imageFriendsCell.image = imageFromUrl
                 }
         }
+        service.isFriendOnline(id: friend.id) { result in
+            switch result{
+            case .failure(let error):
+                print("error", error)
+            case .success(let isFriendOnline):
+                DispatchQueue.main.async {
+                    cell.onlineIdentificator.isHidden = isFriendOnline
+                }
+            }
+        }
+//        cell.onlineIdentificator.isHidden = false
         cell.labelFriendsCell.text = friend.firstName + " " + friend.lastName
         return cell
     }

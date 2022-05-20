@@ -15,9 +15,12 @@ class FriendsCell: UITableViewCell{
     
     @IBOutlet weak var callToFriend: UIImageView!
     
+    @IBOutlet weak var onlineIdentificator: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        onlineIdentificator.layer.cornerRadius = 5
+        
     }
     
 

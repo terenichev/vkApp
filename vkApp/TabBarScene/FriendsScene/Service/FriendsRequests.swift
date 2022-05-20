@@ -45,6 +45,44 @@ class FriendsRequests {
         }.resume()
     }
     
+    func isFriendOnline(id: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
+        var checkOnlineUrl = URLComponents()
+        checkOnlineUrl.scheme = "https"
+        checkOnlineUrl.host = "api.vk.com"
+        checkOnlineUrl.path = "/method/users.get"
+        checkOnlineUrl.queryItems = [
+            URLQueryItem(name: "user_ids", value: "\(id)"),
+            URLQueryItem(name: "fields", value: "online"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetOnline = checkOnlineUrl.url
+        else { return }
+        print(urlGetOnline)
+        session.dataTask(with: urlGetOnline) { (data, response, error) in
+            if let error = error {
+                print("some error")
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            do {
+                let isUserOnlineJSON = try JSONDecoder().decode(UserResponse.self, from: data).response
+                let isUserOnlineInt = isUserOnlineJSON[0].online
+                var isUserOnline = false
+                if isUserOnlineInt == 1 {
+                    isUserOnline = true
+                }
+                DispatchQueue.main.async {
+                    completion(.success(isUserOnline))
+                }
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
+            }
+        }.resume()
+    }
+    
     func friendsPhotoRequest(id: Int, completion: @escaping (Result<[Item], Error>) -> Void) {
         var urlComponentsGetPhotos = URLComponents()
         urlComponentsGetPhotos.scheme = "https"
