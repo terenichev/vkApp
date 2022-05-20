@@ -20,7 +20,7 @@ class FriendsCell: UITableViewCell{
     override func awakeFromNib() {
         super.awakeFromNib()
         onlineIdentificator.layer.cornerRadius = 5
-        
+        imageFriendsCell.layer.cornerRadius = bounds.height/2
     }
     
 

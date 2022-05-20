@@ -17,15 +17,15 @@ class AvatarUIView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        shadowView.layer.shadowColor = shadowColor.cgColor
-        shadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
-        shadowView.layer.shadowRadius = 2
-        shadowView.layer.shadowOpacity = 0.7
+//        shadowView.layer.shadowColor = shadowColor.cgColor
+//        shadowView.layer.shadowOffset = CGSize(width: 2, height: 2)
+//        shadowView.layer.shadowRadius = 2
+//        shadowView.layer.shadowOpacity = 0.7
     }
     
     override func layoutSubviews() {
         avatarImage.layer.cornerRadius = bounds.height/2
-        shadowView.layer.cornerRadius = bounds.height/2
+//        shadowView.layer.cornerRadius = bounds.height/2
         self.layer.cornerRadius = bounds.height/2
     }
 }

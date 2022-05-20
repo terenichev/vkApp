@@ -112,11 +112,10 @@
                                             </constraints>
                                             <connections>
                                                 <outlet property="avatarImage" destination="Fkq-G6-vFc" id="WN4-oR-DdL"/>
-                                                <outlet property="shadowView" destination="yUh-Uh-QQs" id="8r3-Xt-oYj"/>
                                             </connections>
                                         </view>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UD1-oY-qrM">
-                                            <rect key="frame" x="90" y="14.5" width="204" height="21"/>
+                                            <rect key="frame" x="85" y="14.5" width="209" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
@@ -148,7 +147,7 @@
                                         <constraint firstItem="UD1-oY-qrM" firstAttribute="centerY" secondItem="f6k-OU-kFX" secondAttribute="centerY" id="LZz-hb-6zh"/>
                                         <constraint firstItem="Vux-0W-auz" firstAttribute="centerY" secondItem="f6k-OU-kFX" secondAttribute="centerY" id="MF2-PY-93B"/>
                                         <constraint firstItem="RxS-9Q-QXS" firstAttribute="leading" secondItem="UD1-oY-qrM" secondAttribute="trailing" constant="28" id="mMX-Km-s6b"/>
-                                        <constraint firstItem="UD1-oY-qrM" firstAttribute="leading" secondItem="Vux-0W-auz" secondAttribute="trailing" constant="30" id="wzm-Oo-hrB"/>
+                                        <constraint firstItem="UD1-oY-qrM" firstAttribute="leading" secondItem="Vux-0W-auz" secondAttribute="trailing" constant="25" id="wzm-Oo-hrB"/>
                                     </constraints>
                                 </tableViewCellContentView>
                                 <connections>
