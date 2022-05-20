@@ -23,7 +23,7 @@ class FriendsRequests {
         urlForUserIdsComponents.path = "/method/friends.get"
         urlForUserIdsComponents.queryItems = [
             URLQueryItem(name: "order", value: "hints"),
-            URLQueryItem(name: "fields", value: "photo_50, status, photo_200_orig, photo_100"),
+            URLQueryItem(name: "fields", value: "online, photo_50, status, photo_200_orig, photo_100"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -41,44 +41,6 @@ class FriendsRequests {
                 }
             } catch {
                 print("Failed to decode friends JSON")
-            }
-        }.resume()
-    }
-    
-    func isFriendOnline(id: Int, completion: @escaping (Result<Bool, Error>) -> Void) {
-        var checkOnlineUrl = URLComponents()
-        checkOnlineUrl.scheme = "https"
-        checkOnlineUrl.host = "api.vk.com"
-        checkOnlineUrl.path = "/method/users.get"
-        checkOnlineUrl.queryItems = [
-            URLQueryItem(name: "user_ids", value: "\(id)"),
-            URLQueryItem(name: "fields", value: "online"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
-        guard let urlGetOnline = checkOnlineUrl.url
-        else { return }
-        print(urlGetOnline)
-        session.dataTask(with: urlGetOnline) { (data, response, error) in
-            if let error = error {
-                print("some error")
-                completion(.failure(error))
-                return
-            }
-            guard let data = data else { return }
-            do {
-                let isUserOnlineJSON = try JSONDecoder().decode(UserResponse.self, from: data).response
-                let isUserOnlineInt = isUserOnlineJSON[0].online
-                var isUserOnline = false
-                if isUserOnlineInt == 1 {
-                    isUserOnline = true
-                }
-                DispatchQueue.main.async {
-                    completion(.success(isUserOnline))
-                }
-            } catch let jsonError {
-                print("Failed to decode JSON", jsonError)
-                completion(.failure(jsonError))
             }
         }.resume()
     }
@@ -117,6 +79,7 @@ class FriendsRequests {
     
     func saveFriendsListData (_ friends: [FriendsItem]) {
         do {
+//            let config = Realm.Configuration.init(deleteRealmIfMigrationNeeded: true)
             let realm = try Realm()
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
             let oldFriends = realm.objects(FriendsItem.self)

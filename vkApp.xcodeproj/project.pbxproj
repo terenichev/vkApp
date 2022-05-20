@@ -16,7 +16,6 @@
 		D346CA0A282C3A9B00142368 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA09282C3A9B00142368 /* GroupsCell.swift */; };
 		D346CA13282CD37C00142368 /* GroupRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA12282CD37C00142368 /* GroupRequests.swift */; };
 		D346CA15282D5E7100142368 /* GroupPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA14282D5E7100142368 /* GroupPhotoView.swift */; };
-		D3586C6228375A760013A379 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3586C6128375A760013A379 /* User.swift */; };
 		D3804D07282FF2360057F87B /* ShowPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3804D06282FF2360057F87B /* ShowPhotoViewController.swift */; };
 		D3804D0A282FF37F0057F87B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3804D08282FF37F0057F87B /* PhotoCollectionViewCell.swift */; };
 		D3804D0B282FF37F0057F87B /* PhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3804D09282FF37F0057F87B /* PhotoCollectionViewCell.xib */; };
@@ -57,7 +56,6 @@
 		D346CA09282C3A9B00142368 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		D346CA12282CD37C00142368 /* GroupRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRequests.swift; sourceTree = "<group>"; };
 		D346CA14282D5E7100142368 /* GroupPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPhotoView.swift; sourceTree = "<group>"; };
-		D3586C6128375A760013A379 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		D3804D06282FF2360057F87B /* ShowPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowPhotoViewController.swift; sourceTree = "<group>"; };
 		D3804D08282FF37F0057F87B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		D3804D09282FF37F0057F87B /* PhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -281,7 +279,6 @@
 			children = (
 				D3ACC50D280B00B100059240 /* FriendModel.swift */,
 				D3ACC50F280B00E500059240 /* UserPhotos.swift */,
-				D3586C6128375A760013A379 /* User.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -494,7 +491,6 @@
 				D38881CF27CE924800C7BE5B /* ProfileViewController.swift in Sources */,
 				D346CA08282C2FA300142368 /* GroupsViewController.swift in Sources */,
 				D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */,
-				D3586C6228375A760013A379 /* User.swift in Sources */,
 				D346CA15282D5E7100142368 /* GroupPhotoView.swift in Sources */,
 				D3804D07282FF2360057F87B /* ShowPhotoViewController.swift in Sources */,
 				D3C4B4D7283158B500AEBBC3 /* PhotosInNewsCell.swift in Sources */,

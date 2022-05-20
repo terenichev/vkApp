@@ -86,12 +86,13 @@
                                                         <constraint firstAttribute="width" secondItem="Fkq-G6-vFc" secondAttribute="height" multiplier="1:1" id="vK2-Kl-1XR"/>
                                                     </constraints>
                                                 </imageView>
-                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="circle.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ry1-yS-YPG">
-                                                    <rect key="frame" x="28" y="28.5" width="12" height="11"/>
-                                                    <color key="tintColor" systemColor="systemGreenColor"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iphone.homebutton" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Ry1-yS-YPG">
+                                                    <rect key="frame" x="30" y="25" width="13" height="17"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="tintColor" red="0.20259641972249096" green="0.77897757954067648" blue="0.22186083804507567" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="Ry1-yS-YPG" secondAttribute="height" multiplier="1:1" id="4MW-zt-a02"/>
-                                                        <constraint firstAttribute="height" constant="12" id="7g2-ne-Sqo"/>
+                                                        <constraint firstAttribute="width" secondItem="Ry1-yS-YPG" secondAttribute="height" multiplier="1:1" constant="-4" id="4MW-zt-a02"/>
+                                                        <constraint firstAttribute="height" constant="17" id="7g2-ne-Sqo"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -99,14 +100,14 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="Fkq-G6-vFc" secondAttribute="bottom" id="0q7-mP-tg5"/>
                                                 <constraint firstAttribute="bottom" secondItem="yUh-Uh-QQs" secondAttribute="bottom" id="1fw-69-gHN"/>
-                                                <constraint firstAttribute="trailing" secondItem="Ry1-yS-YPG" secondAttribute="trailing" id="25t-La-puV"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ry1-yS-YPG" secondAttribute="trailing" constant="-3" id="25t-La-puV"/>
                                                 <constraint firstItem="yUh-Uh-QQs" firstAttribute="top" secondItem="Vux-0W-auz" secondAttribute="top" id="2O3-Vd-KuY"/>
                                                 <constraint firstItem="yUh-Uh-QQs" firstAttribute="leading" secondItem="Vux-0W-auz" secondAttribute="leading" id="7iG-JR-FfJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="Fkq-G6-vFc" secondAttribute="trailing" id="Lah-mp-vQx"/>
                                                 <constraint firstAttribute="width" secondItem="Vux-0W-auz" secondAttribute="height" multiplier="1:1" id="NLg-2o-WaV"/>
                                                 <constraint firstAttribute="trailing" secondItem="yUh-Uh-QQs" secondAttribute="trailing" id="Opa-x1-Pgv"/>
                                                 <constraint firstItem="Fkq-G6-vFc" firstAttribute="leading" secondItem="Vux-0W-auz" secondAttribute="leading" id="aVg-yu-PE1"/>
-                                                <constraint firstAttribute="bottom" secondItem="Ry1-yS-YPG" secondAttribute="bottom" id="oZk-cF-V3u"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ry1-yS-YPG" secondAttribute="bottom" constant="-2" id="oZk-cF-V3u"/>
                                                 <constraint firstItem="Fkq-G6-vFc" firstAttribute="top" secondItem="Vux-0W-auz" secondAttribute="top" id="ywR-jf-dGP"/>
                                             </constraints>
                                             <connections>
@@ -619,7 +620,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="circle.fill" catalog="system" width="128" height="121"/>
+        <image name="iphone.homebutton" catalog="system" width="108" height="128"/>
         <image name="message" catalog="system" width="128" height="113"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
@@ -629,9 +630,6 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

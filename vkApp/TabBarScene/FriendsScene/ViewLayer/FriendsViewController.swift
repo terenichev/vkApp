@@ -72,25 +72,16 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
             preconditionFailure("FriendsCell cannot")
         }
         let friend: FriendsItem = self.searchFriends[indexPath.row]
+        
         let url = URL(string: friend.avatarMiddleSizeUrl)
         cell.imageFriendsCell.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .default).async {
             let imageFromUrl = self.service.imageLoader(url: url)
                 DispatchQueue.main.async {
                     cell.imageFriendsCell.image = imageFromUrl
+                    cell.onlineIdentificator.alpha = CGFloat(integerLiteral: friend.isOnline)
                 }
         }
-        service.isFriendOnline(id: friend.id) { result in
-            switch result{
-            case .failure(let error):
-                print("error", error)
-            case .success(let isFriendOnline):
-                DispatchQueue.main.async {
-                    cell.onlineIdentificator.isHidden = isFriendOnline
-                }
-            }
-        }
-//        cell.onlineIdentificator.isHidden = false
         cell.labelFriendsCell.text = friend.firstName + " " + friend.lastName
         return cell
     }
