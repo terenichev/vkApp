@@ -12,6 +12,12 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    @objc var friendsRefreshControl: UIRefreshControl {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        return refreshControl
+    }
+    
     let service = FriendsRequests()
     
     var friends: [FriendsItem] {
@@ -41,6 +47,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.refreshControl = friendsRefreshControl
         createNotificationToken()
         
         searchBar.delegate = self
@@ -54,6 +61,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         DispatchQueue.global(qos: .background).async {
             self.service.myFriendsRequest()
         }
+    }
+    
+    @objc private func refresh(sender: UIRefreshControl) {
+        print("refresh")
+        sender.endRefreshing()
     }
     
     
@@ -96,6 +108,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         profileVC.profileForFriend = friendToShow
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
+    
+    
     
 // MARK: - Search Bar Config
     ///При нажатии на строку поиска скрываем navigationBar с анимацией
