@@ -24,7 +24,6 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
         searchBar.delegate = self
         searchGroups = groups
         loadGroups()
@@ -39,7 +38,6 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBAction func addGroup(_ sender: Any) {
         let allGroupsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllGroupsViewController") as! AllGroupsViewController
-        
         allGroupsVC.delegate = self
         navigationController?.pushViewController(allGroupsVC, animated: true)
     }
@@ -76,6 +74,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
 
 // MARK: - AddGroupDelegate
 extension GroupsViewController: AddGroupDelegate {
+    ///Добавление выбранной группы в общий групп пользователя
     func addGroup(id: Int, name: String) {
         service.addGroup(idGroup: id) { [weak self] result in
             guard let self = self else { return }
@@ -96,6 +95,7 @@ extension GroupsViewController: AddGroupDelegate {
 
 // MARK: - Search Bar Config
 extension GroupsViewController {
+    ///При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -103,6 +103,7 @@ extension GroupsViewController {
         searchBar.setShowsCancelButton(true, animated: true)
     }
     
+    ///При отмене поиска возвращаем navigationBar с анимацией
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
@@ -111,6 +112,7 @@ extension GroupsViewController {
         searchBar.resignFirstResponder()
     }
     
+    ///Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         searchGroups = []
         if searchText == "" {
@@ -130,9 +132,9 @@ extension GroupsViewController {
 
 // MARK: - Load Groups
 private extension GroupsViewController {
-    ///Загружаем список друзей и сохраняем в массив
+    ///Загружаем список групп и сохраняем в массив
     func loadGroups() {
-        service.myGroupsRequest { [weak self] result in
+        service.loadGroupsList { [weak self] result in
             switch result {
             case .success(let groups):
                 self?.groups = groups

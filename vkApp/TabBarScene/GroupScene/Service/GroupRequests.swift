@@ -15,7 +15,8 @@ class GroupsRequests {
         return session
     }()
     
-    func myGroupsRequest(_ completion: @escaping (Result<[Group], Error>) -> Void) {
+    ///Запрос списка групп текущего пользователя
+    func loadGroupsList(_ completion: @escaping (Result<[Group], Error>) -> Void) {
         var urlForGroupComponents = URLComponents()
         urlForGroupComponents.scheme = "https"
         urlForGroupComponents.host = "api.vk.com"
@@ -43,7 +44,7 @@ class GroupsRequests {
             }
         }.resume()
     }
-    
+    ///Поиск группы по введенным символам
     func searchGroupsRequest(searchText: String, completion: @escaping (Result<[Group], Error>) -> Void) {
         var urlForGroupSearchComponents = URLComponents()
         urlForGroupSearchComponents.scheme = "https"
@@ -75,7 +76,7 @@ class GroupsRequests {
             }
         }.resume()
     }
-    
+    ///Добавление группы по id в список групп текущего пользователя
     func addGroup(idGroup: Int,
                   completion: @escaping(Result<JoinOrLeaveGroupModel, Error>) -> Void) {
         var urlForAddGroupComponents = URLComponents()
@@ -110,6 +111,7 @@ class GroupsRequests {
 }
 
 extension GroupsRequests {
+    ///Загрузка изображения по URL
     func imageLoader(url: URL?) -> UIImage {
         var image: UIImage
         if let data = try? Data(contentsOf: url!) {

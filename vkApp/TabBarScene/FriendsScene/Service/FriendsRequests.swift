@@ -14,7 +14,8 @@ class FriendsRequests {
         let session = URLSession(configuration: config)
         return session
     }()
-    ///Метод, возвращающий массив друзей текущего пользователя
+    
+    ///Запрос списка друзей текущего пользователя
     func loadFriendsList(_ completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
         var urlForUserIdsComponents = URLComponents()
         urlForUserIdsComponents.scheme = "https"
@@ -44,7 +45,7 @@ class FriendsRequests {
             }
         }.resume()
     }
-    
+    ///Запрос фотографий пользователя по его id
     func friendsPhotoRequest(id: Int, completion: @escaping (Result<[Item], Error>) -> Void) {
         var urlComponentsGetPhotos = URLComponents()
         urlComponentsGetPhotos.scheme = "https"
@@ -79,6 +80,7 @@ class FriendsRequests {
 }
 
 extension FriendsRequests {
+    ///Загрузка изображения по URL
     func imageLoader(url: URL?) -> UIImage {
         var image: UIImage
         if let data = try? Data(contentsOf: url!) {

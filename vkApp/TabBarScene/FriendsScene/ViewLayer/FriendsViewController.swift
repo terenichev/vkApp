@@ -99,6 +99,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         searchBar.setShowsCancelButton(true, animated: true)
     }
     
+    ///При отмене поиска возвращаем navigationBar с анимацией
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.setNavigationBarHidden(false, animated: true)
