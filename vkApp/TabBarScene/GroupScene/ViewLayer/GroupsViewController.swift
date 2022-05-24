@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol AddGroupDelegate: AnyObject {
     func addGroup(id: Int, name: String)
@@ -17,41 +16,24 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var plusBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
        
-    var groups: [Group] {
-        do {
-            let realm = try Realm()
-            let group = realm.objects(Group.self)
-            let groupsFromRealm = Array(group)
-            return groupsFromRealm
-        } catch {
-            print(error)
-            return []
-        }
-    }
-    
+    var groups: [Group] = []
     let service = GroupsRequests()
-    
-    let realm = RealmCacheService()
-    private var notificationToken: NotificationToken?
-    private var groupRespons: Results<Group>? {
-        realm.read(Group.self)
-    }
     
     var searchGroups: [Group]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         searchBar.delegate = self
         searchGroups = groups
-        createNotificationToken()
+        loadGroups()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        DispatchQueue.global(qos: .default).async {
-            self.service.myGroupsRequest()
+        DispatchQueue.global(qos: .background).async {
+            self.loadGroups()
         }
     }
     
@@ -76,18 +58,18 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath) as? GroupsCell else {
             preconditionFailure("GroupsCell cannot")
         }
-        if let groups = groupRespons {
-            let group: Group = groups[indexPath.row]
-            let url = URL(string: group.photo100)
-            cell.groupImage.image = UIImage(named: "not photo")
-            DispatchQueue.global(qos: .default).async {
-                let imageFromUrl = self.service.imageLoader(url: url)
-                DispatchQueue.main.async {
-                    cell.groupImage.image = imageFromUrl
-                }
+        
+        let group: Group = groups[indexPath.row]
+        let url = URL(string: group.photo100)
+        cell.groupImage.image = UIImage(named: "not photo")
+        DispatchQueue.global(qos: .default).async {
+            let imageFromUrl = self.service.imageLoader(url: url)
+            DispatchQueue.main.async {
+                cell.groupImage.image = imageFromUrl
             }
-            cell.groupNameLabel.text = group.name
         }
+        cell.groupNameLabel.text = group.name
+        
         return cell
     }
 }
@@ -100,7 +82,7 @@ extension GroupsViewController: AddGroupDelegate {
             switch result {
             case .success(let success):
                 if success.response == 1 {
-                    self.service.myGroupsRequest()
+                    self.loadGroups()
                     DispatchQueue.main.async {
                         self.tableView.reloadData()
                     }
@@ -146,44 +128,20 @@ extension GroupsViewController {
     }
 }
 
-// MARK: - Realm Notification Token
+// MARK: - Load Groups
 private extension GroupsViewController {
-    func createNotificationToken() {
-        notificationToken = groupRespons?.observe { [weak self] result in
-            guard let self = self else { return }
+    ///Загружаем список друзей и сохраняем в массив
+    func loadGroups() {
+        service.myGroupsRequest { [weak self] result in
             switch result {
-            case .initial(let groupsData):
-                print("notificationToken, groupsData = \(groupsData.count)")
-                self.tableView.reloadData()
-            case .update(_,
-                         deletions: let deletions,
-                         insertions: let insertions,
-                         modifications: let modifications):
-                let deletionsIndexpath = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexpath = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexpath = modifications.map { IndexPath(row: $0, section: 0) }
-                
-                var groupsUpdate: [Group] {
-                    do {
-                        let realm = try Realm()
-                        let group = realm.objects(Group.self)
-                        let groupsFromRealm = Array(group)
-                        return groupsFromRealm
-                    } catch {
-                        print(error)
-                        return []
-                    }
-                }
-                self.searchGroups = groupsUpdate
-                
+            case .success(let groups):
+                self?.groups = groups
+                self?.searchGroups = groups
                 DispatchQueue.main.async {
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletionsIndexpath, with: .none)
-                    self.tableView.insertRows(at: insertionsIndexpath, with: .none)
-                    self.tableView.reloadRows(at: modificationsIndexpath, with: .none)
-                    self.tableView.endUpdates()
+                    // перезагрузим данные
+                    self?.tableView.reloadData()
                 }
-            case .error(let error):
+            case .failure(let error):
                 print("\(error)")
             }
         }

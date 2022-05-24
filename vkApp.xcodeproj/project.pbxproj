@@ -42,7 +42,6 @@
 		D3C4B4D8283158B500AEBBC3 /* PhotosInNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4D6283158B500AEBBC3 /* PhotosInNewsCell.xib */; };
 		D3C4B4DB2831594000AEBBC3 /* BottomOfNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */; };
 		D3C4B4DC2831594000AEBBC3 /* BottomOfNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */; };
-		D3D7C13A282ED72F00A933DC /* RealmCacheService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3D7C139282ED72F00A933DC /* RealmCacheService.swift */; };
 		D3E835D227CA6F6800C37C67 /* AvatarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */; };
 /* End PBXBuildFile section */
 
@@ -86,7 +85,6 @@
 		D3C4B4D6283158B500AEBBC3 /* PhotosInNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotosInNewsCell.xib; sourceTree = "<group>"; };
 		D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOfNewsCell.swift; sourceTree = "<group>"; };
 		D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomOfNewsCell.xib; sourceTree = "<group>"; };
-		D3D7C139282ED72F00A933DC /* RealmCacheService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmCacheService.swift; sourceTree = "<group>"; };
 		D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarUIView.swift; sourceTree = "<group>"; };
 		D749ACB0896C5474ED1A04F0 /* Pods-vkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.debug.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,7 +152,6 @@
 			isa = PBXGroup;
 			children = (
 				D346CA00282C11C700142368 /* GroupModel.swift */,
-				D3D7C139282ED72F00A933DC /* RealmCacheService.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -504,7 +501,6 @@
 				D3C4B4CA2831573700AEBBC3 /* NewsViewController.swift in Sources */,
 				D381203127B595DF00986187 /* AppDelegate.swift in Sources */,
 				D346CA0A282C3A9B00142368 /* GroupsCell.swift in Sources */,
-				D3D7C13A282ED72F00A933DC /* RealmCacheService.swift in Sources */,
 				D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */,
 				D3AA9E4D282E210900CA02C9 /* AllGroupsViewController.swift in Sources */,
 				D3C4B4CE2831581300AEBBC3 /* OwnerNewsCell.swift in Sources */,

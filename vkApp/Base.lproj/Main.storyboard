@@ -242,6 +242,16 @@
                                     <constraint firstAttribute="height" constant="100" id="uqX-ai-zf1"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Mj-X4-AKP">
+                                <rect key="frame" x="140" y="139" width="187" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="1tI-Vm-1xv"/>
+                                    <constraint firstAttribute="width" constant="187" id="EDn-1U-JZc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wi2-NV-7KK"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -252,8 +262,10 @@
                             <constraint firstItem="YiR-b9-2iD" firstAttribute="centerX" secondItem="MfP-BC-A2n" secondAttribute="centerX" id="8Zc-IY-4yp"/>
                             <constraint firstItem="MfP-BC-A2n" firstAttribute="top" secondItem="0WF-Y0-kPA" secondAttribute="bottom" constant="-49" id="9Mk-IU-4nC"/>
                             <constraint firstItem="5IG-rN-scv" firstAttribute="trailing" secondItem="N5e-1J-wuX" secondAttribute="trailing" constant="-10" id="Coq-8E-gzH"/>
+                            <constraint firstItem="0Mj-X4-AKP" firstAttribute="leading" secondItem="YiR-b9-2iD" secondAttribute="trailing" constant="20" id="DCN-x2-RTi"/>
                             <constraint firstItem="FRN-QX-dZL" firstAttribute="top" secondItem="MfP-BC-A2n" secondAttribute="bottom" constant="45" id="G6i-Tx-pyT"/>
                             <constraint firstItem="MfP-BC-A2n" firstAttribute="leading" secondItem="Wi2-NV-7KK" secondAttribute="leading" constant="20" id="GXA-7V-yMV"/>
+                            <constraint firstItem="0Mj-X4-AKP" firstAttribute="top" secondItem="kcY-mI-6vt" secondAttribute="bottom" constant="4" id="IvP-p1-1Ms"/>
                             <constraint firstItem="kcY-mI-6vt" firstAttribute="leading" secondItem="MfP-BC-A2n" secondAttribute="trailing" constant="20" id="MrA-c3-9cd"/>
                             <constraint firstItem="MfP-BC-A2n" firstAttribute="top" secondItem="Wi2-NV-7KK" secondAttribute="top" constant="16" id="N8r-Qr-iMg"/>
                             <constraint firstItem="0WF-Y0-kPA" firstAttribute="leading" secondItem="MfP-BC-A2n" secondAttribute="trailing" constant="20" id="RaE-3I-VYx"/>
@@ -275,6 +287,7 @@
                     <connections>
                         <outlet property="container" destination="YiR-b9-2iD" id="G31-9Q-z1W"/>
                         <outlet property="friendStatusInProfile" destination="kcY-mI-6vt" id="VVD-n3-CJ9"/>
+                        <outlet property="lastSeenLabel" destination="0Mj-X4-AKP" id="QEH-hg-hSb"/>
                         <outlet property="mainPhotoOfProfile" destination="MfP-BC-A2n" id="Kf2-hG-YkS"/>
                         <outlet property="myCollectionView" destination="5IG-rN-scv" id="ovQ-vd-lDO"/>
                         <outlet property="nameInProfileLabel" destination="0WF-Y0-kPA" id="9ry-mo-pgl"/>

@@ -5,8 +5,6 @@
 //  Created by Денис Тереничев on 05.05.2022.
 //
 
-import Foundation
-import RealmSwift
 import UIKit
 
 class FriendsRequests {
@@ -39,10 +37,10 @@ class FriendsRequests {
                 let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
                 DispatchQueue.main.async {
                     completion(.success(friendsArrayFromJSON))
-//                    self.saveFriendsListData(friendsArrayFromJSON)
                 }
-            } catch {
-                print("Failed to decode friends JSON")
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
             }
         }.resume()
     }
@@ -77,25 +75,6 @@ class FriendsRequests {
                 completion(.failure(jsonError))
             }
         }.resume()
-    }
-    
-    func saveFriendsListData (_ friends: [FriendsItem]) {
-        do {
-            let config = Realm.Configuration.init(deleteRealmIfMigrationNeeded: true)
-            let realm = try Realm(configuration: config)
-            print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
-            let oldFriends = realm.objects(FriendsItem.self)
-            
-            let arrayOldFriends = Array(oldFriends)
-            if friends.count != arrayOldFriends.count {
-                realm.beginWrite()
-                realm.delete(arrayOldFriends)
-                realm.add(friends)
-                try realm.commitWrite()
-            }
-        } catch {
-            print(error)
-        }
     }
 }
 

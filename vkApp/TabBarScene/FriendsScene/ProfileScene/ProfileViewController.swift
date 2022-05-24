@@ -16,6 +16,8 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var container: UIView!
     
+    @IBOutlet weak var lastSeenLabel: UILabel!
+    
     let service = FriendsRequests()
     
     var profileForFriend: FriendsItem!
@@ -67,6 +69,13 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 // MARK: - Private
 private extension ProfileViewController {
     func setData() {
+
+        let date = Date(timeIntervalSince1970: 1653412549)
+        print("\(date)")
+        lastSeenLabel.isHidden = true
+//        lastSeenLabel.text = "был в сети в \(date.formatted(date: .omitted, time: .shortened))"
+        
+        
         nameInProfileLabel.text = profileForFriend.firstName + " " + profileForFriend.lastName
         friendStatusInProfile.text = profileForFriend.status ?? ""
         mainPhotoOfProfile.layer.cornerRadius = 50

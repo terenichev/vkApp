@@ -5,8 +5,7 @@
 //  Created by Денис Тереничев on 12.05.2022.
 //
 
-import Foundation
-import RealmSwift
+import UIKit
 
 class GroupsRequests {
     
@@ -16,7 +15,7 @@ class GroupsRequests {
         return session
     }()
     
-    func myGroupsRequest() {
+    func myGroupsRequest(_ completion: @escaping (Result<[Group], Error>) -> Void) {
         var urlForGroupComponents = URLComponents()
         urlForGroupComponents.scheme = "https"
         urlForGroupComponents.host = "api.vk.com"
@@ -29,17 +28,18 @@ class GroupsRequests {
         guard let urlGetGroups = urlForGroupComponents.url else { return }
         session.dataTask(with: urlGetGroups) { (data, response, error) in
             if let error = error {
-                print("can not load groups, error = ", error)
+                completion(.failure(error))
                 return
             }
             guard let data = data else { return }
             do {
                 let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
                 DispatchQueue.main.async {
-                    self.saveGroupsListData(groupsArrayFromJSON)
+                    completion(.success(groupsArrayFromJSON))
                 }
-            } catch {
-                print("Failed to decode groups JSON")
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
             }
         }.resume()
     }
@@ -106,24 +106,6 @@ class GroupsRequests {
             }
         }
         task.resume()
-    }
-    
-    
-    func saveGroupsListData (_ groups: [Group]) {
-        do {
-            let realm = try Realm()
-            print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
-            let oldGroups = realm.objects(Group.self)
-            let arrayOldGroups = Array(oldGroups)
-            if groups.count != arrayOldGroups.count {
-                realm.beginWrite()
-                realm.add(groups)
-                realm.delete(arrayOldGroups)
-                try realm.commitWrite()
-            }
-        } catch {
-            print(error)
-        }
     }
 }
 
