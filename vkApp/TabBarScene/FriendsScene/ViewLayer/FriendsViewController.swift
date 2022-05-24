@@ -14,41 +14,21 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @objc var friendsRefreshControl: UIRefreshControl {
         let refreshControl = UIRefreshControl()
+//        refreshControl.attributedTitle = NSAttributedString(string: "text")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }
     
     let service = FriendsRequests()
     
-    var friends: [FriendsItem] {
-        do {
-            let realm = try Realm()
-            let friend = realm.objects(FriendsItem.self)
-            let friendsFromRealm = Array(friend)
-            return friendsFromRealm
-        } catch {
-            print(error)
-            return []
-        }
-    }
-
-    let realm = RealmCacheService()
-    private var notificationToken: NotificationToken?
-    private var friendRespons: Results<FriendsItem>? {
-        realm.read(FriendsItem.self)
-    }
-    
-    var friendImagesForShow: [UIImage?] = []
+    var friends: [FriendsItem] = []
     
     var searchFriends: [FriendsItem]!
-    
-    var chars:[String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.refreshControl = friendsRefreshControl
-        createNotificationToken()
         
         searchBar.delegate = self
         self.searchFriends = friends
@@ -56,15 +36,16 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+        super.viewWillAppear(animated)        
         DispatchQueue.global(qos: .background).async {
-            self.service.myFriendsRequest()
+            self.loadFriends()
         }
     }
     
     @objc private func refresh(sender: UIRefreshControl) {
-        print("refresh")
+        DispatchQueue.global(qos: .background).async {
+            self.loadFriends()
+        }
         sender.endRefreshing()
     }
     
@@ -109,8 +90,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
-    
-    
+   
 // MARK: - Search Bar Config
     ///При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -146,44 +126,20 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     }
 }
 
-// MARK: - Realm Notification Token
+// MARK: - Load Friends
 private extension FriendsViewController {
-    func createNotificationToken() {
-        notificationToken = friendRespons?.observe { [weak self] result in
-            guard let self = self else { return }
+    ///Загружаем список друзей и сохраняем в массив
+    func loadFriends() {
+        service.loadFriendsList { [weak self] result in
             switch result {
-            case .initial(let friendsData):
-                print("notificationToken, friendsData = \(friendsData.count)")
-                    self.tableView.reloadData()
-            case .update(_,
-                         deletions: let deletions,
-                         insertions: let insertions,
-                         modifications: let modifications):
-                let deletionsIndexpath = deletions.map { IndexPath(row: $0, section: 0) }
-                let insertionsIndexpath = insertions.map { IndexPath(row: $0, section: 0) }
-                let modificationsIndexpath = modifications.map { IndexPath(row: $0, section: 0) }
-                
-                var friendsUpdate: [FriendsItem] {
-                    do {
-                        let realm = try Realm()
-                        let friend = realm.objects(FriendsItem.self)
-                        let friendsFromRealm = Array(friend)
-                        return friendsFromRealm
-                    } catch {
-                        print(error)
-                        return []
-                    }
-                }
-                self.searchFriends = friendsUpdate
-                
+            case .success(let friends):
+                self?.friends = friends
+                self?.searchFriends = friends
                 DispatchQueue.main.async {
-                    self.tableView.beginUpdates()
-                    self.tableView.deleteRows(at: deletionsIndexpath, with: .none)
-                    self.tableView.insertRows(at: insertionsIndexpath, with: .none)
-                    self.tableView.reloadRows(at: modificationsIndexpath, with: .none)
-                    self.tableView.endUpdates()
+                    // перезагрузим данные
+                    self?.tableView.reloadData()
                 }
-            case .error(let error):
+            case .failure(let error):
                 print("\(error)")
             }
         }

@@ -33,7 +33,8 @@ final class RealmCacheService {
     }
 
     func read<T: Object>(_ object: T.Type) -> Results<T> {
-        let realm = try! Realm()
+        let config = Realm.Configuration.init(deleteRealmIfMigrationNeeded: true)
+        let realm = try! Realm(configuration: config)
         return realm.objects(object)
     }
 }

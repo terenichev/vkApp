@@ -38,7 +38,7 @@
                     <navigationItem key="navigationItem" id="WRT-XC-UJR"/>
                     <connections>
                         <outlet property="webView" destination="2f9-EA-skV" id="QPk-dP-bbt"/>
-                        <segue destination="Z4b-iP-f1r" kind="presentation" identifier="ToTabBarScene" modalPresentationStyle="fullScreen" id="A5L-WM-eiH"/>
+                        <segue destination="Z4b-iP-f1r" kind="presentation" identifier="ToTabBarScene" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="A5L-WM-eiH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sOZ-Cd-1Fr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

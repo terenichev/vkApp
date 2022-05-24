@@ -37,4 +37,8 @@ class FriendsItem: Object, Codable {
         case avatarMiddleSizeUrl = "photo_100"
         case avatarMaxSizeUrl = "photo_200_orig"
     }
+    
+//    override class func ignoredProperties() -> [String] {
+//        return ["isOnline"]
+//    }
 }

@@ -10,13 +10,14 @@ import RealmSwift
 import UIKit
 
 class FriendsRequests {
+    
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         return session
     }()
-
-    func myFriendsRequest() {
+    ///Метод, возвращающий массив друзей текущего пользователя
+    func loadFriendsList(_ completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
         var urlForUserIdsComponents = URLComponents()
         urlForUserIdsComponents.scheme = "https"
         urlForUserIdsComponents.host = "api.vk.com"
@@ -30,14 +31,15 @@ class FriendsRequests {
         guard let urlGetIds = urlForUserIdsComponents.url else { return }
         session.dataTask(with: urlGetIds) { (data, response, error) in
             if let error = error {
-                print("can not load friends, error = ", error)
+                completion(.failure(error))
                 return
             }
             guard let data = data else { return }
             do {
                 let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
                 DispatchQueue.main.async {
-                    self.saveFriendsListData(friendsArrayFromJSON)
+                    completion(.success(friendsArrayFromJSON))
+//                    self.saveFriendsListData(friendsArrayFromJSON)
                 }
             } catch {
                 print("Failed to decode friends JSON")
@@ -79,8 +81,8 @@ class FriendsRequests {
     
     func saveFriendsListData (_ friends: [FriendsItem]) {
         do {
-//            let config = Realm.Configuration.init(deleteRealmIfMigrationNeeded: true)
-            let realm = try Realm()
+            let config = Realm.Configuration.init(deleteRealmIfMigrationNeeded: true)
+            let realm = try Realm(configuration: config)
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
             let oldFriends = realm.objects(FriendsItem.self)
             
