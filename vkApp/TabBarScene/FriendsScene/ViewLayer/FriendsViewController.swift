@@ -85,7 +85,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         
         friendToShow = self.searchFriends[indexPath.row]
         
-        profileVC.profileForFriend = friendToShow
+        profileVC.id = friendToShow.id
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
     

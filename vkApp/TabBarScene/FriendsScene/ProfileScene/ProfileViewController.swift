@@ -19,20 +19,30 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var lastSeenLabel: UILabel!
     
     let service = FriendsRequests()
+    let userServise = UserRequests()
     
-    var profileForFriend: FriendsItem!
+    var id: Int!
+    var profileForFriend: User!
     
     var arrayImageUrl: [URL] = []
     var arrayImages: [UIImage] = []
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        loadFriendData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         myCollectionView.register(ProfilePhotosViewCell.nib(), forCellWithReuseIdentifier: ProfilePhotosViewCell.identifier)
         self.myCollectionView.dataSource = self
         self.myCollectionView.delegate = self
-        setData()
-        loadFriendData()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0), execute: {
+            self.setData()
+        })
+        
     }
 }
 
@@ -80,7 +90,7 @@ private extension ProfileViewController {
         friendStatusInProfile.text = profileForFriend.status ?? ""
         mainPhotoOfProfile.layer.cornerRadius = 50
         mainPhotoOfProfile.image = UIImage(named: "not photo")
-        let url = URL(string: profileForFriend.avatarMaxSizeUrl)
+        let url = URL(string: profileForFriend.photo200_Orig)
         DispatchQueue.global(qos: .default).async {
             let imageFromUrl = self.service.imageLoader(url: url)
             DispatchQueue.main.async {
@@ -90,7 +100,20 @@ private extension ProfileViewController {
     }
     
     func loadFriendData() {
-        service.friendsPhotoRequest(id: profileForFriend.id ) { [weak self] result in
+        userServise.loadUserData(id: self.id) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print("error load user data", error)
+            case .success(let user):
+                DispatchQueue.main.async {
+                    self?.profileForFriend = user
+                }
+                
+                print(self?.profileForFriend)
+            }
+        }
+
+        service.friendsPhotoRequest(id: self.id ) { [weak self] result in
             switch result {
             case .success(let array):
                 var arrayImagesString: [String] = []

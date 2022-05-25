@@ -17,17 +17,17 @@ class FriendsRequests {
     
     ///Запрос списка друзей текущего пользователя
     func loadFriendsList(_ completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
-        var urlForUserIdsComponents = URLComponents()
-        urlForUserIdsComponents.scheme = "https"
-        urlForUserIdsComponents.host = "api.vk.com"
-        urlForUserIdsComponents.path = "/method/friends.get"
-        urlForUserIdsComponents.queryItems = [
+        var urlLoadFriendsListComponents = URLComponents()
+        urlLoadFriendsListComponents.scheme = "https"
+        urlLoadFriendsListComponents.host = "api.vk.com"
+        urlLoadFriendsListComponents.path = "/method/friends.get"
+        urlLoadFriendsListComponents.queryItems = [
             URLQueryItem(name: "order", value: "hints"),
             URLQueryItem(name: "fields", value: "online, photo_50, status, photo_200_orig, photo_100"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
-        guard let urlGetIds = urlForUserIdsComponents.url else { return }
+        guard let urlGetIds = urlLoadFriendsListComponents.url else { return }
         session.dataTask(with: urlGetIds) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))

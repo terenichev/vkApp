@@ -21,9 +21,7 @@ class FriendsItem: Codable {
     var firstName: String = ""
     var lastName: String = ""
     var status: String? = ""
-    var avatarUrl: String = ""
     var avatarMiddleSizeUrl: String = ""
-    var avatarMaxSizeUrl: String = ""
     var isOnline: Int = 0
     
     enum CodingKeys: String, CodingKey {
@@ -32,8 +30,6 @@ class FriendsItem: Codable {
         case lastName = "last_name"
         case status = "status"
         case isOnline = "online"
-        case avatarUrl = "photo_50"
         case avatarMiddleSizeUrl = "photo_100"
-        case avatarMaxSizeUrl = "photo_200_orig"
     }
 }
