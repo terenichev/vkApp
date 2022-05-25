@@ -63,7 +63,7 @@ extension FriendsRequests {
             self.session.dataTask(with: request) { [weak self] data, response, error in
                 guard error == nil, data != nil
                 else {
-                    print("error to download image, error = ", error)
+                    print("error to download image, error = ", error as Any)
                     return }
                 
                 guard let image = UIImage(data: data!) else { return }

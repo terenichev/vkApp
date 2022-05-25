@@ -8,6 +8,7 @@
 import UIKit
 
 class GroupsRequests {
+    var imageCache = NSCache<NSString, UIImage>()
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -112,14 +113,27 @@ class GroupsRequests {
 
 extension GroupsRequests {
     ///Загрузка изображения по URL
-    func imageLoader(url: URL?) -> UIImage {
-        var image: UIImage
-        if let data = try? Data(contentsOf: url!) {
-            guard let imageFromUrl = UIImage(data: data) else { return UIImage(named: "not photo")!}
-            image = imageFromUrl
-        } else {
-            image = UIImage(named: "not photo")!
+    func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
+        guard let url = url else {
+            print("image url nil")
+            return
         }
-        return image
+        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+            completion(cachedImage )
+        } else {
+            let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
+            self.session.dataTask(with: request) { [weak self] data, response, error in
+                guard error == nil, data != nil
+                else {
+                    print("error to download image, error = ", error as Any)
+                    return }
+                
+                guard let image = UIImage(data: data!) else { return }
+                self?.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }.resume()
+        }
     }
 }

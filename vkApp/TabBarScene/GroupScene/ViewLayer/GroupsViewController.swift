@@ -61,9 +61,10 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         let url = URL(string: group.photo100)
         cell.groupImage.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .default).async {
-            let imageFromUrl = self.service.imageLoader(url: url)
-            DispatchQueue.main.async {
-                cell.groupImage.image = imageFromUrl
+            self.service.imageLoader(url: url) { image in
+                DispatchQueue.main.async {
+                    cell.groupImage.image = image
+                }
             }
         }
         cell.groupNameLabel.text = group.name

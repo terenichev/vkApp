@@ -32,7 +32,7 @@ class UserViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myCollectionView.register(ProfilePhotosViewCell.nib(), forCellWithReuseIdentifier: ProfilePhotosViewCell.identifier)
+        myCollectionView.register(UserPhotosCollectionViewCell.nib(), forCellWithReuseIdentifier: UserPhotosCollectionViewCell.identifier)
         self.myCollectionView.dataSource = self
         self.myCollectionView.delegate = self
     }
@@ -45,7 +45,7 @@ extension UserViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
+        let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: UserPhotosCollectionViewCell.identifier, for: indexPath) as! UserPhotosCollectionViewCell
         let image = UIImage(named: "not photo")!
         DispatchQueue.global(qos: .default).async {
             self.userServise.imageLoader(url: self.arrayImageUrl[indexPath.row]) { image in
