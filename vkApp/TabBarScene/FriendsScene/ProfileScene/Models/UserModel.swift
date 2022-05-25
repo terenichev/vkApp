@@ -8,17 +8,17 @@
 import Foundation
 
 // MARK: - Response
-struct UserResponse: Codable {
+struct UserResponse: Decodable {
     let response: [User]
 }
 
 // MARK: - ResponseElement
-struct User: Codable {
+struct User: Decodable {
     let id: Int
     let photo200_Orig: String
     let hasMobile, isFriend: Int
-    let about: String
-    let status: String?
+    let about: String?
+    let status: String
     let lastSeen: LastSeen
     let followersCount, online: Int?
     let firstName, lastName: String
@@ -42,6 +42,6 @@ struct User: Codable {
 }
 
 // MARK: - LastSeen
-struct LastSeen: Codable {
+struct LastSeen: Decodable {
     let platform, time: Int
 }

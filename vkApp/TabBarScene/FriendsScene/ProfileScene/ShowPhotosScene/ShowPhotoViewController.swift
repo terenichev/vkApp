@@ -45,10 +45,12 @@ extension ShowPhotoViewController: UICollectionViewDataSource, UICollectionViewD
         let cell = collectionBigPhoto.dequeueReusableCell(withReuseIdentifier: PhotoCollectionViewCell.identifier, for: indexPath) as! PhotoCollectionViewCell
         let image = UIImage(named: "not photo")!
         DispatchQueue.global(qos: .utility).async {
-            let imageFromUrl = self.service.imageLoader(url: self.arrayImageUrl[indexPath.row])
-            DispatchQueue.main.async {
-                cell.configure(with: imageFromUrl)
+            self.service.imageLoader(url: self.arrayImageUrl[indexPath.row]) { image in
+                DispatchQueue.main.async {
+                    cell.configure(with: image)
+                }
             }
+            
         }
         cell.configure(with: image)
         return cell

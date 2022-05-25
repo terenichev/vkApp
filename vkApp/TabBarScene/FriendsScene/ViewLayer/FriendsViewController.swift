@@ -13,7 +13,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @objc var friendsRefreshControl: UIRefreshControl {
         let refreshControl = UIRefreshControl()
-//        refreshControl.attributedTitle = NSAttributedString(string: "text")
+        //        refreshControl.attributedTitle = NSAttributedString(string: "text")
         refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return refreshControl
     }
@@ -35,7 +35,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)        
+        super.viewWillAppear(animated)
         DispatchQueue.global(qos: .background).async {
             self.loadFriends()
         }
@@ -68,18 +68,19 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         let url = URL(string: friend.avatarMiddleSizeUrl)
         cell.imageFriendsCell.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .default).async {
-            let imageFromUrl = self.service.imageLoader(url: url)
+            self.service.imageLoader(url: url) { image in
                 DispatchQueue.main.async {
-                    cell.imageFriendsCell.image = imageFromUrl
+                    cell.imageFriendsCell.image = image
                     cell.onlineIdentificator.alpha = CGFloat(integerLiteral: friend.isOnline)
                 }
+            }
         }
         cell.labelFriendsCell.text = friend.firstName + " " + friend.lastName
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
+        let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! UserViewController
         
         var friendToShow: FriendsItem
         
@@ -89,8 +90,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
-   
-// MARK: - Search Bar Config
+    
+    // MARK: - Search Bar Config
     ///При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {

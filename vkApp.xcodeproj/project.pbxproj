@@ -27,7 +27,7 @@
 		D381203827B595DF00986187 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D381203627B595DF00986187 /* Main.storyboard */; };
 		D381203A27B595E100986187 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D381203927B595E100986187 /* Assets.xcassets */; };
 		D381203D27B595E100986187 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D381203B27B595E100986187 /* LaunchScreen.storyboard */; };
-		D38881CF27CE924800C7BE5B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881CE27CE924800C7BE5B /* ProfileViewController.swift */; };
+		D38881CF27CE924800C7BE5B /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881CE27CE924800C7BE5B /* UserViewController.swift */; };
 		D38881D427CEB7AF00C7BE5B /* ProfilePhotosViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D38881D227CEB7AF00C7BE5B /* ProfilePhotosViewCell.swift */; };
 		D38881D527CEB7AF00C7BE5B /* ProfilePhotosViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D38881D327CEB7AF00C7BE5B /* ProfilePhotosViewCell.xib */; };
 		D3AA9E4D282E210900CA02C9 /* AllGroupsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3AA9E4C282E210900CA02C9 /* AllGroupsViewController.swift */; };
@@ -70,7 +70,7 @@
 		D381203927B595E100986187 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D381203C27B595E100986187 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D381203E27B595E100986187 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		D38881CE27CE924800C7BE5B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		D38881CE27CE924800C7BE5B /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		D38881D227CEB7AF00C7BE5B /* ProfilePhotosViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotosViewCell.swift; sourceTree = "<group>"; };
 		D38881D327CEB7AF00C7BE5B /* ProfilePhotosViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfilePhotosViewCell.xib; sourceTree = "<group>"; };
 		D3AA9E4C282E210900CA02C9 /* AllGroupsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllGroupsViewController.swift; sourceTree = "<group>"; };
@@ -363,7 +363,7 @@
 				D35E5185283DED7000D3C800 /* Models */,
 				D35E5184283DED6800D3C800 /* Service */,
 				D346CA0D282CC8A400142368 /* ProfilePhotoCell */,
-				D38881CE27CE924800C7BE5B /* ProfileViewController.swift */,
+				D38881CE27CE924800C7BE5B /* UserViewController.swift */,
 				D346CA0E282CC92500142368 /* ShowPhotosScene */,
 			);
 			path = ProfileScene;
@@ -507,7 +507,7 @@
 			files = (
 				D346CA01282C11C700142368 /* GroupModel.swift in Sources */,
 				D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */,
-				D38881CF27CE924800C7BE5B /* ProfileViewController.swift in Sources */,
+				D38881CF27CE924800C7BE5B /* UserViewController.swift in Sources */,
 				D346CA08282C2FA300142368 /* GroupsViewController.swift in Sources */,
 				D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */,
 				D346CA15282D5E7100142368 /* GroupPhotoView.swift in Sources */,

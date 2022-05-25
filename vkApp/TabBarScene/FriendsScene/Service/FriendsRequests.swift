@@ -9,6 +9,8 @@ import UIKit
 
 class FriendsRequests {
     
+    var imageCache = NSCache<NSString, UIImage>()
+    
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -45,50 +47,31 @@ class FriendsRequests {
             }
         }.resume()
     }
-    ///Запрос фотографий пользователя по его id
-    func friendsPhotoRequest(id: Int, completion: @escaping (Result<[Item], Error>) -> Void) {
-        var urlComponentsGetPhotos = URLComponents()
-        urlComponentsGetPhotos.scheme = "https"
-        urlComponentsGetPhotos.host = "api.vk.com"
-        urlComponentsGetPhotos.path = "/method/photos.get"
-        urlComponentsGetPhotos.queryItems = [
-            URLQueryItem(name: "owner_id", value: "\(id)"),
-            URLQueryItem(name: "album_id", value: "profile"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
-        guard let urlGetPhotos = urlComponentsGetPhotos.url
-        else { return }
-        session.dataTask(with: urlGetPhotos) { (data, response, error) in
-            if let error = error {
-                print("some error")
-                completion(.failure(error))
-                return
-            }
-            guard let data = data else { return }
-            do {
-                let photoResponceFromJSON = try JSONDecoder().decode(UserPhotoURLResponse.self, from: data).response.items
-                DispatchQueue.main.async {
-                    completion(.success(photoResponceFromJSON))
-                }
-            } catch let jsonError {
-                print("Failed to decode JSON", jsonError)
-                completion(.failure(jsonError))
-            }
-        }.resume()
-    }
 }
 
 extension FriendsRequests {
     ///Загрузка изображения по URL
-    func imageLoader(url: URL?) -> UIImage {
-        var image: UIImage
-        if let data = try? Data(contentsOf: url!) {
-            guard let imageFromUrl = UIImage(data: data) else { return UIImage(named: "not photo")!}
-            image = imageFromUrl
-        } else {
-            image = UIImage(named: "not photo")!
+    func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
+        guard let url = url else {
+            print("image url nil")
+            return
         }
-        return image
+        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+            completion(cachedImage )
+        } else {
+            let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
+            self.session.dataTask(with: request) { [weak self] data, response, error in
+                guard error == nil, data != nil
+                else {
+                    print("error to download image, error = ", error)
+                    return }
+                
+                guard let image = UIImage(data: data!) else { return }
+                self?.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }.resume()
+        }
     }
 }

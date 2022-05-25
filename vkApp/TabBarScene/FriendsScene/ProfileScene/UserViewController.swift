@@ -7,22 +7,19 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
-
+class UserViewController: UIViewController {
+    
     @IBOutlet weak var myCollectionView: UICollectionView!
     @IBOutlet weak var mainPhotoOfProfile: UIImageView!
     @IBOutlet weak var nameInProfileLabel: UILabel!
     @IBOutlet weak var friendStatusInProfile: UILabel!
     
-    @IBOutlet weak var container: UIView!
-    
     @IBOutlet weak var lastSeenLabel: UILabel!
     
-    let service = FriendsRequests()
     let userServise = UserRequests()
     
     var id: Int!
-    var profileForFriend: User!
+    var user = User(id: 0, photo200_Orig: "", hasMobile: 0, isFriend: 0, about: "", status: "", lastSeen: .init(platform: 0, time: 0), followersCount: 0, online: 0, firstName: "", lastName: "", canAccessClosed: false, isClosed: false)
     
     var arrayImageUrl: [URL] = []
     var arrayImages: [UIImage] = []
@@ -34,21 +31,15 @@ class ProfileViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         myCollectionView.register(ProfilePhotosViewCell.nib(), forCellWithReuseIdentifier: ProfilePhotosViewCell.identifier)
         self.myCollectionView.dataSource = self
         self.myCollectionView.delegate = self
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(0), execute: {
-            self.setData()
-        })
-        
     }
 }
 
 // MARK: - Collection View
-extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
-    
+extension UserViewController: UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return arrayImageUrl.count
     }
@@ -57,9 +48,10 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
         let cell = myCollectionView.dequeueReusableCell(withReuseIdentifier: ProfilePhotosViewCell.identifier, for: indexPath) as! ProfilePhotosViewCell
         let image = UIImage(named: "not photo")!
         DispatchQueue.global(qos: .default).async {
-            let imageFromUrl = self.service.imageLoader(url: self.arrayImageUrl[indexPath.row])
-            DispatchQueue.main.async {
-                cell.configure(with: imageFromUrl)
+            self.userServise.imageLoader(url: self.arrayImageUrl[indexPath.row]) { image in
+                DispatchQueue.main.async {
+                    cell.configure(with: image)
+                }
             }
         }
         cell.configure(with: image)
@@ -77,43 +69,19 @@ extension ProfileViewController: UICollectionViewDataSource, UICollectionViewDel
 }
 
 // MARK: - Private
-private extension ProfileViewController {
-    func setData() {
-
-        let date = Date(timeIntervalSince1970: 1653412549)
-        print("\(date)")
-        lastSeenLabel.isHidden = true
-//        lastSeenLabel.text = "был в сети в \(date.formatted(date: .omitted, time: .shortened))"
-        
-        
-        nameInProfileLabel.text = profileForFriend.firstName + " " + profileForFriend.lastName
-        friendStatusInProfile.text = profileForFriend.status ?? ""
-        mainPhotoOfProfile.layer.cornerRadius = 50
-        mainPhotoOfProfile.image = UIImage(named: "not photo")
-        let url = URL(string: profileForFriend.photo200_Orig)
-        DispatchQueue.global(qos: .default).async {
-            let imageFromUrl = self.service.imageLoader(url: url)
-            DispatchQueue.main.async {
-                self.mainPhotoOfProfile.image = imageFromUrl
-            }
-        }
-    }
-    
+private extension UserViewController {
+    ///Загрузка данных о пользователе и его фотографии
     func loadFriendData() {
         userServise.loadUserData(id: self.id) { [weak self] result in
             switch result {
             case .failure(let error):
                 print("error load user data", error)
             case .success(let user):
-                DispatchQueue.main.async {
-                    self?.profileForFriend = user
-                }
-                
-                print(self?.profileForFriend)
+                self?.user = user
+                self?.setData()
             }
         }
-
-        service.friendsPhotoRequest(id: self.id ) { [weak self] result in
+        userServise.friendsPhotoRequest(id: self.id ) { [weak self] result in
             switch result {
             case .success(let array):
                 var arrayImagesString: [String] = []
@@ -132,5 +100,28 @@ private extension ProfileViewController {
                 print("error", error)
             }
         }
+    }
+    ///Выводим данные о пользователе в UI
+    func setData() {
+        if user.online == 1 {
+            lastSeenLabel.text = "online"
+        } else {
+            lastSeenLabel.text = ""
+        }
+        DispatchQueue.main.async {
+            self.nameInProfileLabel.text = self.user.firstName + " " + self.user.lastName
+            self.friendStatusInProfile.text = self.user.status
+            self.mainPhotoOfProfile.layer.cornerRadius = 35
+            self.mainPhotoOfProfile.image = UIImage(named: "not photo")
+        }
+        DispatchQueue.global(qos: .default).async {
+            let url = URL(string: self.user.photo200_Orig)
+            self.userServise.imageLoader(url: url) { image in
+                DispatchQueue.main.async {
+                    self.mainPhotoOfProfile.image = image
+                }
+            }
+        }
+        print(self.user)
     }
 }
