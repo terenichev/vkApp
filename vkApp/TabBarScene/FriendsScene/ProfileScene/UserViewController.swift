@@ -122,6 +122,5 @@ private extension UserViewController {
                 }
             }
         }
-        print(self.user)
     }
 }

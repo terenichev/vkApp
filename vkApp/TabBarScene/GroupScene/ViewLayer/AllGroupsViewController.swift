@@ -58,9 +58,7 @@ final class AllGroupsViewController: UITableViewController, UISearchBarDelegate 
               let id = cell.id,
               let name = cell.name
         else { return }
-        
-        print("name = ", name)
-        print("id = ", id)
+
         delegate?.addGroup(id: id, name: name)
         navigationController?.popViewController(animated: true)
     }

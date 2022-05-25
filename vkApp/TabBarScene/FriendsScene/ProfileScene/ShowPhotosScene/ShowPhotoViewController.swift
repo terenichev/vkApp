@@ -11,7 +11,7 @@ class ShowPhotoViewController: UIViewController {
     
     @IBOutlet weak var collectionBigPhoto: UICollectionView!
     
-    let service = FriendsRequests()
+    let service = UserRequests()
     
     var selectedIndex:Int = 0
     

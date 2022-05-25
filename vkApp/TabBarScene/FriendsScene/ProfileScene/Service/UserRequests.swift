@@ -30,7 +30,6 @@ class UserRequests {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetUserData = urlForUserDataComponents.url else { return }
-        print(urlGetUserData)
         session.dataTask(with: urlGetUserData) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))

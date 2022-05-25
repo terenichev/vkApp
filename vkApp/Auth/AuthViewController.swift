@@ -53,11 +53,10 @@ extension LoginController: WKNavigationDelegate {
             Singleton.instance.id = Int(id)
             Singleton.instance.token = token
             
-            print(token)
+            print("token = ", token)
             decisionHandler(.cancel)
             performSegue(withIdentifier: "ToTabBarScene", sender: nil)
         }
-        print("push")
     }
 }
 
@@ -84,7 +83,6 @@ private extension LoginController {
 
         guard let url = urlComponents.url else { return }
         let request = URLRequest(url: url)
-        print(url)
         webView.load(request)
     }
 }
