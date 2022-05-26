@@ -19,6 +19,7 @@ class PhotosInNewsCell: UITableViewCell {
     
     public func configure(with image: UIImage) {
         newsPhoto.image = image
+        
     }
     
     static func nib() -> UINib{
