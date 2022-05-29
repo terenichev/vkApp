@@ -18,14 +18,15 @@ class NewsService {
     }()
     
     ///Запрос информации о выбранном пользователе
-    func loadNews(completion: @escaping (Result<[NewsItem?], Error>) -> Void) {
+    func loadNews(completion: @escaping (Result<[NewsItem], Error>) -> Void) {
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
         urlForNewsFeedComponents.path = "/method/newsfeed.get"
         urlForNewsFeedComponents.queryItems = [
-            URLQueryItem(name: "fields", value: "post"),
-            URLQueryItem(name: "count", value: "3"),
+            URLQueryItem(name: "filters", value: "photos"),
+            URLQueryItem(name: "source_ids", value: "friends"),
+            URLQueryItem(name: "count", value: "20"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -38,9 +39,9 @@ class NewsService {
             }
             guard let data = data else { return }
             do {
-                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response?.items
+                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response.items
                 DispatchQueue.main.async {
-                    completion(.success(newsFromJSON!))
+                    completion(.success(newsFromJSON))
                 }
             } catch let jsonError {
                 print("Failed to decode JSON", jsonError)

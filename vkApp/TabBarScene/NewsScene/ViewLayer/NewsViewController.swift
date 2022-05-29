@@ -22,7 +22,10 @@ class NewsViewController: UITableViewController {
             case .success(let news):
                 print("news = ", news)
                 self?.newsItems = news
-                self?.tableView.reloadData()
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+                
             }
         }
         
@@ -47,18 +50,18 @@ class NewsViewController: UITableViewController {
         if indexPath.row == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("OwnerNewsCell cannot") }
             
-            cell.configure(with: UIImage(named: "not photo")!, name: "\(String(describing: newsItems[indexPath.section]?.sourceID))", dateOfNews: "\(String(describing: newsItems[indexPath.section]?.date))")
+            cell.configure(with: UIImage(named: "not photo")!, name: "ывап", dateOfNews: "фыва")
             return cell
         } else if indexPath.row == 1 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-            cell.configure(with: "\(String(describing: newsItems[indexPath.section]?.text))")
+            cell.configure(with: "\(newsItems[indexPath.section]?.text)")
             return cell
         } else if indexPath.row == 2 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosInNewsCell.identifier, for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
             
-//            let url = URL(string: (newsItems.last?.attachments?.last?.photo?.sizes.last?.url)!)
+            let url = URL(string: (newsItems[indexPath.section]?.attachments?.first?.photo?.sizes.last?.url) ?? ("https://sun9-west.userapi.com/sun9-67/s/v1/if2/WY3XOHFWzIceQYgnNcpB8ux91RnZgCmIjZUcmsh4LIhuyURRXxPlmieoukeZDQ33Q4XYG1Rj-OBMNvMklOD14lVE.jpg?size=124x130&quality=96&type=album"))
             let image = UIImage(named: "not photo")!
-            let url = URL(string: "https://sun9-west.userapi.com/sun9-67/s/v1/if2/WY3XOHFWzIceQYgnNcpB8ux91RnZgCmIjZUcmsh4LIhuyURRXxPlmieoukeZDQ33Q4XYG1Rj-OBMNvMklOD14lVE.jpg?size=124x130&quality=96&type=album")
+//            let url = URL(string: "https://sun9-west.userapi.com/sun9-67/s/v1/if2/WY3XOHFWzIceQYgnNcpB8ux91RnZgCmIjZUcmsh4LIhuyURRXxPlmieoukeZDQ33Q4XYG1Rj-OBMNvMklOD14lVE.jpg?size=124x130&quality=96&type=album")
             DispatchQueue.global(qos: .default).async {
                 self.service.imageLoader(url: url) { image in
                     DispatchQueue.main.async {

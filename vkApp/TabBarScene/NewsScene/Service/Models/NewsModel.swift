@@ -9,14 +9,14 @@ import Foundation
 
 // MARK: - Response
 struct NewsResponse: Codable {
-    let response: ResponseClass?
+    let response: ResponseClass
 }
 
 // MARK: - ResponseClass
 struct ResponseClass: Codable {
-    let items: [NewsItem?]
-    let profiles: [Profile?]
-    let groups: [NewsGroup?]
+    let items: [NewsItem]
+    let profiles: [Profile]
+    let groups: [NewsGroup]
     let nextFrom: String?
 
     enum CodingKeys: String, CodingKey {
@@ -59,7 +59,7 @@ struct NewsItem: Codable {
     let postType: String?
     let text: String?
     let markedAsAds: Int?
-    let attachments: [Attachment]
+    let attachments: [Attachment]?
     let postSource: PostSource?
     let comments: Comments?
     let likes: Likes?
@@ -136,6 +136,9 @@ struct NewsPhotoSize: Codable {
 
 enum TypeEnum: String, Codable {
     case photo = "photo"
+    case link = "link"
+    case audio = "audio"
+    case video = "video"
 }
 
 // MARK: - Comments
@@ -215,7 +218,7 @@ struct Profile: Codable {
     let id, sex: Int?
     let screenName: String?
     let photo50, photo100: String?
-    let onlineInfo: OnlineInfo?
+    let onlineInfo: OnlineInfo
     let online: Int?
     let firstName, lastName: String?
     let canAccessClosed, isClosed: Bool?
