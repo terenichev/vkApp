@@ -9,29 +9,32 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" rowHeight="-87" id="KGk-i7-Jjw" customClass="PhotosInNewsCell" customModule="vkApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="345" height="216"/>
+        <tableViewCell contentMode="scaleAspectFit" selectionStyle="default" indentationWidth="10" rowHeight="51" id="KGk-i7-Jjw" customClass="PhotosInNewsCell" customModule="vkApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="402" height="252"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="345" height="216"/>
+                <rect key="frame" x="0.0" y="0.0" width="402" height="252"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6Sg-z3-NFM">
-                        <rect key="frame" x="20" y="11" width="305" height="194"/>
+                        <rect key="frame" x="0.0" y="0.0" width="402" height="252"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="lessThanOrEqual" constant="600" id="fQd-3s-aD9"/>
+                        </constraints>
                     </imageView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="6Sg-z3-NFM" secondAttribute="trailing" id="Tkx-fk-RW5"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="6Sg-z3-NFM" secondAttribute="bottom" id="UGQ-JS-dDW"/>
-                    <constraint firstItem="6Sg-z3-NFM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ZWA-YJ-sOI"/>
-                    <constraint firstItem="6Sg-z3-NFM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="bEH-zR-4CS"/>
+                    <constraint firstItem="6Sg-z3-NFM" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="3IK-On-nNO"/>
+                    <constraint firstAttribute="trailing" secondItem="6Sg-z3-NFM" secondAttribute="trailing" id="KmL-wm-KdP"/>
+                    <constraint firstItem="6Sg-z3-NFM" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="NH9-sL-iNu"/>
+                    <constraint firstAttribute="bottom" secondItem="6Sg-z3-NFM" secondAttribute="bottom" id="NSp-LZ-VYX"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="newsPhoto" destination="6Sg-z3-NFM" id="Aaa-uc-SaY"/>
             </connections>
-            <point key="canvasLocation" x="158.69565217391306" y="-36.830357142857139"/>
+            <point key="canvasLocation" x="200.00000000000003" y="-24.776785714285712"/>
         </tableViewCell>
     </objects>
 </document>

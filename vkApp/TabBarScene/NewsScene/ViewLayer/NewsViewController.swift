@@ -10,24 +10,15 @@ import UIKit
 class NewsViewController: UITableViewController {
     
     let service = NewsService()
-    var newsItems: [NewsItem?] = []
+    var newsResponse: ResponseClass!
+    
+    var newsOwner = User(id: 0, photo200_Orig: "", hasMobile: 0, isFriend: 0, about: "", status: "", lastSeen: .init(platform: 0, time: 0), followersCount: 0, online: 0, firstName: "", lastName: "", canAccessClosed: true, isClosed: false)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        service.loadNews { [weak self] result in
-            switch result {
-            case .failure(let error):
-                print("news error = ", error)
-            case .success(let news):
-                print("news = ", news)
-                self?.newsItems = news
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
-                }
-                
-            }
-        }
+        loadNews()
+        
         
         tableView.register(OwnerNewsCell.nib(), forCellReuseIdentifier: OwnerNewsCell.identifier)
         tableView.register(TextInNewsCell.nib(), forCellReuseIdentifier: TextInNewsCell.identifier)
@@ -37,99 +28,92 @@ class NewsViewController: UITableViewController {
 
     // MARK: - Table view data source
 
+//    override func tableView(_ tableView: UITableView,
+//               heightForRowAt indexPath: IndexPath) -> CGFloat {
+//      if indexPath.row == 2 {
+//          return 600
+//       }
+//       return UITableView.automaticDimension
+//    }
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return newsItems.count
+        return newsResponse?.items.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.row == 0 {
+        
+        // общую новость на конкретный индексПас, чтоб не писать 4 раза
+        // проверка есть ли фото, есть ли текст, чтобы не создавать пустую ячейку(вызов ячеек не иф а свитч?)
+        // ЮАй значки нижней части, значок онлайн??, преобразование даты поста в читабельный вид
+        // реализовать все в читабельном виде, побольше функций, которые по очередям потом раскидать и 2 дз готова
+        // сохранение токена, без повторного запроса если он есть
+        
+        
+        let postOwner = newsResponse.profiles.first(where: { $0.id == newsResponse.items[indexPath.section].sourceID })
+        
+        switch indexPath.row {
+        case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("OwnerNewsCell cannot") }
-            
-            cell.configure(with: UIImage(named: "not photo")!, name: "ывап", dateOfNews: "фыва")
-            return cell
-        } else if indexPath.row == 1 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-            cell.configure(with: "\(newsItems[indexPath.section]?.text)")
-            return cell
-        } else if indexPath.row == 2 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosInNewsCell.identifier, for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
-            
-            let url = URL(string: (newsItems[indexPath.section]?.attachments?.first?.photo?.sizes.last?.url) ?? ("https://sun9-west.userapi.com/sun9-67/s/v1/if2/WY3XOHFWzIceQYgnNcpB8ux91RnZgCmIjZUcmsh4LIhuyURRXxPlmieoukeZDQ33Q4XYG1Rj-OBMNvMklOD14lVE.jpg?size=124x130&quality=96&type=album"))
+            let url = URL(string: postOwner?.photo100 ?? "")
             let image = UIImage(named: "not photo")!
-//            let url = URL(string: "https://sun9-west.userapi.com/sun9-67/s/v1/if2/WY3XOHFWzIceQYgnNcpB8ux91RnZgCmIjZUcmsh4LIhuyURRXxPlmieoukeZDQ33Q4XYG1Rj-OBMNvMklOD14lVE.jpg?size=124x130&quality=96&type=album")
             DispatchQueue.global(qos: .default).async {
                 self.service.imageLoader(url: url) { image in
                     DispatchQueue.main.async {
-                        cell.configure(with: image)
+                        cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: "\(self.newsResponse.items[indexPath.section].date)")
                     }
                 }
             }
-            cell.configure(with: image)
-//            cell.configure(with: UIImage(named: "not photo")!)
-            
+            cell.configure(with: image, name: "", dateOfNews: "")
             return cell
-        } else {
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
+            cell.configure(with: "\(newsResponse.items[indexPath.section].text ?? "")")
+            return cell
+        case 2:
+            if newsResponse.items[indexPath.section].attachments?.first?.photo?.sizes?.last!.url != nil {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosInNewsCell.identifier, for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
+                
+                let url = URL(string: (newsResponse.items[indexPath.section].attachments?.last?.photo?.sizes?.last?.url) ?? "")
+                let image = UIImage(named: "not photo")!
+                DispatchQueue.global(qos: .userInteractive).async {
+                    self.service.imageLoader(url: url) { image in
+                        DispatchQueue.main.async {
+                            cell.configure(with: image)
+                        }
+                    }
+                }
+//                cell.configure(with: image)
+                
+                return cell
+            } else { return UITableViewCell() }
+        case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
-            cell.configure(with: "5", comments: "6", reposts: "7")
+            cell.configure(with: "\(newsResponse.items[indexPath.section].likes?.count ?? 0)", comments: "\(newsResponse.items[indexPath.section].comments?.count ?? 0)", reposts: "\(newsResponse.items[indexPath.section].views?.count ?? 0)")
             return cell
+        default:
+            return UITableViewCell()
         }
+        
     }
 }
 
-
-//extension NewsViewController {
-//
-//
-//newswer =  [vkApp.NewsItem(sourceID: Optional(-57551138),
-//                        date: Optional(1653669430),
-//                        canDoubtCategory: Optional(false),
-//                        canSetCategory: Optional(false),
-//                        isFavorite: Optional(false),
-//                        postType: Optional("post"),
-//                        text: Optional("Я буду очень сильно переживать во время боя Дацика и Алекса, ведь я собираюсь поставить крупную сумму на поражение моего брата нокаутом. \n \n© Емель"),
-//                        markedAsAds: Optional(0),
-//                        attachments: Optional([vkApp.Attachment(type: Optional(vkApp.TypeEnum.photo),
-//                                                                photo: Optional(vkApp.NewsPhoto(albumID: Optional(-7),
-//                                                                                                date: Optional(1653669430),
-//                                                                                                id: Optional(457374933),
-//                                                                                                ownerID: Optional(-57551138),
-//                                                                                                accessKey: Optional("88e8c719901c573d0c"),
-//                                                                                                sizes: [vkApp.NewsPhotoSize(height: Optional(48),
-//                                                                                                                            url: Optional("https://sun9-east.userapi.com/sun9-42/s/v1/if2/ikrW_XV9XFuu0512EDJVC09dz0yGbVoQB60ZKEU4Tfh7U3vEl0vcO8473JgDquU-iBc26PPrj7B8CLWxSFX9hPn5.jpg?size=75x48&quality=96&type=album"),
-//                                                                                                                            type: Optional("s"),
-//                                                                                                                            width: Optional(75)),
-//                                                                                                        vkApp.NewsPhotoSize(height: Optional(340),
-//                                                                                                                            url: Optional("https://sun9-east.userapi.com/sun9-42/s/v1/if2/4w3uazvc_0o1d9_ghQLfznGHoU-iSEEm_MmPbk7PkonhOhSSC6ZwCM-uJ95zuBLkEC2j5p6odfdzMYTljd5HTjvW.jpg?size=510x340&quality=96&crop=27,0,1125,750&type=album"),
-//                                                                                                                            type: Optional("r"),
-//                                                                                                                            width: Optional(510))],
-//                                                                                                text: Optional(""),
-//                                                                                                userID: Optional(100),
-//                                                                                                hasTags: Optional(false),
-//                                                                                                postID: Optional(1409281))))]),
-//                        postSource: Optional(vkApp.PostSource(type: Optional("vk"))),
-//                        comments: Optional(vkApp.Comments(canPost: Optional(1),
-//                                                          count: Optional(1),
-//                                                          groupsCanPost: nil)),
-//                        likes: Optional(vkApp.Likes(canLike: Optional(1),
-//                                                    count: Optional(4),
-//                                                    userLikes: Optional(0),
-//                                                    canPublish: Optional(1))),
-//                        reposts: Optional(vkApp.Reposts(count: Optional(1),
-//                                                        userReposted: Optional(0))),
-//                        views: Optional(vkApp.Views(count: Optional(225))),
-//                        donut: Optional(vkApp.Donut(isDonut: Optional(false))),
-//                        shortTextRate: Optional(0.8),
-//                        carouselOffset: nil,
-//                        postID: Optional(1409281),
-//                        type: Optional("post"),
-//                        copyHistory: nil)
-//
-//
-//            newsItems[0].attachments?.last.photo?.sizes.last?.url
-//
-//}
+private extension NewsViewController {
+    func loadNews() {
+        service.loadNews { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print("news error = ", error)
+            case .success(let news):
+                print("news = ", news)
+                self?.newsResponse = news
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            }
+        }
+    }
+}

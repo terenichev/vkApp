@@ -18,15 +18,15 @@ class NewsService {
     }()
     
     ///Запрос информации о выбранном пользователе
-    func loadNews(completion: @escaping (Result<[NewsItem], Error>) -> Void) {
+    func loadNews(completion: @escaping (Result<ResponseClass, Error>) -> Void) {
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
         urlForNewsFeedComponents.path = "/method/newsfeed.get"
         urlForNewsFeedComponents.queryItems = [
-            URLQueryItem(name: "filters", value: "photos"),
+            URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "source_ids", value: "friends"),
-            URLQueryItem(name: "count", value: "20"),
+            URLQueryItem(name: "count", value: "100"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -39,7 +39,7 @@ class NewsService {
             }
             guard let data = data else { return }
             do {
-                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response.items
+                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
                 DispatchQueue.main.async {
                     completion(.success(newsFromJSON))
                 }
@@ -50,21 +50,22 @@ class NewsService {
         }.resume()
     }
     
-    ///Запрос фотографий пользователя по его id
-    func friendsPhotoRequest(id: Int, completion: @escaping (Result<[Item], Error>) -> Void) {
-        var urlComponentsGetPhotos = URLComponents()
-        urlComponentsGetPhotos.scheme = "https"
-        urlComponentsGetPhotos.host = "api.vk.com"
-        urlComponentsGetPhotos.path = "/method/photos.get"
-        urlComponentsGetPhotos.queryItems = [
-            URLQueryItem(name: "owner_id", value: "\(id)"),
-            URLQueryItem(name: "album_id", value: "profile"),
+    ///Запрос данных о  пользователе по его id
+    func newsOwnerData(id: Int, completion: @escaping (Result<User, Error>) -> Void) {
+        var urlGetNewsOwnerData = URLComponents()
+        urlGetNewsOwnerData.scheme = "https"
+        urlGetNewsOwnerData.host = "api.vk.com"
+        urlGetNewsOwnerData.path = "/method/users.get"
+        urlGetNewsOwnerData.queryItems = [
+            URLQueryItem(name: "user_ids", value: "\(id)"),
+            URLQueryItem(name: "fields", value: "photo_200_orig, online"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
-        guard let urlGetPhotos = urlComponentsGetPhotos.url
+        guard let urlGetOwnerData = urlGetNewsOwnerData.url
         else { return }
-        session.dataTask(with: urlGetPhotos) { (data, response, error) in
+        print(urlGetOwnerData)
+        session.dataTask(with: urlGetOwnerData) { (data, response, error) in
             if let error = error {
                 print("some error")
                 completion(.failure(error))
@@ -72,9 +73,10 @@ class NewsService {
             }
             guard let data = data else { return }
             do {
-                let photoResponceFromJSON = try JSONDecoder().decode(UserPhotoURLResponse.self, from: data).response.items
+                let ownerDataFromJSON = try JSONDecoder().decode(UserResponse.self, from: data).response[0]
+                print(ownerDataFromJSON)
                 DispatchQueue.main.async {
-                    completion(.success(photoResponceFromJSON))
+                    completion(.success(ownerDataFromJSON))
                 }
             } catch let jsonError {
                 print("Failed to decode JSON", jsonError)
@@ -85,14 +87,14 @@ class NewsService {
 }
 
 extension NewsService {
-    ///Загрузка изображения по URL
+    ///Загрузка изображения по URL и сохранение в кеш
     func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
         guard let url = url else {
             print("image url nil")
             return
         }
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
-            completion(cachedImage )
+            completion(cachedImage)
         } else {
             let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
             self.session.dataTask(with: request) { [weak self] data, response, error in

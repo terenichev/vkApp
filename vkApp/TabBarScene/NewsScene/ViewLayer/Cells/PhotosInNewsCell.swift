@@ -9,6 +9,7 @@ import UIKit
 
 class PhotosInNewsCell: UITableViewCell {
 
+    @IBOutlet weak var view: UIView!
     @IBOutlet weak var newsPhoto: UIImageView!
     
     static let identifier = "PhotosInNewsCell"
@@ -19,7 +20,6 @@ class PhotosInNewsCell: UITableViewCell {
     
     public func configure(with image: UIImage) {
         newsPhoto.image = image
-        
     }
     
     static func nib() -> UINib{

@@ -16,13 +16,13 @@ struct UserResponse: Decodable {
 struct User: Decodable {
     let id: Int
     let photo200_Orig: String
-    let hasMobile, isFriend: Int
+    let hasMobile, isFriend: Int?
     let about: String?
-    let status: String
-    let lastSeen: LastSeen
+    let status: String?
+    let lastSeen: LastSeen?
     let followersCount, online: Int?
     let firstName, lastName: String
-    let canAccessClosed, isClosed: Bool
+    let canAccessClosed, isClosed: Bool?
 
     enum CodingKeys: String, CodingKey {
         case id = "id"
