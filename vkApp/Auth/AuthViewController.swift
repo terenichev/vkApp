@@ -10,6 +10,7 @@ import WebKit
 
 final class LoginController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
+    let defaults = UserDefaults.standard
     
     override func loadView() {
         super.loadView()
@@ -18,8 +19,17 @@ final class LoginController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Singleton.instance.id = defaults.object(forKey: "id") as? Int
+        Singleton.instance.token = defaults.object(forKey: "token") as? String
         configureWebView()
         loadAuth()
+//        if defaults.object(forKey: "token") != nil {
+//            print(Singleton.instance.token!)
+//            self.performSegue(withIdentifier: "ToTabBarScene", sender: nil)
+//        } else {
+//
+//        }
     }
 }
 
@@ -37,7 +47,7 @@ extension LoginController: WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
-
+        
         let params = fragment
             .components(separatedBy: "&")
             .map { $0.components(separatedBy: "=")}
@@ -48,14 +58,21 @@ extension LoginController: WKNavigationDelegate {
                 dict[key] = value
                 return dict
             }
-
-        if let token = params["access_token"], let id = params["user_id"] {
-            Singleton.instance.id = Int(id)
-            Singleton.instance.token = token
-            
-            print("token = ", token)
+        if Singleton.instance.token != nil {
+            print("old token = ", Singleton.instance.token!)
             decisionHandler(.cancel)
             performSegue(withIdentifier: "ToTabBarScene", sender: nil)
+        }else {
+            if let token = params["access_token"], let id = params["user_id"] {
+                defaults.set(id, forKey: "id")
+                defaults.set(token, forKey: "token")
+                Singleton.instance.id = defaults.object(forKey: "id") as? Int
+                Singleton.instance.token = defaults.object(forKey: "token") as? String
+                
+                print("new token = ", token)
+                decisionHandler(.cancel)
+                performSegue(withIdentifier: "ToTabBarScene", sender: nil)
+            }
         }
     }
 }

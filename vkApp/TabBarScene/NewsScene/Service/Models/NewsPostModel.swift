@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Response
+// MARK: - NewsResponse
 struct NewsResponse: Codable {
     let response: ResponseClass
 }
@@ -19,7 +19,7 @@ struct ResponseClass: Codable {
     let groups: [NewsGroup]
 }
 
-// MARK: - Group
+// MARK: - NewsGroup
 struct NewsGroup: Codable {
     let id: Int?
     let name, screenName: String?
@@ -47,7 +47,7 @@ enum GroupType: String, Codable {
     case page = "page"
 }
 
-// MARK: - Item
+// MARK: - NewsItem
 struct NewsItem: Codable {
     let sourceID, date: Int?
     let canDoubtCategory, canSetCategory, isFavorite: Bool?
@@ -163,7 +163,7 @@ struct LinkPhoto: Codable {
     }
 }
 
-// MARK: - Size
+// MARK: - PhotoSize
 struct PhotoSize: Codable {
     let height: Int?
     let url: String?
@@ -426,7 +426,7 @@ struct Views: Codable {
     let count: Int?
 }
 
-// MARK: - Profile
+// MARK: - NewsProfile
 struct NewsProfile: Codable {
     let id, sex: Int?
     let screenName: String?
