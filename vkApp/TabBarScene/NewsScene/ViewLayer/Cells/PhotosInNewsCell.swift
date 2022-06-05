@@ -20,6 +20,11 @@ class PhotosInNewsCell: UITableViewCell {
     
     public func configure(with image: UIImage, height: Int?, width: Int?) {
         newsPhoto.image = image
+        var scale = contentView.bounds.width / CGFloat(width!)
+        let constraintConstant: CGFloat?
+        if scale <= 1 {
+            constraintConstant = (contentView.bounds.width / CGFloat(width!)) * CGFloat(height!)
+        }
         newsPhoto.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             newsPhoto.heightAnchor.constraint(equalToConstant: (contentView.bounds.width / CGFloat(width!)) * CGFloat(height!)),
