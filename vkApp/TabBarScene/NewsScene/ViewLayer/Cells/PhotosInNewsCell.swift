@@ -18,8 +18,19 @@ class PhotosInNewsCell: UITableViewCell {
         super.awakeFromNib()
     }
     
-    public func configure(with image: UIImage) {
+    public func configure(with image: UIImage, height: Int?, width: Int?) {
         newsPhoto.image = image
+        newsPhoto.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newsPhoto.heightAnchor.constraint(equalToConstant: (contentView.bounds.width / CGFloat(width!)) * CGFloat(height!)),
+            newsPhoto.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            newsPhoto.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            newsPhoto.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            newsPhoto.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        
+        
     }
     
     static func nib() -> UINib{

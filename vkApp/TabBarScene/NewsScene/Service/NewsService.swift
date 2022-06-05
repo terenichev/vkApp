@@ -74,7 +74,7 @@ class NewsService {
             guard let data = data else { return }
             do {
                 let ownerDataFromJSON = try JSONDecoder().decode(UserResponse.self, from: data).response[0]
-                print(ownerDataFromJSON)
+                
                 DispatchQueue.main.async {
                     completion(.success(ownerDataFromJSON))
                 }

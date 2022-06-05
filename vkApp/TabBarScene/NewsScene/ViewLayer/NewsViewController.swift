@@ -37,6 +37,7 @@ class NewsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentNewsItem = newsResponse.items[indexPath.section]
+        print(currentNewsItem)
         let postOwner = newsResponse.profiles.first(where: { $0.id == currentNewsItem.sourceID })
         
         switch indexPath.row {
@@ -67,7 +68,7 @@ class NewsViewController: UITableViewController {
                 DispatchQueue.global(qos: .userInteractive).async {
                     self.service.imageLoader(url: url) { image in
                         DispatchQueue.main.async {
-                            cell.configure(with: image)
+                            cell.configure(with: image, height: currentNewsItem.attachments?.last?.photo?.sizes?.last?.height, width: currentNewsItem.attachments?.last?.photo?.sizes?.last?.width)
                         }
                     }
                 }
@@ -94,7 +95,6 @@ private extension NewsViewController {
             case .failure(let error):
                 print("news error = ", error)
             case .success(let news):
-                print("news = ", news)
                 self?.newsResponse = news
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
