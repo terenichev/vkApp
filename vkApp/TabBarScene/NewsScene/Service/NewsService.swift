@@ -91,7 +91,7 @@ extension NewsService {
     ///Загрузка изображения по URL и сохранение в кеш
     func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
         guard let url = url else {
-            print("image url nil")
+//            print("image url nil")
             return
         }
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
