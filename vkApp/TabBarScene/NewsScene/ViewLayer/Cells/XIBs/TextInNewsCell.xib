@@ -10,15 +10,15 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextInNewsCell" rowHeight="70" id="KGk-i7-Jjw" customClass="TextInNewsCell" customModule="vkApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextInNewsCell" id="KGk-i7-Jjw" customClass="TextInNewsCell" customModule="vkApp" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="70"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hMt-fa-6MA">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="hMt-fa-6MA">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                         <color key="textColor" systemColor="labelColor"/>
@@ -30,14 +30,14 @@
                     <constraint firstItem="hMt-fa-6MA" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7wg-Ai-b14"/>
                     <constraint firstAttribute="trailing" secondItem="hMt-fa-6MA" secondAttribute="trailing" id="Jhp-Dd-oXW"/>
                     <constraint firstItem="hMt-fa-6MA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="fb3-L6-42z"/>
-                    <constraint firstAttribute="bottom" secondItem="hMt-fa-6MA" secondAttribute="bottom" constant="-10" id="hEp-Fw-kXW"/>
+                    <constraint firstAttribute="bottom" secondItem="hMt-fa-6MA" secondAttribute="bottom" id="hEp-Fw-kXW"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="newsText" destination="hMt-fa-6MA" id="zbs-Pd-Jrh"/>
             </connections>
-            <point key="canvasLocation" x="142" y="138"/>
+            <point key="canvasLocation" x="139" y="100"/>
         </tableViewCell>
     </objects>
     <resources>

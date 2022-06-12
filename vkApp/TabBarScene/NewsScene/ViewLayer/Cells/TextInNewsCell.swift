@@ -19,12 +19,10 @@ class TextInNewsCell: UITableViewCell {
     
     public func configure(with text: String) {
         newsText.text = text
-        newsText.translatesAutoresizingMaskIntoConstraints = false
     }
     
     static func nib() -> UINib{
         return UINib(nibName: "TextInNewsCell", bundle: nil)
-        
     }
     
 }

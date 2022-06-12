@@ -19,6 +19,7 @@ class PhotosInNewsCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+<<<<<<< HEAD
 <<<<<<< Updated upstream
     func configure(with item: NewsItem) {
         newsPhoto.image = UIImage(named: "not photo")!
@@ -70,6 +71,30 @@ class PhotosInNewsCell: UITableViewCell {
         ])
 
 //        topConstraint.priority = .init(999)
+=======
+    public func configure(with image: UIImage, height: Int?, width: Int?) {
+        newsPhoto.image = image
+        var scale = contentView.bounds.width / CGFloat(width!)
+        let constraintConstant: CGFloat?
+        if scale <= 1 {
+            constraintConstant = (contentView.bounds.width / CGFloat(width!)) * CGFloat(height!)
+        }
+        newsPhoto.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            newsPhoto.heightAnchor.constraint(equalToConstant: (contentView.bounds.width / CGFloat(width!)) * CGFloat(height!)),
+            newsPhoto.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            newsPhoto.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            newsPhoto.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
+            newsPhoto.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
+        ])
+        
+        
+        
+    }
+    
+    static func nib() -> UINib{
+        return UINib(nibName: "PhotosInNewsCell", bundle: nil)
+>>>>>>> parent of 457fe3b (stable photos in news)
     }
     
     override func layoutSubviews() {
