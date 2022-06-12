@@ -101,8 +101,12 @@ class NewsViewController: UITableViewController {
                 return UITableViewCell()
             }
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> Stashed changes
                        
+=======
+            
+>>>>>>> parent of 457fe3b (stable photos in news)
 =======
             
 >>>>>>> parent of 457fe3b (stable photos in news)
@@ -223,4 +227,7 @@ NewsItem(
     attachments: nil,
     carouselOffset: nil,
     topicID: nil)
+<<<<<<< HEAD
+>>>>>>> parent of 457fe3b (stable photos in news)
+=======
 >>>>>>> parent of 457fe3b (stable photos in news)
