@@ -74,12 +74,31 @@ class NewsViewController: UITableViewController {
                 DispatchQueue.global(qos: .userInteractive).async {
                     self.service?.imageLoader(url: url) { image in
                         DispatchQueue.main.async {
+<<<<<<< Updated upstream
                             cell.configure(with: currentNewsItem)
+=======
+                            cell.configure(with: image)
+>>>>>>> Stashed changes
                         }
                     }
                 }
                 
+<<<<<<< Updated upstream
             return cell
+=======
+                let url = URL(string: (currentNewsItem.attachments?.last?.video?.image?.last?.url) ?? "")
+                DispatchQueue.global(qos: .userInteractive).async {
+                    self.service.imageLoader(url: url) { image in
+                        DispatchQueue.main.async {
+                            cell.configure(with: image)
+                        }
+                    }
+                }
+                return cell
+            } else {
+                return UITableViewCell()
+            }
+>>>>>>> Stashed changes
                        
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }

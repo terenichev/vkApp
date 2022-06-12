@@ -19,6 +19,7 @@ class PhotosInNewsCell: UITableViewCell {
         super.awakeFromNib()
     }
     
+<<<<<<< Updated upstream
     func configure(with item: NewsItem) {
         newsPhoto.image = UIImage(named: "not photo")!
         service.imageLoader(url: URL(string: item.photoURL) ) { loadedImage in
@@ -26,6 +27,10 @@ class PhotosInNewsCell: UITableViewCell {
                 self.newsPhoto.image = loadedImage
             }
         }
+=======
+    func configure(with image: UIImage) {
+        newsPhoto.image = image
+>>>>>>> Stashed changes
         newsPhoto.translatesAutoresizingMaskIntoConstraints = false
         
        
@@ -44,6 +49,7 @@ class PhotosInNewsCell: UITableViewCell {
 
         NSLayoutConstraint.activate([
             topConstraint,
+<<<<<<< Updated upstream
             contentView.heightAnchor.constraint(equalTo: contentView.widthAnchor),
             view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
@@ -54,6 +60,13 @@ class PhotosInNewsCell: UITableViewCell {
             newsPhoto.rightAnchor.constraint(equalTo: view.rightAnchor),
             newsPhoto.topAnchor.constraint(equalTo: view.topAnchor)
             
+=======
+            view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            view.heightAnchor.constraint(equalTo: contentView.widthAnchor),
+//            contentView.heightAnchor.constraint(equalTo: view.heightAnchor)
+>>>>>>> Stashed changes
         ])
 
 //        topConstraint.priority = .init(999)
