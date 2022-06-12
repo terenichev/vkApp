@@ -17,6 +17,7 @@ class NewsService {
         return session
     }()
     
+    
     ///Запрос информации о выбранном пользователе
     func loadNews(completion: @escaping (Result<ResponseClass, Error>) -> Void) {
         var urlForNewsFeedComponents = URLComponents()
@@ -94,7 +95,7 @@ extension NewsService {
             return
         }
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
-            completion(cachedImage)
+            completion(cachedImage )
         } else {
             let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
             self.session.dataTask(with: request) { [weak self] data, response, error in
@@ -112,3 +113,4 @@ extension NewsService {
         }
     }
 }
+

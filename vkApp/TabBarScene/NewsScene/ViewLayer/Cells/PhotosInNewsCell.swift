@@ -14,14 +14,21 @@ class PhotosInNewsCell: UITableViewCell {
     
     static let identifier = "PhotosInNewsCell"
     
+    let service =  NewsService()
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func configure(with image: UIImage, height: Int?, width: Int?) {
-        newsPhoto.image = image
+    func configure(with item: NewsItem) {
+        newsPhoto.image = UIImage(named: "not photo")!
+        service.imageLoader(url: URL(string: item.photoURL) ) { loadedImage in
+            DispatchQueue.main.async {
+                self.newsPhoto.image = loadedImage
+            }
+        }
         newsPhoto.translatesAutoresizingMaskIntoConstraints = false
-        setConstraints()
+        
+       
     }
     
     static func nib() -> UINib{
@@ -31,21 +38,28 @@ class PhotosInNewsCell: UITableViewCell {
     
     private func setConstraints() {
 
-        contentView.addSubview(newsPhoto)
+        contentView.addSubview(view)
 
-        let topConstraint = newsPhoto.topAnchor.constraint(equalTo: contentView.topAnchor)
+        let topConstraint = view.topAnchor.constraint(equalTo: contentView.topAnchor)
 
         NSLayoutConstraint.activate([
             topConstraint,
-            newsPhoto.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            newsPhoto.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            newsPhoto.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            newsPhoto.heightAnchor.constraint(equalTo: contentView.widthAnchor),
-            contentView.heightAnchor.constraint(equalTo: newsPhoto.heightAnchor)
+            contentView.heightAnchor.constraint(equalTo: contentView.widthAnchor),
+            view.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            view.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            view.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+//            newsPhoto.heightAnchor.constraint(equalTo: contentView.heightAnchor),
+            newsPhoto.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            newsPhoto.leftAnchor.constraint(equalTo: view.leftAnchor),
+            newsPhoto.rightAnchor.constraint(equalTo: view.rightAnchor),
+            newsPhoto.topAnchor.constraint(equalTo: view.topAnchor)
+            
         ])
 
-        topConstraint.priority = .init(999)
+//        topConstraint.priority = .init(999)
     }
-
     
+    override func layoutSubviews() {
+        setConstraints()
+    }
 }
