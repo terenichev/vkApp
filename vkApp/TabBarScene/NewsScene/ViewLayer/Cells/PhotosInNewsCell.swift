@@ -54,7 +54,6 @@ final class PhotosInNewsCell: UITableViewCell {
 // MARK: - Private
 private extension PhotosInNewsCell {
     func setupSubviews() {
-        
         contentView.addSubview(backgroundCell)
         backgroundCell.addSubview(newsPhoto)
                 
