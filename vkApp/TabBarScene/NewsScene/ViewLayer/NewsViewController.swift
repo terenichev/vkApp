@@ -22,7 +22,7 @@ class NewsViewController: UITableViewController {
         
         tableView.register(OwnerNewsCell.nib(), forCellReuseIdentifier: OwnerNewsCell.identifier)
         tableView.register(TextInNewsCell.nib(), forCellReuseIdentifier: TextInNewsCell.identifier)
-        tableView.register(NewsAttachmentsCell.self, forCellReuseIdentifier: "NewsAttachmentsCell")
+        tableView.register(PhotosInNewsCell.self, forCellReuseIdentifier: "PhotosInNewsCell")
         tableView.register(BottomOfNewsCell.nib(), forCellReuseIdentifier: BottomOfNewsCell.identifier)
     }
     
@@ -60,13 +60,13 @@ class NewsViewController: UITableViewController {
             
         case 2:
             if newsResponse.items[indexPath.section].attachments?.first?.photo?.sizes?.last!.url != nil {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsAttachmentsCell", for: indexPath) as? NewsAttachmentsCell else { preconditionFailure("NewsAttachmentsCell cannot") }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
                 
                 let url = URL(string: (currentNewsItem.attachments?.last?.photo?.sizes?.last?.url) ?? "")
                 DispatchQueue.global(qos: .userInteractive).async {
                     self.service.imageLoader(url: url) { image in
                         DispatchQueue.main.async {
-                            cell.configureNewsAttachmentsCell(type: image)
+                            cell.configureNewsAttachmentsCell(image: image)
                         }
                     }
                 }

@@ -9,7 +9,7 @@
 import UIKit
 
 /// Ячейка, отображающая фото.
-final class NewsAttachmentsCell: UITableViewCell {
+final class PhotosInNewsCell: UITableViewCell {
     
     /// Фон ячейки.
     private lazy var backgroundCell: UIView = {
@@ -17,19 +17,12 @@ final class NewsAttachmentsCell: UITableViewCell {
         
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
-        
+
         return view
     }()
     
-    /// Изображение.
-    private var icon: UIImage = UIImage() {
-        didSet {
-            iconImageView.image = icon
-        }
-    }
-    
     /// Фото.
-    var iconImageView: UIImageView = {
+    var newsPhoto: UIImageView = {
         let view = UIImageView()
         
         view.contentMode = .scaleAspectFill
@@ -51,23 +44,20 @@ final class NewsAttachmentsCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-
-    
     /// Конфигуратор ячейки.
-    func configureNewsAttachmentsCell(type: UIImage) {
+    func configureNewsAttachmentsCell(image: UIImage) {
         // буду конфигурировать ячейку в зависимости от типа вложений
-        iconImageView.image = type
+        newsPhoto.image = image
     }
 }
 
 
 // MARK: - Private
-private extension NewsAttachmentsCell {
-    /// Установка View.
+private extension PhotosInNewsCell {
     func setupSubviews() {
         
         contentView.addSubview(backgroundCell)
-        backgroundCell.addSubview(iconImageView)
+        backgroundCell.addSubview(newsPhoto)
                 
         NSLayoutConstraint.activate([
             backgroundCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
@@ -76,10 +66,10 @@ private extension NewsAttachmentsCell {
             backgroundCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
             backgroundCell.heightAnchor.constraint(equalToConstant: contentView.bounds.width),
             
-            iconImageView.topAnchor.constraint(equalTo: backgroundCell.topAnchor),
-            iconImageView.bottomAnchor.constraint(equalTo: backgroundCell.bottomAnchor),
-            iconImageView.leftAnchor.constraint(equalTo: backgroundCell.leftAnchor, constant: 0),
-            iconImageView.rightAnchor.constraint(equalTo: backgroundCell.rightAnchor, constant: 0),
+            newsPhoto.topAnchor.constraint(equalTo: backgroundCell.topAnchor),
+            newsPhoto.bottomAnchor.constraint(equalTo: backgroundCell.bottomAnchor),
+            newsPhoto.leftAnchor.constraint(equalTo: backgroundCell.leftAnchor, constant: 0),
+            newsPhoto.rightAnchor.constraint(equalTo: backgroundCell.rightAnchor, constant: 0),
         ])
     }
 }
