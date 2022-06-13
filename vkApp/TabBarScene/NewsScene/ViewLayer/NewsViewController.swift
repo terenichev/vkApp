@@ -22,7 +22,7 @@ class NewsViewController: UITableViewController {
         
         tableView.register(OwnerNewsCell.nib(), forCellReuseIdentifier: OwnerNewsCell.identifier)
         tableView.register(TextInNewsCell.nib(), forCellReuseIdentifier: TextInNewsCell.identifier)
-        tableView.register(PhotosInNewsCell.nib(), forCellReuseIdentifier: PhotosInNewsCell.identifier)
+        tableView.register(NewsAttachmentsCell.self, forCellReuseIdentifier: "NewsAttachmentsCell")
         tableView.register(BottomOfNewsCell.nib(), forCellReuseIdentifier: BottomOfNewsCell.identifier)
     }
     
@@ -60,13 +60,13 @@ class NewsViewController: UITableViewController {
             
         case 2:
             if newsResponse.items[indexPath.section].attachments?.first?.photo?.sizes?.last!.url != nil {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosInNewsCell.identifier, for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "NewsAttachmentsCell", for: indexPath) as? NewsAttachmentsCell else { preconditionFailure("NewsAttachmentsCell cannot") }
                 
                 let url = URL(string: (currentNewsItem.attachments?.last?.photo?.sizes?.last?.url) ?? "")
                 DispatchQueue.global(qos: .userInteractive).async {
                     self.service.imageLoader(url: url) { image in
                         DispatchQueue.main.async {
-                            cell.configure(with: image)
+                            cell.configureNewsAttachmentsCell(type: image)
                         }
                     }
                 }
@@ -93,7 +93,6 @@ private extension NewsViewController {
             case .failure(let error):
                 print("news error = ", error)
             case .success(let news):
-                print("news = ", news)
                 self?.newsResponse = news
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()

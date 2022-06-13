@@ -53,7 +53,6 @@ extension FriendsRequests {
     ///Загрузка изображения по URL
     func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
         guard let url = url else {
-            print("image url nil")
             return
         }
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {

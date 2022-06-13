@@ -33,7 +33,6 @@ class NewsService {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetNews = urlForNewsFeedComponents.url else { return }
-        print("URL GET NEWS = ", urlGetNews)
         session.dataTask(with: urlGetNews) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
@@ -66,7 +65,6 @@ class NewsService {
         ]
         guard let urlGetOwnerData = urlGetNewsOwnerData.url
         else { return }
-        print(urlGetOwnerData)
         session.dataTask(with: urlGetOwnerData) { (data, response, error) in
             if let error = error {
                 print("some error")
@@ -76,7 +74,6 @@ class NewsService {
             guard let data = data else { return }
             do {
                 let ownerDataFromJSON = try JSONDecoder().decode(UserResponse.self, from: data).response[0]
-                print(ownerDataFromJSON)
                 DispatchQueue.main.async {
                     completion(.success(ownerDataFromJSON))
                 }
