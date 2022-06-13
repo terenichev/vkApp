@@ -11,6 +11,7 @@ class NewsService {
     
     var imageCache = NSCache<NSString, UIImage>()
     
+    
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
@@ -19,6 +20,7 @@ class NewsService {
     
     ///Запрос информации о выбранном пользователе
     func loadNews(completion: @escaping (Result<ResponseClass, Error>) -> Void) {
+        
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
@@ -91,7 +93,12 @@ extension NewsService {
     func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
         guard let url = url else {
             print("image url nil")
+            let defaultImage = UIImage(named: "not photo")!
+            completion(defaultImage)
             return
+        }
+        if url.absoluteString == "" {
+            print("null")
         }
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
             completion(cachedImage)

@@ -49,7 +49,8 @@ enum GroupType: String, Codable {
 
 // MARK: - NewsItem
 struct NewsItem: Codable {
-    let sourceID, date: Int?
+    let sourceID: Int
+    let date: Double
     let canDoubtCategory, canSetCategory, isFavorite: Bool?
     let postType: PostTypeEnum?
     let text: String?
@@ -82,6 +83,13 @@ struct NewsItem: Codable {
         case type, views, attachments
         case carouselOffset = "carousel_offset"
         case topicID = "topic_id"
+    }
+    func getStringDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy в HH:mm"
+        let postDate = Date(timeIntervalSince1970: date)
+        
+        return dateFormatter.string(from: postDate)
     }
 }
 

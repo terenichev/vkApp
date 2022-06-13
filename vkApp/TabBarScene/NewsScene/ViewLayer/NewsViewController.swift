@@ -10,6 +10,7 @@ import UIKit
 class NewsViewController: UITableViewController {
     
     let service = NewsService()
+    
     var newsResponse: ResponseClass!
     
     var newsOwner = User(id: 0, photo200_Orig: "", hasMobile: 0, isFriend: 0, about: "", status: "", lastSeen: .init(platform: 0, time: 0), followersCount: 0, online: 0, firstName: "", lastName: "", canAccessClosed: true, isClosed: false)
@@ -43,15 +44,13 @@ class NewsViewController: UITableViewController {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("OwnerNewsCell cannot") }
             let url = URL(string: postOwner?.photo100 ?? "")
-            let imageEmpty = UIImage(named: "not photo")!
             DispatchQueue.global(qos: .default).async {
                 self.service.imageLoader(url: url) { image in
                     DispatchQueue.main.async {
-                        cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: "\(String(describing: currentNewsItem.date))")
+                        cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: currentNewsItem.getStringDate())
                     }
                 }
             }
-            cell.configure(with: imageEmpty, name: "", dateOfNews: "")
             return cell
             
         case 1:
