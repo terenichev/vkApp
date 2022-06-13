@@ -25,7 +25,7 @@ final class PhotosInNewsCell: UITableViewCell {
     var newsPhoto: UIImageView = {
         let view = UIImageView()
         
-        view.contentMode = .scaleAspectFill
+        view.contentMode = .scaleAspectFit
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         
@@ -45,8 +45,7 @@ final class PhotosInNewsCell: UITableViewCell {
     }
     
     /// Конфигуратор ячейки.
-    func configureNewsAttachmentsCell(image: UIImage) {
-        // буду конфигурировать ячейку в зависимости от типа вложений
+    func configureNewsAttachmentsCell(image: UIImage) {        
         newsPhoto.image = image
     }
 }
@@ -60,16 +59,16 @@ private extension PhotosInNewsCell {
         backgroundCell.addSubview(newsPhoto)
                 
         NSLayoutConstraint.activate([
-            backgroundCell.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
-            backgroundCell.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: 0),
-            backgroundCell.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 0),
-            backgroundCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            backgroundCell.topAnchor.constraint(equalTo: contentView.topAnchor),
+            backgroundCell.rightAnchor.constraint(equalTo: contentView.rightAnchor),
+            backgroundCell.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            backgroundCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             backgroundCell.heightAnchor.constraint(equalToConstant: contentView.bounds.width),
             
             newsPhoto.topAnchor.constraint(equalTo: backgroundCell.topAnchor),
             newsPhoto.bottomAnchor.constraint(equalTo: backgroundCell.bottomAnchor),
-            newsPhoto.leftAnchor.constraint(equalTo: backgroundCell.leftAnchor, constant: 0),
-            newsPhoto.rightAnchor.constraint(equalTo: backgroundCell.rightAnchor, constant: 0),
+            newsPhoto.leftAnchor.constraint(equalTo: backgroundCell.leftAnchor),
+            newsPhoto.rightAnchor.constraint(equalTo: backgroundCell.rightAnchor),
         ])
     }
 }
