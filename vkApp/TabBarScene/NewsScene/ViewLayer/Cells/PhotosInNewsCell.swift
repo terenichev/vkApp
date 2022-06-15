@@ -63,7 +63,7 @@ private extension PhotosInNewsCell {
             backgroundCell.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             backgroundCell.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             backgroundCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            backgroundCell.heightAnchor.constraint(equalToConstant: contentView.bounds.width),
+            backgroundCell.heightAnchor.constraint(equalToConstant: ceil(contentView.bounds.width)),
             
             newsPhoto.topAnchor.constraint(equalTo: backgroundCell.topAnchor),
             newsPhoto.bottomAnchor.constraint(equalTo: backgroundCell.bottomAnchor),
