@@ -78,7 +78,6 @@ extension FriendsRequests {
 
 
 extension FriendsRequests {
-    // 1. Создаем URL для запроса
     func getFriendsUrl() -> Promise<URL> {
         var urlLoadFriendsListComponents = URLComponents()
         urlLoadFriendsListComponents.scheme = "https"
@@ -100,7 +99,6 @@ extension FriendsRequests {
         }
     }
 
-    // 2. Создаем запрос получили данные
     func getFriendsData(_ url: URL) -> Promise<Data> {
         return Promise { resolver in
             session.dataTask(with: url) {  (data, response, error) in
@@ -113,12 +111,10 @@ extension FriendsRequests {
         }
     }
 
-    // Парсим Данные
     func getParsedFriendsData(_ data: Data) -> Promise<[FriendsItem]> {
         return Promise  { resolver in
             do {
                 let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
-                print(friendsArrayFromJSON)
                 resolver.fulfill(friendsArrayFromJSON)
             } catch {
                 resolver.reject(AppError.failedToDecode)

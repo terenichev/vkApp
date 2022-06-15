@@ -151,8 +151,7 @@ private extension FriendsViewController {
     
     func promiseLoad() {
         service.getFriendsUrl()
-            .get({ url in
-                print(url)
+            .get({ url in             
             })
             .then(on: DispatchQueue.global(), service.getFriendsData(_:))
             .then(service.getParsedFriendsData(_:))

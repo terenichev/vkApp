@@ -48,6 +48,7 @@ final class PhotosInNewsCell: UITableViewCell {
     func configureNewsAttachmentsCell(image: UIImage) {        
         newsPhoto.image = image
     }
+    
 }
 
 
