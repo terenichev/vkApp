@@ -46,13 +46,11 @@ class NewsViewController: UITableViewController {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("OwnerNewsCell cannot") }
             let url = URL(string: postOwner?.photo100 ?? "")
-            DispatchQueue.global(qos: .default).async {
                 self.service.imageLoader(url: url) { image in
                     DispatchQueue.main.async {
                         cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: currentNewsItem.getStringDate())
                     }
                 }
-            }
             return cell
             
         case 1:
