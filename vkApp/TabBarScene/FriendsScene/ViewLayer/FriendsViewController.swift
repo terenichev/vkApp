@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
@@ -37,13 +38,15 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         DispatchQueue.global(qos: .background).async {
-            self.loadFriends()
+//            self.loadFriends()
+            self.promiseLoad()
         }
     }
     
     @objc private func refresh(sender: UIRefreshControl) {
         DispatchQueue.global(qos: .background).async {
-            self.loadFriends()
+//            self.loadFriends()
+            self.promiseLoad()
         }
         sender.endRefreshing()
     }
@@ -144,5 +147,21 @@ private extension FriendsViewController {
                 print("\(error)")
             }
         }
+    }
+    
+    func promiseLoad() {
+        service.getFriendsUrl()
+            .get({ url in             
+            })
+            .then(on: DispatchQueue.global(), service.getFriendsData(_:))
+            .then(service.getParsedFriendsData(_:))
+            .done(on: DispatchQueue.main) { friends in
+                self.friends = friends
+                self.searchFriends = friends
+                self.tableView.reloadData()
+            }.ensure {
+            }.catch { error in
+                print(error)
+            }
     }
 }

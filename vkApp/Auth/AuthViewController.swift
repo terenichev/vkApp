@@ -24,12 +24,6 @@ final class LoginController: UIViewController {
         Singleton.instance.token = defaults.object(forKey: "token") as? String
         configureWebView()
         loadAuth()
-//        if defaults.object(forKey: "token") != nil {
-//            print(Singleton.instance.token!)
-//            self.performSegue(withIdentifier: "ToTabBarScene", sender: nil)
-//        } else {
-//
-//        }
     }
 }
 

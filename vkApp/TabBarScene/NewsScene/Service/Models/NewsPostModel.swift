@@ -49,7 +49,8 @@ enum GroupType: String, Codable {
 
 // MARK: - NewsItem
 struct NewsItem: Codable {
-    let sourceID, date: Int?
+    let sourceID: Int
+    let date: Double
     let canDoubtCategory, canSetCategory, isFavorite: Bool?
     let postType: PostTypeEnum?
     let text: String?
@@ -64,6 +65,12 @@ struct NewsItem: Codable {
     let type: PostTypeEnum?
     let views: Views?
     let attachments: [ItemAttachment]?
+    var photosURL: [String]? {
+        get {
+            let photosURL = attachments?.compactMap{ $0.photo?.sizes?.last?.url }
+            return photosURL
+        }
+    }
     let carouselOffset, topicID: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -82,6 +89,13 @@ struct NewsItem: Codable {
         case type, views, attachments
         case carouselOffset = "carousel_offset"
         case topicID = "topic_id"
+    }
+    func getStringDate() -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd.MM.yyyy в HH:mm"
+        let postDate = Date(timeIntervalSince1970: date)
+        
+        return dateFormatter.string(from: postDate)
     }
 }
 
@@ -381,6 +395,7 @@ enum PostSourceType: String, Codable {
 enum PostTypeEnum: String, Codable {
     case photo = "photo"
     case post = "post"
+    case video = "video"
 }
 
 // MARK: - Donut

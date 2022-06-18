@@ -10,18 +10,21 @@ import UIKit
 class NewsViewController: UITableViewController {
     
     let service = NewsService()
+    private var imageService: ImageService?
+    
     var newsResponse: ResponseClass!
     
     var newsOwner = User(id: 0, photo200_Orig: "", hasMobile: 0, isFriend: 0, about: "", status: "", lastSeen: .init(platform: 0, time: 0), followersCount: 0, online: 0, firstName: "", lastName: "", canAccessClosed: true, isClosed: false)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        imageService = ImageService(container: tableView)
         
         loadNews()
         
         tableView.register(OwnerNewsCell.nib(), forCellReuseIdentifier: OwnerNewsCell.identifier)
         tableView.register(TextInNewsCell.nib(), forCellReuseIdentifier: TextInNewsCell.identifier)
-        tableView.register(PhotosInNewsCell.nib(), forCellReuseIdentifier: PhotosInNewsCell.identifier)
+        tableView.register(PhotosInNewsCell.self, forCellReuseIdentifier: "PhotosInNewsCell")
         tableView.register(BottomOfNewsCell.nib(), forCellReuseIdentifier: BottomOfNewsCell.identifier)
     }
     
@@ -43,15 +46,11 @@ class NewsViewController: UITableViewController {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("OwnerNewsCell cannot") }
             let url = URL(string: postOwner?.photo100 ?? "")
-            let imageEmpty = UIImage(named: "not photo")!
-            DispatchQueue.global(qos: .default).async {
                 self.service.imageLoader(url: url) { image in
                     DispatchQueue.main.async {
-                        cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: "\(String(describing: currentNewsItem.date))")
+                        cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: currentNewsItem.getStringDate())
                     }
                 }
-            }
-            cell.configure(with: imageEmpty, name: "", dateOfNews: "")
             return cell
             
         case 1:
@@ -60,23 +59,17 @@ class NewsViewController: UITableViewController {
             return cell
             
         case 2:
-            if newsResponse.items[indexPath.section].attachments?.first?.photo?.sizes?.last!.url != nil {
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: PhotosInNewsCell.identifier, for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
-                
-                let url = URL(string: (currentNewsItem.attachments?.last?.photo?.sizes?.last?.url) ?? "")
-                DispatchQueue.global(qos: .userInteractive).async {
-                    self.service.imageLoader(url: url) { image in
-                        DispatchQueue.main.async {
-                            cell.configure(with: image)
-                        }
-                    }
-                }
-                return cell
-            } else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
+            
+            guard let urlImage = currentNewsItem.photosURL?.first else { return UITableViewCell() }
+            let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage)
+            cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
+            
+            return cell
             
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
-            cell.configure(with: "\(newsResponse.items[indexPath.section].likes?.count ?? 0)", comments: "\(currentNewsItem.comments?.count ?? 0)", reposts: "\(currentNewsItem.views?.count ?? 0)")
+            cell.configure(with: "\(currentNewsItem.likes?.count ?? 0)", comments: "\(currentNewsItem.comments?.count ?? 0)", reposts: "\(currentNewsItem.views?.count ?? 0)")
             return cell
             
         default:
@@ -94,7 +87,6 @@ private extension NewsViewController {
             case .failure(let error):
                 print("news error = ", error)
             case .success(let news):
-                print("news = ", news)
                 self?.newsResponse = news
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()

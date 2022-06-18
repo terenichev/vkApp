@@ -19,6 +19,7 @@ class NewsService {
     
     ///Запрос информации о выбранном пользователе
     func loadNews(completion: @escaping (Result<ResponseClass, Error>) -> Void) {
+        
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
@@ -31,7 +32,7 @@ class NewsService {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetNews = urlForNewsFeedComponents.url else { return }
-        print("URL GET NEWS = ", urlGetNews)
+        print(urlGetNews)
         session.dataTask(with: urlGetNews) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))
@@ -49,41 +50,6 @@ class NewsService {
             }
         }.resume()
     }
-    
-    ///Запрос данных о  пользователе по его id
-    func newsOwnerData(id: Int, completion: @escaping (Result<User, Error>) -> Void) {
-        var urlGetNewsOwnerData = URLComponents()
-        urlGetNewsOwnerData.scheme = "https"
-        urlGetNewsOwnerData.host = "api.vk.com"
-        urlGetNewsOwnerData.path = "/method/users.get"
-        urlGetNewsOwnerData.queryItems = [
-            URLQueryItem(name: "user_ids", value: "\(id)"),
-            URLQueryItem(name: "fields", value: "photo_200_orig, online"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
-        guard let urlGetOwnerData = urlGetNewsOwnerData.url
-        else { return }
-        print(urlGetOwnerData)
-        session.dataTask(with: urlGetOwnerData) { (data, response, error) in
-            if let error = error {
-                print("some error")
-                completion(.failure(error))
-                return
-            }
-            guard let data = data else { return }
-            do {
-                let ownerDataFromJSON = try JSONDecoder().decode(UserResponse.self, from: data).response[0]
-                print(ownerDataFromJSON)
-                DispatchQueue.main.async {
-                    completion(.success(ownerDataFromJSON))
-                }
-            } catch let jsonError {
-                print("Failed to decode JSON", jsonError)
-                completion(.failure(jsonError))
-            }
-        }.resume()
-    }
 }
 
 extension NewsService {
@@ -91,7 +57,12 @@ extension NewsService {
     func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
         guard let url = url else {
             print("image url nil")
+            let defaultImage = UIImage(named: "not photo")!
+            completion(defaultImage)
             return
+        }
+        if url.absoluteString == "" {
+            print("null")
         }
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
             completion(cachedImage)

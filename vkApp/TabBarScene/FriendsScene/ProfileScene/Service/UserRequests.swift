@@ -64,7 +64,7 @@ class UserRequests {
         else { return }
         session.dataTask(with: urlGetPhotos) { (data, response, error) in
             if let error = error {
-                print("some error")
+                print("friendsPhotoRequest error")
                 completion(.failure(error))
                 return
             }
