@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class FriendsRequests {
     
@@ -18,7 +19,7 @@ class FriendsRequests {
     }()
     
     ///Запрос списка друзей текущего пользователя
-    func loadFriendsList(_ completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
+    func loadFriendsList(_ completion: @escaping (Swift.Result<[FriendsItem], Error>) -> Void) {
         var urlLoadFriendsListComponents = URLComponents()
         urlLoadFriendsListComponents.scheme = "https"
         urlLoadFriendsListComponents.host = "api.vk.com"
@@ -53,7 +54,6 @@ extension FriendsRequests {
     ///Загрузка изображения по URL
     func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
         guard let url = url else {
-            print("image url nil")
             return
         }
         if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
@@ -72,6 +72,53 @@ extension FriendsRequests {
                     completion(image)
                 }
             }.resume()
+        }
+    }
+}
+
+
+extension FriendsRequests {
+    func getFriendsUrl() -> Promise<URL> {
+        var urlLoadFriendsListComponents = URLComponents()
+        urlLoadFriendsListComponents.scheme = "https"
+        urlLoadFriendsListComponents.host = "api.vk.com"
+        urlLoadFriendsListComponents.path = "/method/friends.get"
+        urlLoadFriendsListComponents.queryItems = [
+            URLQueryItem(name: "order", value: "hints"),
+            URLQueryItem(name: "fields", value: "online, photo_50, status, photo_200_orig, photo_100"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+
+        return Promise  { resolver in
+            guard let url = urlLoadFriendsListComponents.url else {
+                resolver.reject(AppError.notCorrectUrl)
+                return
+            }
+            resolver.fulfill(url)
+        }
+    }
+
+    func getFriendsData(_ url: URL) -> Promise<Data> {
+        return Promise { resolver in
+            session.dataTask(with: url) {  (data, response, error) in
+                guard let data = data else {
+                    resolver.reject(AppError.errorTask)
+                    return
+                }
+                resolver.fulfill(data)
+            }.resume()
+        }
+    }
+
+    func getParsedFriendsData(_ data: Data) -> Promise<[FriendsItem]> {
+        return Promise  { resolver in
+            do {
+                let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
+                resolver.fulfill(friendsArrayFromJSON)
+            } catch {
+                resolver.reject(AppError.failedToDecode)
+            }
         }
     }
 }
