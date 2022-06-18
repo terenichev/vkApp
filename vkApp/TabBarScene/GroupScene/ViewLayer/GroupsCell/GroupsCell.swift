@@ -12,6 +12,10 @@ class GroupsCell: UITableViewCell{
     @IBOutlet weak var groupImage: UIImageView!
     @IBOutlet weak var groupNameLabel: UILabel!
     
+    var id: Int?
+    var name: String?
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
