@@ -65,6 +65,12 @@ struct NewsItem: Codable {
     let type: PostTypeEnum?
     let views: Views?
     let attachments: [ItemAttachment]?
+    var photosURL: [String]? {
+        get {
+            let photosURL = attachments?.compactMap{ $0.photo?.sizes?.last?.url }
+            return photosURL
+        }
+    }
     let carouselOffset, topicID: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -389,6 +395,7 @@ enum PostSourceType: String, Codable {
 enum PostTypeEnum: String, Codable {
     case photo = "photo"
     case post = "post"
+    case video = "video"
 }
 
 // MARK: - Donut
