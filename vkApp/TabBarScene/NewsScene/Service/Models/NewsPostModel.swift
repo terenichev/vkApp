@@ -395,6 +395,7 @@ enum PostSourceType: String, Codable {
 enum PostTypeEnum: String, Codable {
     case photo = "photo"
     case post = "post"
+    case video = "video"
 }
 
 // MARK: - Donut
