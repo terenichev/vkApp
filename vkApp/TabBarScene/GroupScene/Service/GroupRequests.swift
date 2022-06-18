@@ -8,11 +8,7 @@
 import Foundation
 import RealmSwift
 
-protocol GroupsRequestProtocol {
-    func myGroupsRequest(url: URL, completion: @escaping (Result<[Group], Error>) -> Void)
-}
-
-class GroupsRequests: GroupsRequestProtocol {
+class GroupsRequests {
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -20,30 +16,35 @@ class GroupsRequests: GroupsRequestProtocol {
         return session
     }()
     
-    func myGroupsRequest(url: URL, completion: @escaping (Result<[Group], Error>) -> Void) {
-        session.dataTask(with: url) { (data, response, error) in
-            DispatchQueue.main.async {
-                if let error = error {
-                    print("some error")
-                    completion(.failure(error))
-                    return
+    func myGroupsRequest() {
+        var urlForGroupComponents = URLComponents()
+        urlForGroupComponents.scheme = "https"
+        urlForGroupComponents.host = "api.vk.com"
+        urlForGroupComponents.path = "/method/groups.get"
+        urlForGroupComponents.queryItems = [
+            URLQueryItem(name: "extended", value: "1"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetGroups = urlForGroupComponents.url else { return }
+        session.dataTask(with: urlGetGroups) { (data, response, error) in
+            if let error = error {
+                print("can not load groups, error = ", error)
+                return
+            }
+            guard let data = data else { return }
+            do {
+                let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
+                DispatchQueue.main.async {
+                    self.saveGroupsListData(groupsArrayFromJSON)
                 }
-                guard let data = data else { return }
-                
-                do {
-                    let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
-                    completion(.success(groupsArrayFromJSON))
-                    
-                } catch let jsonError {
-                    print("Failed to decode JSON", jsonError)
-                    completion(.failure(jsonError))
-                }
+            } catch {
+                print("Failed to decode groups JSON")
             }
         }.resume()
     }
     
     func searchGroupsRequest(searchText: String, completion: @escaping (Result<[Group], Error>) -> Void) {
-        
         var urlForGroupSearchComponents = URLComponents()
         urlForGroupSearchComponents.scheme = "https"
         urlForGroupSearchComponents.host = "api.vk.com"
@@ -56,26 +57,21 @@ class GroupsRequests: GroupsRequestProtocol {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetSearchGroups = urlForGroupSearchComponents.url else { return }
-        print(urlGetSearchGroups)
-        
         session.dataTask(with: urlGetSearchGroups) { (data, response, error) in
-            
             if let error = error {
                 print("some error")
                 completion(.failure(error))
                 return
             }
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                
-                do {
-                    let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
+            guard let data = data else { return }
+            do {
+                let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
+                DispatchQueue.main.async {
                     completion(.success(groupsArrayFromJSON))
-                    
-                } catch let jsonError {
-                    print("Failed to decode JSON", jsonError)
-                    completion(.failure(jsonError))
                 }
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
             }
         }.resume()
     }
@@ -92,8 +88,6 @@ class GroupsRequests: GroupsRequestProtocol {
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetSearchGroups = urlForAddGroupComponents.url else { return }
-        print(urlGetSearchGroups)
-        
         let task = session.dataTask(with: urlGetSearchGroups) { data, response, error in
             if let error = error {
                 return completion(.failure(error))
@@ -103,7 +97,9 @@ class GroupsRequests: GroupsRequestProtocol {
             }
             do {
                 let groupJoin = try JSONDecoder().decode(JoinOrLeaveGroupModel.self, from: data)
-                completion(.success(groupJoin))
+                DispatchQueue.main.async {
+                    completion(.success(groupJoin))
+                }
             } catch let jsonError {
                 print("Failed to decode JSON", jsonError)
                 completion(.failure(jsonError))
@@ -111,23 +107,33 @@ class GroupsRequests: GroupsRequestProtocol {
         }
         task.resume()
     }
-
+    
     
     func saveGroupsListData (_ groups: [Group]) {
         do {
             let config = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
             let realm = try Realm(configuration: config)
             print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
-            
             let oldGroups = realm.objects(Group.self)
-            
             realm.beginWrite()
             realm.delete(oldGroups)
             realm.add(groups)
             try realm.commitWrite()
-            
         } catch {
             print(error)
         }
+    }
+}
+
+extension GroupsRequests {
+    func imageLoader(url: URL?) -> UIImage {
+        var image: UIImage
+        if let data = try? Data(contentsOf: url!) {
+            guard let imageFromUrl = UIImage(data: data) else { return UIImage(named: "not photo")!}
+            image = imageFromUrl
+        } else {
+            image = UIImage(named: "not photo")!
+        }
+        return image
     }
 }

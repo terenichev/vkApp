@@ -7,62 +7,72 @@
 
 import Foundation
 import RealmSwift
+import UIKit
 
-protocol RequestProtocol {
-    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem], Error>) -> Void)
-    func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void)
-}
-
-class FriendsRequests: RequestProtocol {
+class FriendsRequests {
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         return session
     }()
 
-    func myFriendsRequest(url: URL, completion: @escaping (Result<[FriendsItem], Error>) -> Void) {
-        
-        session.dataTask(with: url) { (data, response, error) in
+    func myFriendsRequest() {
+        var urlForUserIdsComponents = URLComponents()
+        urlForUserIdsComponents.scheme = "https"
+        urlForUserIdsComponents.host = "api.vk.com"
+        urlForUserIdsComponents.path = "/method/friends.get"
+        urlForUserIdsComponents.queryItems = [
+            URLQueryItem(name: "order", value: "hints"),
+            URLQueryItem(name: "fields", value: "photo_50, status, photo_200_orig, photo_100"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetIds = urlForUserIdsComponents.url else { return }
+        session.dataTask(with: urlGetIds) { (data, response, error) in
             if let error = error {
-                print("some error")
-                completion(.failure(error))
+                print("can not load friends, error = ", error)
                 return
             }
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                
-                do {
-                    let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
-                    
-                    completion(.success(friendsArrayFromJSON))
-                    
-                } catch let jsonError {
-                    print("Failed to decode JSON", jsonError)
-                    completion(.failure(jsonError))
+            guard let data = data else { return }
+            do {
+                let friendsArrayFromJSON = try JSONDecoder().decode(FriendModel.self, from: data).response.items
+                DispatchQueue.main.async {
+                    self.saveFriendsListData(friendsArrayFromJSON)
                 }
+            } catch {
+                print("Failed to decode friends JSON")
             }
         }.resume()
     }
     
-    func usersPhotoRequest(url: URL, completion: @escaping (Result<[Item], Error>) -> Void) {
-        session.dataTask(with: url) { (data, response, error) in
-            
+    func friendsPhotoRequest(id: Int, completion: @escaping (Result<[Item], Error>) -> Void) {
+        var urlComponentsGetPhotos = URLComponents()
+        urlComponentsGetPhotos.scheme = "https"
+        urlComponentsGetPhotos.host = "api.vk.com"
+        urlComponentsGetPhotos.path = "/method/photos.get"
+        urlComponentsGetPhotos.queryItems = [
+            URLQueryItem(name: "owner_id", value: "\(id)"),
+            URLQueryItem(name: "album_id", value: "profile"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetPhotos = urlComponentsGetPhotos.url
+        else { return }
+        session.dataTask(with: urlGetPhotos) { (data, response, error) in
             if let error = error {
                 print("some error")
                 completion(.failure(error))
                 return
             }
-            DispatchQueue.main.async {
-                guard let data = data else { return }
-                
-                do {
-                    let photoResponceFromJSON = try JSONDecoder().decode(UserPhotoURLResponse.self, from: data).response.items
-                    
+            guard let data = data else { return }
+            do {
+                let photoResponceFromJSON = try JSONDecoder().decode(UserPhotoURLResponse.self, from: data).response.items
+                DispatchQueue.main.async {
                     completion(.success(photoResponceFromJSON))
-                } catch let jsonError {
-                    print("Failed to decode JSON", jsonError)
-                    completion(.failure(jsonError))
                 }
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
             }
         }.resume()
     }
@@ -83,5 +93,18 @@ class FriendsRequests: RequestProtocol {
         } catch {
             print(error)
         }
+    }
+}
+
+extension FriendsRequests {
+    func imageLoader(url: URL?) -> UIImage {
+        var image: UIImage
+        if let data = try? Data(contentsOf: url!) {
+            guard let imageFromUrl = UIImage(data: data) else { return UIImage(named: "not photo")!}
+            image = imageFromUrl
+        } else {
+            image = UIImage(named: "not photo")!
+        }
+        return image
     }
 }

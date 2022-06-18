@@ -12,6 +12,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     
+    let service = FriendsRequests()
+    
     var friends: [FriendsItem] {
         do {
             let realm = try Realm()
@@ -40,19 +42,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         self.tableView.reloadData()
     }
     
-    private func sort(friends: [FriendsItem]) -> [Character: [FriendsItem]] {
-        var friendsDict = [Character: [FriendsItem]]()
-        friends.forEach() {friend in
-            guard let firstChar = friend.firstName.first else {return}
-            if var thisCharFriends = friendsDict[firstChar]{
-                thisCharFriends.append(friend)
-                friendsDict[firstChar] = thisCharFriends
-            } else {
-                friendsDict[firstChar] = [friend]
-            }
-        }
-        return friendsDict
-    }
     
     // MARK: - Table view data source
     
@@ -73,23 +62,24 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         let firstChar = sortedFriends.keys.sorted()[indexPath.section]
         let friends = sortedFriends[firstChar]!
         let friend: FriendsItem = friends[indexPath.row]
-        let url = URL(string: friend.avatarUrl)
-        if let data = try? Data(contentsOf: url!)
-        {
-            cell.imageFriendsCell.image = UIImage(data: data)
+        let url = URL(string: friend.avatarMiddleSizeUrl)
+        cell.imageFriendsCell.image = UIImage(named: "not photo")
+        DispatchQueue.global(qos: .utility).async {
+            let imageFromUrl = self.service.imageLoader(url: url)
+                DispatchQueue.main.async {
+                    cell.imageFriendsCell.image = imageFromUrl
+                }
         }
         cell.labelFriendsCell.text = friend.firstName + " " + friend.lastName
         return cell
     }
     
-    
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return String(sortedFriends.keys.sorted()[section])
     }
     
-    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! profileViewController
+        let profileVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "profileVC") as! ProfileViewController
         
         let keys = Array(sortedFriends.keys.sorted())
         let friendsInKey: [FriendsItem]
@@ -98,50 +88,8 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         friendsInKey = sortedFriends[keys[indexPath.section]]!
         friendToShow = friendsInKey[indexPath.row]
         
-        let request = FriendsRequests()
-        
-        var urlComponentsGetPhotos = URLComponents()
-        urlComponentsGetPhotos.scheme = "https"
-        urlComponentsGetPhotos.host = "api.vk.com"
-        urlComponentsGetPhotos.path = "/method/photos.get"
-        urlComponentsGetPhotos.queryItems = [
-            URLQueryItem(name: "owner_id", value: "\(friendToShow.id)"),
-            URLQueryItem(name: "album_id", value: "profile"),
-            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
-            URLQueryItem(name: "v", value: "5.131")
-        ]
-        
-        guard let urlGetPhotos = urlComponentsGetPhotos.url
-        else {
-            print("guard return")
-            return }
-        
-        request.usersPhotoRequest(url: urlGetPhotos) { [weak self] result in
-            switch result {
-                
-            case .success(let array):
-                var photoUrls: [String] = []
-                array.forEach({ photoUrls.append($0.sizes.last!.url) })
-                var friendImages: [UIImage?] = []
-                for photo in 0..<photoUrls.count {
-                    let url = URL(string:"\(photoUrls[photo])")
-                    if let data = try? Data(contentsOf: url!)
-                    {
-                        friendImages.append(UIImage(data: data))
-                    }
-                    self?.friendImagesForShow = friendImages
-                }
-            case .failure(let error):
-                print("error", error)
-            }
-        }
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
-            profileVC.profileForFriend = friendToShow
-            profileVC.arrayImages = self.friendImagesForShow
-            
-            self.navigationController?.pushViewController(profileVC, animated: true)
-        })
+        profileVC.profileForFriend = friendToShow
+        self.navigationController?.pushViewController(profileVC, animated: true)
     }
     
     // MARK: - Search Bar Config
@@ -178,5 +126,22 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         }
         self.sortedFriends = sort(friends: searchFriends)
         self.tableView.reloadData()
+    }
+}
+
+// MARK: - Private
+private extension FriendsViewController {
+    func sort(friends: [FriendsItem]) -> [Character: [FriendsItem]] {
+        var friendsDict = [Character: [FriendsItem]]()
+        friends.forEach() {friend in
+            guard let firstChar = friend.firstName.first else {return}
+            if var thisCharFriends = friendsDict[firstChar]{
+                thisCharFriends.append(friend)
+                friendsDict[firstChar] = thisCharFriends
+            } else {
+                friendsDict[firstChar] = [friend]
+            }
+        }
+        return friendsDict
     }
 }

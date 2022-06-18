@@ -5,7 +5,6 @@
 //  Created by Денис Тереничев on 16.04.2022.
 //
 
-import Foundation
 import RealmSwift
 import UIKit
 
@@ -24,6 +23,8 @@ class FriendsItem: Object, Codable {
     @objc dynamic var lastName: String = ""
     @objc dynamic var status: String? = ""
     @objc dynamic var avatarUrl: String = ""
+    @objc dynamic var avatarMiddleSizeUrl: String = ""
+    @objc dynamic var avatarMaxSizeUrl: String = ""
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
@@ -31,5 +32,7 @@ class FriendsItem: Object, Codable {
         case lastName = "last_name"
         case status = "status"
         case avatarUrl = "photo_50"
+        case avatarMiddleSizeUrl = "photo_100"
+        case avatarMaxSizeUrl = "photo_200_orig"
     }
 }

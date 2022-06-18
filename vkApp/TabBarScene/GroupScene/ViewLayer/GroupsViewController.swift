@@ -7,10 +7,19 @@
 
 import UIKit
 import RealmSwift
+import Firebase
+
+protocol AddGroupDelegate: AnyObject {
+    func addGroup(id: Int, name: String)
+}
 
 class GroupsViewController: UITableViewController, UISearchBarDelegate {
-    
+
+    @IBOutlet weak var plusBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
+    
+    private var groupsFirebase = [FirebaseCommunity]()
+    private var fireBaseReference = Database.database().reference(withPath: "Communities")
     
     var groups: [Group] {
         do {
@@ -40,8 +49,26 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         searchBar.delegate = self
         searchGroups = groups
         createNotificationToken()
+        fireBaseReference.observe(.value) { snapshot in
+            var communities: [FirebaseCommunity] = []
+            for child in snapshot.children {
+                if let snapshot = child as? DataSnapshot,
+                   let group = FirebaseCommunity(snapshot: snapshot) {
+                    communities.append(group)
+                }
+            }
+            print("Добавлена группа")
+            communities.forEach { print($0.groupName) }
+            print(communities.count)
+        }
     }
     
+    @IBAction func addGroup(_ sender: Any) {
+        let allGroupsVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "AllGroupsViewController") as! AllGroupsViewController
+        
+        allGroupsVC.delegate = self
+        navigationController?.pushViewController(allGroupsVC, animated: true)
+    }
     
     // MARK: - Table view data source
     
@@ -57,31 +84,47 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath) as? GroupsCell else {
             preconditionFailure("GroupsCell cannot")
         }
-        
-        let group: Group = searchGroups[indexPath.row]
-        
-        
-        let url = URL(string: group.photo50)
-        
-        if let data = try? Data(contentsOf: url!)
-        {
-            cell.groupImage.image = UIImage(data: data)
+        if let groups = groupRespons {
+            let group: Group = groups[indexPath.row]
+            let url = URL(string: group.photo100)
+            cell.groupImage.image = UIImage(named: "not photo")
+            DispatchQueue.global(qos: .utility).async {
+                let imageFromUrl = self.service.imageLoader(url: url)
+                DispatchQueue.main.async {
+                    cell.groupImage.image = imageFromUrl
+                }
+            }
+            cell.groupNameLabel.text = group.name
         }
-        
-        cell.groupNameLabel.text = group.name
-        
         return cell
-    }
-    
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
     }
 }
 
+// MARK: - AddGroupDelegate
+extension GroupsViewController: AddGroupDelegate {
+    func addGroup(id: Int, name: String) {
+        service.addGroup(idGroup: id) { [weak self] result in
+            guard let self = self else { return }
+            switch result {
+            case .success(let success):
+                if success.response == 1 {
+                    let com = FirebaseCommunity(name: name, id: id)
+                    let reference = self.fireBaseReference.child(name.lowercased())
+                    reference.setValue(com.toAnyObject())
+                    self.service.myGroupsRequest()
+                    DispatchQueue.main.async {
+                        self.tableView.reloadData()
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+}
 
 // MARK: - Search Bar Config
 extension GroupsViewController {
-    //При нажатии на строку поиска скрываем navigationBar с анимацией
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         UIView.animate(withDuration: 0.3) {
             self.navigationController?.setNavigationBarHidden(true, animated: true)
@@ -97,11 +140,8 @@ extension GroupsViewController {
         searchBar.resignFirstResponder()
     }
     
-    //Реализация поиска независимо от введенного регистра
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        
         searchGroups = []
-        
         if searchText == "" {
             searchGroups = groups
         }
@@ -113,20 +153,19 @@ extension GroupsViewController {
                 }
             }
         }
-        
         self.tableView.reloadData()
     }
 }
 
 // MARK: - Realm Notification Token
-extension GroupsViewController {
+private extension GroupsViewController {
     func createNotificationToken() {
         notificationToken = groupRespons?.observe { [weak self] result in
             guard let self = self else { return }
             switch result {
             case .initial(let groupsData):
                 print("\(groupsData.count)")
-            case .update(let groups,
+            case .update(_,
                          deletions: let deletions,
                          insertions: let insertions,
                          modifications: let modifications):
