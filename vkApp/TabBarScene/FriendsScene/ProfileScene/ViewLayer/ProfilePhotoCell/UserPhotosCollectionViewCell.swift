@@ -7,11 +7,11 @@
 
 import UIKit
 
-class ProfilePhotosViewCell: UICollectionViewCell {
+class UserPhotosCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var imageView: UIImageView!
     
-    static let identifier = "ProfilePhotosViewCell"
+    static let identifier = "ProfilePhotosCollectionViewCell"
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,6 +23,6 @@ class ProfilePhotosViewCell: UICollectionViewCell {
     }
     
     static func nib() -> UINib{
-        return UINib(nibName: "ProfilePhotosViewCell", bundle: nil)
+        return UINib(nibName: "ProfilePhotosCollectionViewCell", bundle: nil)
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoadViewController: UIViewController{
+class ViewController: UIViewController{
     
     @IBOutlet weak var firstCircle: UIImageView!
     @IBOutlet weak var secondCircle: UIImageView!
@@ -24,7 +24,7 @@ class LoadViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.friendsRequest.myFriendsRequest()
+//        self.friendsRequest.myFriendsRequest()
         self.groupsRequest.myGroupsRequest()
         circlesAnimate()
     }

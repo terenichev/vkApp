@@ -5,7 +5,6 @@
 //  Created by Денис Тереничев on 16.04.2022.
 //
 
-import RealmSwift
 import UIKit
 
 struct FriendModel: Codable {
@@ -17,22 +16,20 @@ class FriendsList: Codable {
     var items: [FriendsItem] = []
 }
 
-class FriendsItem: Object, Codable {
-    @objc dynamic var id: Int = 0
-    @objc dynamic var firstName: String = ""
-    @objc dynamic var lastName: String = ""
-    @objc dynamic var status: String? = ""
-    @objc dynamic var avatarUrl: String = ""
-    @objc dynamic var avatarMiddleSizeUrl: String = ""
-    @objc dynamic var avatarMaxSizeUrl: String = ""
+class FriendsItem: Codable {
+    var id: Int = 0
+    var firstName: String = ""
+    var lastName: String = ""
+    var status: String? = ""
+    var avatarMiddleSizeUrl: String = ""
+    var isOnline: Int = 0
     
     enum CodingKeys: String, CodingKey {
         case id = "id"
         case firstName = "first_name"
         case lastName = "last_name"
         case status = "status"
-        case avatarUrl = "photo_50"
+        case isOnline = "online"
         case avatarMiddleSizeUrl = "photo_100"
-        case avatarMaxSizeUrl = "photo_200_orig"
     }
 }

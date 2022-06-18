@@ -1,34 +1,34 @@
 //
-//  AuthViewController.swift
+//  WebViewController.swift
 //  vkApp
 //
-//  Created by Денис Тереничев on 13.04.2022.
+//  Created by Денис Тереничев on 17.05.2022.
 //
 
 import UIKit
 import WebKit
 
-final class LoginController: UIViewController {
+class WebViewController: UIViewController {
+
     @IBOutlet weak var webView: WKWebView!
-    let defaults = UserDefaults.standard
     
     override func loadView() {
         super.loadView()
         view = webView
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Singleton.instance.id = defaults.object(forKey: "id") as? Int
-        Singleton.instance.token = defaults.object(forKey: "token") as? String
         configureWebView()
         loadAuth()
     }
+    
+
+
 }
 
-// MARK: - WKNavigationDelegate
-extension LoginController: WKNavigationDelegate {
+extension WebViewController: WKNavigationDelegate {
     func webView(_ webView: WKWebView,
                  decidePolicyFor navigationResponse: WKNavigationResponse,
                  decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
@@ -41,7 +41,7 @@ extension LoginController: WKNavigationDelegate {
             decisionHandler(.allow)
             return
         }
-        
+
         let params = fragment
             .components(separatedBy: "&")
             .map { $0.components(separatedBy: "=")}
@@ -52,27 +52,26 @@ extension LoginController: WKNavigationDelegate {
                 dict[key] = value
                 return dict
             }
-        if Singleton.instance.token != nil {
-            print("old token = ", Singleton.instance.token!)
+
+        if let token = params["access_token"], let id = params["user_id"] {
+            Singleton.instance.id = Int(id)
+            Singleton.instance.token = token
+            print(token)
+
             decisionHandler(.cancel)
-            performSegue(withIdentifier: "ToTabBarScene", sender: nil)
-        }else {
-            if let token = params["access_token"], let id = params["user_id"] {
-                defaults.set(id, forKey: "id")
-                defaults.set(token, forKey: "token")
-                Singleton.instance.id = defaults.object(forKey: "id") as? Int
-                Singleton.instance.token = defaults.object(forKey: "token") as? String
-                
-                print("new token = ", token)
-                decisionHandler(.cancel)
-                performSegue(withIdentifier: "ToTabBarScene", sender: nil)
-            }
+            
+            print("push")
+            let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoadViewController") as! ViewController
+            print(vc)
+            self.navigationController?.pushViewController(vc, animated: true)
+            
+//            performSegue(withIdentifier: "toLoginVC", sender: nil)
         }
+        
     }
 }
 
-// MARK: - Private
-private extension LoginController {
+private extension WebViewController {
     func configureWebView() {
         navigationController?.navigationBar.isHidden = true
         webView.navigationDelegate = self
@@ -87,13 +86,14 @@ private extension LoginController {
             URLQueryItem(name: "client_id", value: "8135752"),
             URLQueryItem(name: "display", value: "mobile"),
             URLQueryItem(name: "redirect_uri", value: "https://oauth.vk.com/blank.html"),
-            URLQueryItem(name: "scope", value: "offline, friends, photos, groups, wall"),
+            URLQueryItem(name: "scope", value: "offline, friends, photos, groups"),
             URLQueryItem(name: "response_type", value: "token"),
             URLQueryItem(name: "revoke", value: "0")
         ]
 
         guard let url = urlComponents.url else { return }
         let request = URLRequest(url: url)
+        print(url)
         webView.load(request)
     }
 }

@@ -5,10 +5,10 @@
 //  Created by Денис Тереничев on 12.05.2022.
 //
 
-import Foundation
-import RealmSwift
+import UIKit
 
 class GroupsRequests {
+    var imageCache = NSCache<NSString, UIImage>()
     
     private let session: URLSession = {
         let config = URLSessionConfiguration.default
@@ -16,7 +16,8 @@ class GroupsRequests {
         return session
     }()
     
-    func myGroupsRequest() {
+    ///Запрос списка групп текущего пользователя
+    func loadGroupsList(_ completion: @escaping (Result<[Group], Error>) -> Void) {
         var urlForGroupComponents = URLComponents()
         urlForGroupComponents.scheme = "https"
         urlForGroupComponents.host = "api.vk.com"
@@ -29,21 +30,22 @@ class GroupsRequests {
         guard let urlGetGroups = urlForGroupComponents.url else { return }
         session.dataTask(with: urlGetGroups) { (data, response, error) in
             if let error = error {
-                print("can not load groups, error = ", error)
+                completion(.failure(error))
                 return
             }
             guard let data = data else { return }
             do {
                 let groupsArrayFromJSON = try JSONDecoder().decode(SearchGroup.self, from: data).response.items
                 DispatchQueue.main.async {
-                    self.saveGroupsListData(groupsArrayFromJSON)
+                    completion(.success(groupsArrayFromJSON))
                 }
-            } catch {
-                print("Failed to decode groups JSON")
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
             }
         }.resume()
     }
-    
+    ///Поиск группы по введенным символам
     func searchGroupsRequest(searchText: String, completion: @escaping (Result<[Group], Error>) -> Void) {
         var urlForGroupSearchComponents = URLComponents()
         urlForGroupSearchComponents.scheme = "https"
@@ -75,7 +77,7 @@ class GroupsRequests {
             }
         }.resume()
     }
-    
+    ///Добавление группы по id в список групп текущего пользователя
     func addGroup(idGroup: Int,
                   completion: @escaping(Result<JoinOrLeaveGroupModel, Error>) -> Void) {
         var urlForAddGroupComponents = URLComponents()
@@ -107,33 +109,31 @@ class GroupsRequests {
         }
         task.resume()
     }
-    
-    
-    func saveGroupsListData (_ groups: [Group]) {
-        do {
-            let config = Realm.Configuration( deleteRealmIfMigrationNeeded: true)
-            let realm = try Realm(configuration: config)
-            print("REALM URL = ", realm.configuration.fileURL ?? "error Realm URL")
-            let oldGroups = realm.objects(Group.self)
-            realm.beginWrite()
-            realm.delete(oldGroups)
-            realm.add(groups)
-            try realm.commitWrite()
-        } catch {
-            print(error)
-        }
-    }
 }
 
 extension GroupsRequests {
-    func imageLoader(url: URL?) -> UIImage {
-        var image: UIImage
-        if let data = try? Data(contentsOf: url!) {
-            guard let imageFromUrl = UIImage(data: data) else { return UIImage(named: "not photo")!}
-            image = imageFromUrl
-        } else {
-            image = UIImage(named: "not photo")!
+    ///Загрузка изображения по URL
+    func imageLoader(url: URL?, completion: @escaping (UIImage) -> Void) {
+        guard let url = url else {
+            print("image url nil")
+            return
         }
-        return image
+        if let cachedImage = imageCache.object(forKey: url.absoluteString as NSString) {
+            completion(cachedImage )
+        } else {
+            let request = URLRequest(url: url, cachePolicy: URLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 10)
+            self.session.dataTask(with: request) { [weak self] data, response, error in
+                guard error == nil, data != nil
+                else {
+                    print("error to download image, error = ", error as Any)
+                    return }
+                
+                guard let image = UIImage(data: data!) else { return }
+                self?.imageCache.setObject(image, forKey: url.absoluteString as NSString)
+                DispatchQueue.main.async {
+                    completion(image)
+                }
+            }.resume()
+        }
     }
 }

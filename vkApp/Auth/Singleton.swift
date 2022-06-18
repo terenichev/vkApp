@@ -15,5 +15,4 @@ class Singleton {
 
     var id: Int?
     var token: String?
-    var friends: [FriendsItem]?
 }
