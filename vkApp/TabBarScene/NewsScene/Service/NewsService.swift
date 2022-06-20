@@ -26,7 +26,7 @@ class NewsService {
         urlForNewsFeedComponents.queryItems = [
             URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "source_ids", value: "friends"),
-            URLQueryItem(name: "count", value: "10"),
+            URLQueryItem(name: "count", value: "15"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -59,7 +59,7 @@ class NewsService {
             URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "source_ids", value: "friends"),
             URLQueryItem(name: "start_from", value: nextFrom),
-            URLQueryItem(name: "count", value: "10"),
+            URLQueryItem(name: "count", value: "15"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]

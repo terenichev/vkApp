@@ -31,7 +31,7 @@ class NewsViewController: UITableViewController {
         loadNews()
         
         tableView.register(OwnerNewsCell.nib(), forCellReuseIdentifier: OwnerNewsCell.identifier)
-        tableView.register(TextInNewsCell.nib(), forCellReuseIdentifier: TextInNewsCell.identifier)
+        tableView.register(TextInNewsCell.self, forCellReuseIdentifier: "TextInNewsCell")
         tableView.register(PhotosInNewsCell.self, forCellReuseIdentifier: "PhotosInNewsCell")
         tableView.register(BottomOfNewsCell.nib(), forCellReuseIdentifier: BottomOfNewsCell.identifier)
     }
@@ -63,7 +63,7 @@ class NewsViewController: UITableViewController {
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-            cell.configure(with: "\(currentNewsItem.text ?? "")")
+            cell.configure(currentNewsItem.text ?? "")
             return cell
             
         case 2:
@@ -90,7 +90,8 @@ class NewsViewController: UITableViewController {
         case 0:
             return UITableView.automaticDimension
         case 1:
-            if ((newsResponse.items[indexPath.section].text?.isEmpty) != nil) {
+            guard let isTextEmpty = newsResponse.items[indexPath.section].text?.isEmpty else { return 0}
+            if isTextEmpty {
                 return 0
             }
             return UITableView.automaticDimension
@@ -98,7 +99,9 @@ class NewsViewController: UITableViewController {
             guard let urls = newsResponse.items[indexPath.section].photosURL,
                     !urls.isEmpty else { return 0 }
             let width = view.frame.width
-            return width
+            let post = newsResponse.items[indexPath.section]
+            let cellHeight = width * post.aspectRatio
+            return cellHeight
         case 3:
             return UITableView.automaticDimension
             
@@ -111,9 +114,9 @@ class NewsViewController: UITableViewController {
 extension NewsViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         guard let maxSection = indexPaths.map({ $0.section }).max() else { return }
-        if maxSection > newsResponse.items.count - 3,
+        if maxSection > newsResponse.items.count - 5,
            !isNewsLoading,
-            nextFrom != "" {
+           nextFrom != "" {
             self.isNewsLoading = true
             self.service.loadNews(nextFrom: self.nextFrom) { [weak self] result in
                 switch result {
@@ -126,9 +129,7 @@ extension NewsViewController: UITableViewDataSourcePrefetching {
                     self.newsResponse.groups.append(contentsOf: news.groups)
                     self.newsResponse.profiles.append(contentsOf: news.profiles)
                     self.nextFrom = news.nextFrom ?? ""
-                    DispatchQueue.main.async {
-                        self.tableView.insertSections(indexSet, with: .automatic)
-                    }
+                    self.tableView.insertSections(indexSet, with: .none)
                     self.isNewsLoading = false
                 }
             }
