@@ -55,20 +55,25 @@ final class PhotosInNewsCell: UITableViewCell {
 // MARK: - Private
 private extension PhotosInNewsCell {
     func setupSubviews() {
+        
         contentView.addSubview(backgroundCell)
         backgroundCell.addSubview(newsPhoto)
+        
+        let topConstraint = newsPhoto.topAnchor.constraint(equalTo: contentView.topAnchor)
                 
         NSLayoutConstraint.activate([
+            topConstraint,
             backgroundCell.topAnchor.constraint(equalTo: contentView.topAnchor),
             backgroundCell.rightAnchor.constraint(equalTo: contentView.rightAnchor),
             backgroundCell.leftAnchor.constraint(equalTo: contentView.leftAnchor),
             backgroundCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            backgroundCell.heightAnchor.constraint(equalToConstant: ceil(contentView.bounds.width)),
+//            backgroundCell.heightAnchor.constraint(equalToConstant: ceil(contentView.bounds.width)),
             
             newsPhoto.topAnchor.constraint(equalTo: backgroundCell.topAnchor),
             newsPhoto.bottomAnchor.constraint(equalTo: backgroundCell.bottomAnchor),
             newsPhoto.leftAnchor.constraint(equalTo: backgroundCell.leftAnchor),
             newsPhoto.rightAnchor.constraint(equalTo: backgroundCell.rightAnchor),
         ])
+        topConstraint.priority = .init(rawValue: 999)
     }
 }

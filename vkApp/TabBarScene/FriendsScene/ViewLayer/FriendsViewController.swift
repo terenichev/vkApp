@@ -15,7 +15,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     @objc var friendsRefreshControl: UIRefreshControl {
         let refreshControl = UIRefreshControl()
         //        refreshControl.attributedTitle = NSAttributedString(string: "text")
-        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        refreshControl.addTarget(self, action: #selector(refreshFriends), for: .valueChanged)
         return refreshControl
     }
     
@@ -43,12 +43,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    @objc private func refresh(sender: UIRefreshControl) {
+    @objc private func refreshFriends(sender: UIRefreshControl) {
         DispatchQueue.global(qos: .background).async {
 //            self.loadFriends()
             self.promiseLoad()
         }
-        sender.endRefreshing()
     }
     
     
@@ -160,6 +159,7 @@ private extension FriendsViewController {
                 self.searchFriends = friends
                 self.tableView.reloadData()
             }.ensure {
+                self.tableView.refreshControl?.endRefreshing()
             }.catch { error in
                 print(error)
             }

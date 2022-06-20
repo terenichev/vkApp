@@ -5,7 +5,7 @@
 //  Created by Денис Тереничев on 27.05.2022.
 //
 
-import Foundation
+import UIKit
 
 // MARK: - NewsResponse
 struct NewsResponse: Codable {
@@ -14,9 +14,15 @@ struct NewsResponse: Codable {
 
 // MARK: - ResponseClass
 struct ResponseClass: Codable {
-    let items: [NewsItem]
-    let profiles: [NewsProfile]
-    let groups: [NewsGroup]
+    var items: [NewsItem]
+    var profiles: [NewsProfile]
+    var groups: [NewsGroup]
+    let nextFrom: String?
+    
+    enum CodingKeys: String, CodingKey {
+        case items, profiles, groups
+        case nextFrom = "next_from"
+    }
 }
 
 // MARK: - NewsGroup
@@ -183,6 +189,8 @@ struct PhotoSize: Codable {
     let url: String?
     let type: SizeType?
     let width, withPadding: Int?
+    
+    var aspectRatio: CGFloat { return CGFloat(height ?? 1)/CGFloat(width ?? 1) }
 
     enum CodingKeys: String, CodingKey {
         case height, url, type, width

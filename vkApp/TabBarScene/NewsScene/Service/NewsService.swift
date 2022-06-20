@@ -17,9 +17,8 @@ class NewsService {
         return session
     }()
     
-    ///Запрос информации о выбранном пользователе
+    ///Загрузка последних новостей
     func loadNews(completion: @escaping (Result<ResponseClass, Error>) -> Void) {
-        
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
@@ -27,12 +26,44 @@ class NewsService {
         urlForNewsFeedComponents.queryItems = [
             URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "source_ids", value: "friends"),
-            URLQueryItem(name: "count", value: "100"),
+            URLQueryItem(name: "count", value: "10"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
         guard let urlGetNews = urlForNewsFeedComponents.url else { return }
-        print(urlGetNews)
+        session.dataTask(with: urlGetNews) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            do {
+                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                DispatchQueue.main.async {
+                    completion(.success(newsFromJSON))
+                }
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
+            }
+        }.resume()
+    }
+    
+    ///Загрузка новостей для реализации Infinite scrolling
+    func loadNews(nextFrom: String, completion: @escaping (Result<ResponseClass, Error>) -> Void) {
+        var urlForNewsFeedComponents = URLComponents()
+        urlForNewsFeedComponents.scheme = "https"
+        urlForNewsFeedComponents.host = "api.vk.com"
+        urlForNewsFeedComponents.path = "/method/newsfeed.get"
+        urlForNewsFeedComponents.queryItems = [
+            URLQueryItem(name: "filters", value: "post"),
+            URLQueryItem(name: "source_ids", value: "friends"),
+            URLQueryItem(name: "start_from", value: nextFrom),
+            URLQueryItem(name: "count", value: "10"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let urlGetNews = urlForNewsFeedComponents.url else { return }
         session.dataTask(with: urlGetNews) { (data, response, error) in
             if let error = error {
                 completion(.failure(error))

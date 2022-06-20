@@ -357,7 +357,7 @@
                     <connections>
                         <segue destination="E0X-5t-9og" kind="relationship" relationship="viewControllers" id="FgA-va-DHz"/>
                         <segue destination="xcH-Ws-gZ5" kind="relationship" relationship="viewControllers" id="hrI-h6-knb"/>
-                        <segue destination="Sex-bK-fHO" kind="relationship" relationship="viewControllers" id="jmA-xU-Fch"/>
+                        <segue destination="htx-MF-tGg" kind="relationship" relationship="viewControllers" id="jmA-xU-Fch"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ete-Ae-3Ej" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -405,10 +405,10 @@
             </objects>
             <point key="canvasLocation" x="3704.347826086957" y="371.65178571428572"/>
         </scene>
-        <!--News-->
+        <!--Новости-->
         <scene sceneID="Lmt-VX-mF8">
             <objects>
-                <tableViewController id="Sex-bK-fHO" customClass="NewsViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Новости" id="Sex-bK-fHO" customClass="NewsViewController" customModule="vkApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="S9W-1Q-QSI">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -452,11 +452,11 @@
                             <outlet property="delegate" destination="Sex-bK-fHO" id="HVf-HH-ix3"/>
                         </connections>
                     </tableView>
-                    <tabBarItem key="tabBarItem" title="News" image="newspaper.fill" catalog="system" id="8jI-rn-ORX"/>
+                    <navigationItem key="navigationItem" title="Новости" id="TMf-ke-CXw"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dw5-DO-idE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3704" y="1021"/>
+            <point key="canvasLocation" x="4613.04347826087" y="1020.5357142857142"/>
         </scene>
         <!--Группы-->
         <scene sceneID="Htz-U8-Nks">
@@ -659,6 +659,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PJK-Qn-EHO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5418.840579710145" y="371.65178571428572"/>
+        </scene>
+        <!--Новости-->
+        <scene sceneID="i7z-mQ-yp5">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="htx-MF-tGg" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Новости" image="newspaper.fill" catalog="system" id="8jI-rn-ORX"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="26E-Sw-dul">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Sex-bK-fHO" kind="relationship" relationship="rootViewController" id="ED1-5G-5SL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MIj-fR-Wjp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3702.898550724638" y="1020.5357142857142"/>
         </scene>
     </scenes>
     <resources>
