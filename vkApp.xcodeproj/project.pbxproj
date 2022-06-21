@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B209732DEF630F405D10B387 /* Pods_vkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */; };
 		D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D3A282429BB005F41FF /* FriendsRequests.swift */; };
+		D31F77522861A7A1004B1F4B /* DynamicLabelHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */; };
 		D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */; };
 		D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */; };
 		D346CA01282C11C700142368 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA00282C11C700142368 /* GroupModel.swift */; };
@@ -53,6 +54,7 @@
 /* Begin PBXFileReference section */
 		1109C46CCBA13C32019A8B22 /* Pods-vkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.release.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.release.xcconfig"; sourceTree = "<group>"; };
 		D3045D3A282429BB005F41FF /* FriendsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRequests.swift; sourceTree = "<group>"; };
+		D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLabelHeight.swift; sourceTree = "<group>"; };
 		D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		D346CA00282C11C700142368 /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
@@ -118,6 +120,14 @@
 				E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D31F77502861A780004B1F4B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D346C9FB282B7E3E00142368 /* TabBarScene */ = {
@@ -365,6 +375,7 @@
 		D3C4B4CB2831577400AEBBC3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D31F77502861A780004B1F4B /* Helpers */,
 				D3C4B4D02831581D00AEBBC3 /* XIBs */,
 				D3C4B4CC2831581300AEBBC3 /* OwnerNewsCell.swift */,
 				D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */,
@@ -546,6 +557,7 @@
 				D3ACC505280691BF00059240 /* Singleton.swift in Sources */,
 				D346CA13282CD37C00142368 /* GroupRequests.swift in Sources */,
 				D3C4B4D32831587000AEBBC3 /* TextInNewsCell.swift in Sources */,
+				D31F77522861A7A1004B1F4B /* DynamicLabelHeight.swift in Sources */,
 				D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */,
 				D37BC7FD2858EE3F00A6C83F /* ImageService.swift in Sources */,
 				D38881D427CEB7AF00C7BE5B /* UserPhotosCollectionViewCell.swift in Sources */,
