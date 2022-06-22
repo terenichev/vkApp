@@ -44,7 +44,8 @@ class TextInNewsCell: UITableViewCell {
     @objc func showMoreAction() {
         self.numberOfLines = 0
         
-        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
+//        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
+        self.newsTextLabel.layoutIfNeeded()
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -67,15 +68,12 @@ class TextInNewsCell: UITableViewCell {
         self.indexPath = indexPath
         self.height = labelHeight
         self.nvc = vc
-        
-        
-        print("maxNumberOfLines = ", newsTextLabel.maxNumberOfLines)
-        print("numberOfVisibleLines = ", newsTextLabel.numberOfVisibleLines)
-        print("")
+       
         if self.newsTextLabel.numberOfVisibleLines < newsTextLabel.maxNumberOfLines,
             newsTextLabel.maxNumberOfLines > 2 {
             self.showMoreButton.isHidden = false
         } else {
+            self.showMoreButton.removeFromSuperview()
             self.showMoreButton.isHidden = true
         }
     }
@@ -84,7 +82,7 @@ class TextInNewsCell: UITableViewCell {
         
         contentView.addSubview(newsTextLabel)
         let topConstraint = newsTextLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
-        topConstraint.priority = .init(999)
+        
             contentView.addSubview(showMoreButton)
             NSLayoutConstraint.activate([
                 showMoreButton.topAnchor.constraint(equalTo: newsTextLabel.bottomAnchor, constant: -10),
@@ -97,6 +95,7 @@ class TextInNewsCell: UITableViewCell {
                 newsTextLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
                 newsTextLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
             ])
+        topConstraint.priority = .init(999)
     }
     
     override func layoutSubviews() {

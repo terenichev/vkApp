@@ -10,7 +10,6 @@
 		B209732DEF630F405D10B387 /* Pods_vkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */; };
 		D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D3A282429BB005F41FF /* FriendsRequests.swift */; };
 		D31F77522861A7A1004B1F4B /* DynamicLabelHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */; };
-		D31F775628621BA6004B1F4B /* CellReloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F775528621BA6004B1F4B /* CellReloader.swift */; };
 		D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */; };
 		D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */; };
 		D346CA01282C11C700142368 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA00282C11C700142368 /* GroupModel.swift */; };
@@ -56,7 +55,6 @@
 		1109C46CCBA13C32019A8B22 /* Pods-vkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.release.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.release.xcconfig"; sourceTree = "<group>"; };
 		D3045D3A282429BB005F41FF /* FriendsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRequests.swift; sourceTree = "<group>"; };
 		D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLabelHeight.swift; sourceTree = "<group>"; };
-		D31F775528621BA6004B1F4B /* CellReloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellReloader.swift; sourceTree = "<group>"; };
 		D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		D346CA00282C11C700142368 /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */,
-				D31F775528621BA6004B1F4B /* CellReloader.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -551,7 +548,6 @@
 				D346CA08282C2FA300142368 /* GroupsViewController.swift in Sources */,
 				D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */,
 				D346CA15282D5E7100142368 /* GroupPhotoView.swift in Sources */,
-				D31F775628621BA6004B1F4B /* CellReloader.swift in Sources */,
 				D3804D07282FF2360057F87B /* ShowPhotoViewController.swift in Sources */,
 				D3C4B4D7283158B500AEBBC3 /* PhotosInNewsCell.swift in Sources */,
 				D3804D0A282FF37F0057F87B /* PhotoCollectionViewCell.swift in Sources */,

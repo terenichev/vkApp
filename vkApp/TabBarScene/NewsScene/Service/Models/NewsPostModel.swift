@@ -85,6 +85,13 @@ struct NewsItem: Codable {
         }
     }
     
+    var attachmentsTypes: [AttachmentType.RawValue] {
+        get {
+            let attachmentsTypes = attachments?.compactMap{ $0.type?.rawValue }
+            return attachmentsTypes ?? []
+        }
+    }
+    
     let carouselOffset, topicID: Int?
 
     enum CodingKeys: String, CodingKey {

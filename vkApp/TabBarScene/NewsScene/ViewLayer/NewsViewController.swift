@@ -17,8 +17,6 @@ class NewsViewController: UITableViewController {
     var nextFrom = ""
     var newsResponse: ResponseClass!
     
-    var newsOwner = User(id: 0, photo200_Orig: "", hasMobile: 0, isFriend: 0, about: "", status: "", lastSeen: .init(platform: 0, time: 0), followersCount: 0, online: 0, firstName: "", lastName: "", canAccessClosed: true, isClosed: false)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,12 +38,14 @@ class NewsViewController: UITableViewController {
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        
         return newsResponse?.items.count ?? 0
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 6
     }
+    
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let currentNewsItem = newsResponse.items[indexPath.section]
@@ -53,6 +53,8 @@ class NewsViewController: UITableViewController {
         
         switch indexPath.row {
         case 0:
+            print("ATTACHMENT TYPES = ", currentNewsItem.attachmentsTypes)
+            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("OwnerNewsCell cannot") }
             let url = URL(string: postOwner?.photo100 ?? "")
                 self.service.imageLoader(url: url) { image in
@@ -65,20 +67,51 @@ class NewsViewController: UITableViewController {
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
             let labelFont = UIFont.systemFont(ofSize: 18)
-            print("indexPath.section = ", indexPath.section)
             cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
             return cell
             
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
-            
-            guard let urlImage = currentNewsItem.photosURL?.first else { return UITableViewCell() }
-            let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage)
-            cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
-            
-            return cell
+            if currentNewsItem.attachmentsTypes.contains("photo") {
+                print("ATTACHMENT TYPES contains photo ")
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
+                
+                guard let urlImage = currentNewsItem.photosURL?.first else { return UITableViewCell() }
+                let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage)
+                cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
+                
+                return cell
+            } else {
+                return UITableViewCell()
+            }
             
         case 3:
+            if currentNewsItem.attachmentsTypes.contains("video") {
+                print("ATTACHMENT TYPES contains video ")
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
+                
+                guard let urlImage = currentNewsItem.attachments?.compactMap({ $0.video?.image?.compactMap({ $0.url }) }) else { return UITableViewCell() }
+                let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage.last!.last!)
+                cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
+                
+                return cell
+
+            } else {
+                return UITableViewCell()
+            }
+            
+        case 4:
+            if currentNewsItem.attachmentsTypes.contains("link") {
+                print("ATTACHMENT TYPES contains link ")
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
+                let labelFont = UIFont.systemFont(ofSize: 18)
+                cell.configure("THIS POST HAS LINK", labelHeight: DynamicLabelHeight.height(text: "THIS POST HAS LINK", font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
+                return cell
+
+            } else {
+                return UITableViewCell()
+            }
+            
+        case 5:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
             cell.configure(with: "\(currentNewsItem.likes?.count ?? 0)", comments: "\(currentNewsItem.comments?.count ?? 0)", reposts: "\(currentNewsItem.views?.count ?? 0)")
             return cell
@@ -94,12 +127,10 @@ class NewsViewController: UITableViewController {
         case 0:
             return UITableView.automaticDimension
         case 1:
-            guard let isTextEmpty = newsResponse.items[indexPath.section].text?.isEmpty else { return 0}
+            guard let isTextEmpty = post.text?.isEmpty else { return 0 }
             if isTextEmpty {
                 return 0
             }
-            let labelFont = UIFont.systemFont(ofSize: 18)
-//            return DynamicLabelHeight.height(text: post.text, font: labelFont, width: view.frame.width)
             return UITableView.automaticDimension
         case 2:
             guard let urls = newsResponse.items[indexPath.section].photosURL,
@@ -108,6 +139,16 @@ class NewsViewController: UITableViewController {
             let cellHeight = width * post.aspectRatio
             return cellHeight
         case 3:
+            if post.attachmentsTypes.contains("video") {
+                return view.frame.width
+            }
+            return 0
+        case 4:
+            if post.attachmentsTypes.contains("link") {
+                return UITableView.automaticDimension
+            }
+            return 0
+        case 5:
             return UITableView.automaticDimension
             
         default:
@@ -116,6 +157,7 @@ class NewsViewController: UITableViewController {
     }
 }
 
+// MARK: - Infinite Scrolling - loading news
 extension NewsViewController: UITableViewDataSourcePrefetching {
     func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         guard let maxSection = indexPaths.map({ $0.section }).max() else { return }
