@@ -38,7 +38,9 @@ class NewsService {
             }
             guard let data = data else { return }
             do {
-                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                var newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                let items = newsFromJSON.items.filter({ $0.photosURL?.isEmpty == false })
+                newsFromJSON.items = items
                 DispatchQueue.main.async {
                     completion(.success(newsFromJSON))
                 }
@@ -71,7 +73,9 @@ class NewsService {
             }
             guard let data = data else { return }
             do {
-                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                var newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                let items = newsFromJSON.items.filter({ $0.photosURL?.isEmpty == false })
+                newsFromJSON.items = items
                 DispatchQueue.main.async {
                     completion(.success(newsFromJSON))
                 }

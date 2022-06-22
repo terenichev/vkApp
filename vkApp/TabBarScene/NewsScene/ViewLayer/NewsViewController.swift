@@ -11,7 +11,8 @@ class NewsViewController: UITableViewController {
     
     let service = NewsService()
     private var imageService: ImageService?
-    
+    private var textService: TextInNewsCell?
+    private var isSeemore = false
     
     var isNewsLoading = false
     var nextFrom = ""
@@ -35,10 +36,11 @@ class NewsViewController: UITableViewController {
         tableView.register(BottomOfNewsCell.nib(), forCellReuseIdentifier: BottomOfNewsCell.identifier)
     }
     
-    @objc func showMoreAction() {
-        print("tapped")
-        tableView.beginUpdates()
-        tableView.endUpdates()
+    @objc func showMoreAction(_ sender: IndexedButton) {
+        print("tapped on button at ", sender.indexPath)
+        isSeemore.toggle()
+//        tableView.reloadRows(at: [sender.indexPath], with: .automatic)
+        tableView.reloadSections(IndexSet(integer: sender.indexPath.section), with: .automatic)
     }
     
     // MARK: - Table view data source
@@ -71,85 +73,52 @@ class NewsViewController: UITableViewController {
             return cell
             
         case 1:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-//            cell.selectionStyle = .none
-//
-//            let newsTextLabel: UILabel = {
-//                let newsTextLabel = UILabel()
-//
-//                let labelFont = UIFont.systemFont(ofSize: 15)
-//                newsTextLabel.font = labelFont
-//                newsTextLabel.text = "Label test text"
-//                newsTextLabel.lineBreakMode = .byWordWrapping
-//                newsTextLabel.textAlignment = .center
-//                newsTextLabel.translatesAutoresizingMaskIntoConstraints = false
-//                return newsTextLabel
-//            }()
-//
-//            let showMoreButton: UIButton = {
-//                let showMoreButton = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-//                showMoreButton.configuration = UIButton.Configuration.plain()
-//                showMoreButton.configuration?.title = "Показать полностью.."
-//                showMoreButton.titleLabel?.textAlignment = .left
-//                showMoreButton.addTarget(self, action: #selector(showMoreAction), for: .touchUpInside)
-//                showMoreButton.translatesAutoresizingMaskIntoConstraints = false
-//                return showMoreButton
-//            }()
-//
-//            let textStackView: UIStackView = {
-//                let textStackView = UIStackView(arrangedSubviews: [newsTextLabel, showMoreButton])
-//                textStackView.axis = .vertical
-//                textStackView.spacing = 5
-//                textStackView.translatesAutoresizingMaskIntoConstraints = false
-//                return textStackView
-//            }()
-//
-//            cell.contentView.addSubview(textStackView)
-//
-//            NSLayoutConstraint.activate([
-//                textStackView.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-//                textStackView.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-//                textStackView.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor),
-//                textStackView.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor),
-//            ])
-//
-            
-            
-            
-            
-            
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-            let labelFont = UIFont.systemFont(ofSize: 18)
-//            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            cell.selectionStyle = .none
 
+            let newsTextLabel: UILabel = {
+                let newsTextLabel = UILabel()
+
+                let labelFont = UIFont.systemFont(ofSize: 15)
+                newsTextLabel.font = labelFont
+                newsTextLabel.text = "Label test text"
+                newsTextLabel.lineBreakMode = .byWordWrapping
+                newsTextLabel.translatesAutoresizingMaskIntoConstraints = false
+                return newsTextLabel
+            }()
+
+            let showMoreButton: IndexedButton = {
+                let showMoreButton = IndexedButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+                showMoreButton.configuration = UIButton.Configuration.plain()
+                showMoreButton.configuration?.title = "Показать полностью.."
+                showMoreButton.titleLabel?.textAlignment = .left
+                showMoreButton.addTarget(self, action: #selector(showMoreAction), for: .touchUpInside)
+                showMoreButton.translatesAutoresizingMaskIntoConstraints = false
+                showMoreButton.indexPath = indexPath
+                return showMoreButton
+            }()
+
+            cell.contentView.addSubview(newsTextLabel)
+            cell.contentView.addSubview(showMoreButton)
             
+
+            newsTextLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
+            newsTextLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
+            newsTextLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
+            newsTextLabel.bottomAnchor.constraint(equalTo: showMoreButton.bottomAnchor).isActive = true
+
+            showMoreButton.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
+            showMoreButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
+            showMoreButton.topAnchor.constraint(equalTo: newsTextLabel.topAnchor).isActive = true
+            showMoreButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
+//
             
-            let stack = cell.textStackView
-            stack.translatesAutoresizingMaskIntoConstraints = false
-            let label = cell.newsTextLabel
-            label.translatesAutoresizingMaskIntoConstraints = false
-            cell.addSubview(stack)
-            
-            
-            NSLayoutConstraint.activate([
-                stack.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
-                stack.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
-                stack.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor),
-                stack.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor),
-                
-                label.leftAnchor.constraint(equalTo:   stack.leftAnchor),
-                label.rightAnchor.constraint(equalTo:  stack.rightAnchor),
-            ])
-            
-            cell.onSeeMoreDidTap { [weak self] in
-                
-                currentNewsItem.isExpanded.toggle()
-                tableView.beginUpdates()
-                tableView.endUpdates()
-            }
-            
-            cell.configure(currentNewsItem.text, currentNewsItem.isExpanded)
-            
+
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
+//            let labelFont = UIFont.systemFont(ofSize: 18)
+//            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
+//            cell.showMoreButton.tag = indexPath.section
+
             return cell
             
         case 2:
@@ -167,33 +136,6 @@ class NewsViewController: UITableViewController {
             }
             
         case 3:
-            if currentNewsItem.attachmentsTypes.contains("video") {
-                print("ATTACHMENT TYPES contains video ")
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
-                
-                guard let urlImage = currentNewsItem.attachments?.compactMap({ $0.video?.image?.compactMap({ $0.url }) }) else { return UITableViewCell() }
-                let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage.last!.last!)
-                cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
-                
-                return cell
-
-            } else {
-                return UITableViewCell()
-            }
-            
-        case 4:
-//            if currentNewsItem.attachmentsTypes.contains("link") {
-//                print("ATTACHMENT TYPES contains link ")
-//                guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-//                let labelFont = UIFont.systemFont(ofSize: 18)
-//                cell.configure("THIS POST HAS LINK", labelHeight: DynamicLabelHeight.height(text: "THIS POST HAS LINK", font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
-////                return cell
-//
-//            } else {
-//                return UITableViewCell()
-//            }
-            return UITableViewCell()
-        case 5:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
             cell.selectionStyle = .none
             cell.configure(with: "\(currentNewsItem.likes?.count ?? 0)", comments: "\(currentNewsItem.comments?.count ?? 0)", reposts: "\(currentNewsItem.views?.count ?? 0)")
@@ -210,12 +152,12 @@ class NewsViewController: UITableViewController {
         case 0:
             return UITableView.automaticDimension
         case 1:
-            guard let isTextEmpty = post.text?.isEmpty else { return 0 }
-            if isTextEmpty {
-                return 0
-            }
-//            isSeeMore ? 100 : 200
-            return UITableView.automaticDimension
+//            guard let isTextEmpty = post.text?.isEmpty else { return 0 }
+//            if isTextEmpty {
+//                return 0
+//            }
+            print("CHANGED HEIGHT", indexPath)
+            return isSeemore ? 200 : 100
         case 2:
             guard let urls = newsResponse.items[indexPath.section].photosURL,
                     !urls.isEmpty else { return 0 }
@@ -223,16 +165,6 @@ class NewsViewController: UITableViewController {
             let cellHeight = width * post.aspectRatio
             return cellHeight
         case 3:
-            if post.attachmentsTypes.contains("video") {
-                return view.frame.width
-            }
-            return 0
-        case 4:
-            if post.attachmentsTypes.contains("link") {
-                return UITableView.automaticDimension
-            }
-            return 0
-        case 5:
             return UITableView.automaticDimension
             
         default:
