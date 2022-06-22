@@ -9,7 +9,6 @@ import UIKit
 
 class TextInNewsCell: UITableViewCell {
 
-    private var imageService: ImageService?
     private var indexPath: IndexPath!
     private var tableView: UITableView!
     var nvc: NewsViewController!
@@ -44,16 +43,8 @@ class TextInNewsCell: UITableViewCell {
     
     @objc func showMoreAction() {
         self.numberOfLines = 0
-//        self.tableView.reloadRows(at: [indexPath], with: .automatic)
-//        showMoreButton.isHidden = true
-//        imageService?.reloadCell(atIndexPath: indexPath)
-
-        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
         
-        print("SHOW MORE, indexPath = ", indexPath)
-        print("SHOW MORE, numberOfLines = ", numberOfLines)
-        print("SHOW MORE, labelHeight = ", height)
-
+        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -71,7 +62,7 @@ class TextInNewsCell: UITableViewCell {
 
     func configure(_ text: String?, labelHeight: CGFloat?, tableView: UITableView, indexPath: IndexPath, vc: NewsViewController) {
         newsTextLabel.text = text
-        self.imageService = ImageService(container: tableView)
+
         self.tableView = tableView
         self.indexPath = indexPath
         self.height = labelHeight
