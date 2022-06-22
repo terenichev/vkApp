@@ -35,6 +35,10 @@ class NewsViewController: UITableViewController {
         tableView.register(BottomOfNewsCell.nib(), forCellReuseIdentifier: BottomOfNewsCell.identifier)
     }
     
+    @objc func showMoreAction() {
+        print("tapped")
+    }
+    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -53,9 +57,9 @@ class NewsViewController: UITableViewController {
         
         switch indexPath.row {
         case 0:
-            print("ATTACHMENT TYPES = ", currentNewsItem.attachmentsTypes)
-            
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "OwnerNewsCell", for: indexPath) as? OwnerNewsCell else { preconditionFailure("OwnerNewsCell cannot") }
+            cell.selectionStyle = .none
+            
             let url = URL(string: postOwner?.photo100 ?? "")
                 self.service.imageLoader(url: url) { image in
                     DispatchQueue.main.async {
@@ -65,9 +69,53 @@ class NewsViewController: UITableViewController {
             return cell
             
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-            let labelFont = UIFont.systemFont(ofSize: 18)
-            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
+            cell.selectionStyle = .none
+            
+            let newsTextLabel: UILabel = {
+                let newsTextLabel = UILabel()
+                
+                let labelFont = UIFont.systemFont(ofSize: 15)
+                newsTextLabel.font = labelFont
+                newsTextLabel.text = "Label test text"
+                newsTextLabel.lineBreakMode = .byWordWrapping
+                newsTextLabel.translatesAutoresizingMaskIntoConstraints = false
+                return newsTextLabel
+            }()
+
+            let showMoreButton: UIButton = {
+                let showMoreButton = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
+                showMoreButton.configuration = UIButton.Configuration.plain()
+                showMoreButton.configuration?.title = "Показать полностью.."
+                showMoreButton.titleLabel?.textAlignment = .left
+                showMoreButton.addTarget(self, action: #selector(showMoreAction), for: .touchUpInside)
+                showMoreButton.translatesAutoresizingMaskIntoConstraints = false
+                return showMoreButton
+            }()
+            
+            cell.contentView.addSubview(newsTextLabel)
+            cell.contentView.addSubview(showMoreButton)
+            
+            newsTextLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
+            newsTextLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
+            newsTextLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
+            newsTextLabel.bottomAnchor.constraint(equalTo: showMoreButton.bottomAnchor).isActive = true
+            
+            showMoreButton.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
+            showMoreButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
+            showMoreButton.topAnchor.constraint(equalTo: newsTextLabel.topAnchor).isActive = true
+            showMoreButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
+            
+            
+            
+            
+            
+            
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
+//            let labelFont = UIFont.systemFont(ofSize: 18)
+//            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
+//
+//
             return cell
             
         case 2:
@@ -113,6 +161,7 @@ class NewsViewController: UITableViewController {
             
         case 5:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
+            cell.selectionStyle = .none
             cell.configure(with: "\(currentNewsItem.likes?.count ?? 0)", comments: "\(currentNewsItem.comments?.count ?? 0)", reposts: "\(currentNewsItem.views?.count ?? 0)")
             return cell
             
@@ -127,10 +176,10 @@ class NewsViewController: UITableViewController {
         case 0:
             return UITableView.automaticDimension
         case 1:
-            guard let isTextEmpty = post.text?.isEmpty else { return 0 }
-            if isTextEmpty {
-                return 0
-            }
+//            guard let isTextEmpty = post.text?.isEmpty else { return 0 }
+//            if isTextEmpty {
+//                return 0
+//            }
             return UITableView.automaticDimension
         case 2:
             guard let urls = newsResponse.items[indexPath.section].photosURL,
