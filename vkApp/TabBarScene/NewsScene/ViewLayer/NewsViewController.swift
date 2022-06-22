@@ -11,6 +11,7 @@ class NewsViewController: UITableViewController {
     
     let service = NewsService()
     private var imageService: ImageService?
+    private var textService: TextInNewsCell?
     
     var isNewsLoading = false
     var nextFrom = ""
@@ -65,7 +66,7 @@ class NewsViewController: UITableViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
             let labelFont = UIFont.systemFont(ofSize: 18)
             print("indexPath.section = ", indexPath.section)
-            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width))
+            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
             return cell
             
         case 2:
@@ -98,8 +99,8 @@ class NewsViewController: UITableViewController {
                 return 0
             }
             let labelFont = UIFont.systemFont(ofSize: 18)
-            return DynamicLabelHeight.height(text: post.text, font: labelFont, width: view.frame.width)
-//            return UITableView.automaticDimension
+//            return DynamicLabelHeight.height(text: post.text, font: labelFont, width: view.frame.width)
+            return UITableView.automaticDimension
         case 2:
             guard let urls = newsResponse.items[indexPath.section].photosURL,
                     !urls.isEmpty else { return 0 }

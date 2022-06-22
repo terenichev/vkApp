@@ -15,7 +15,7 @@ class DynamicLabelHeight {
         label.text = text
         label.font = font
         label.numberOfLines = 0
-        label.sizeToFit()
+//        label.sizeToFit()
         label.lineBreakMode = .byWordWrapping
         
         currentHeight = label.frame.height

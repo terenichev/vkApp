@@ -48,7 +48,6 @@ class ImageService {
         } else if let photo = getImageFromCache(url: url) {
             image = photo
         } else {
-            print("LOAD PHOTO")
             loadPhoto(atIndexPath: indexPath, byUrl: url)
         }
         
