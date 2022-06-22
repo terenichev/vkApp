@@ -38,7 +38,8 @@ class NewsViewController: UITableViewController {
     
     @objc func showMoreAction(_ sender: IndexedButton) {
         print("tapped on button at ", sender.indexPath)
-        isSeemore.toggle()
+//        isSeemore.toggle()
+        newsResponse.items[sender.indexPath.section].isTextShowMore.toggle()
 //        tableView.reloadRows(at: [sender.indexPath], with: .automatic)
         tableView.reloadSections(IndexSet(integer: sender.indexPath.section), with: .automatic)
     }
@@ -157,13 +158,14 @@ class NewsViewController: UITableViewController {
 //                return 0
 //            }
             print("CHANGED HEIGHT", indexPath)
-            return isSeemore ? 200 : 100
+            return post.isTextShowMore ? 200 : 100
         case 2:
             guard let urls = newsResponse.items[indexPath.section].photosURL,
                     !urls.isEmpty else { return 0 }
             let width = view.frame.width
             let cellHeight = width * post.aspectRatio
-            return cellHeight
+//            return cellHeight
+            return 100
         case 3:
             return UITableView.automaticDimension
             

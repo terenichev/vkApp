@@ -92,7 +92,7 @@ struct NewsItem: Codable {
         }
     }
     
-    var isExpanded: Bool = false
+    var isTextShowMore: Bool = false
     
     let carouselOffset, topicID: Int?
 
