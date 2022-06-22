@@ -54,7 +54,7 @@ class NewsViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let currentNewsItem = newsResponse.items[indexPath.section]
+        var currentNewsItem = newsResponse.items[indexPath.section]
         let postOwner = newsResponse.profiles.first(where: { $0.id == currentNewsItem.sourceID })
         
         switch indexPath.row {
@@ -120,16 +120,36 @@ class NewsViewController: UITableViewController {
             
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
             let labelFont = UIFont.systemFont(ofSize: 18)
-            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
+//            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
 
             
+            
             let stack = cell.textStackView
+            stack.translatesAutoresizingMaskIntoConstraints = false
+            let label = cell.newsTextLabel
+            label.translatesAutoresizingMaskIntoConstraints = false
             cell.addSubview(stack)
             
             
+            NSLayoutConstraint.activate([
+                stack.topAnchor.constraint(equalTo: cell.contentView.topAnchor),
+                stack.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor),
+                stack.leftAnchor.constraint(equalTo: cell.contentView.leftAnchor),
+                stack.rightAnchor.constraint(equalTo: cell.contentView.rightAnchor),
+                
+                label.leftAnchor.constraint(equalTo:   stack.leftAnchor),
+                label.rightAnchor.constraint(equalTo:  stack.rightAnchor),
+            ])
             
+            cell.onSeeMoreDidTap { [weak self] in
+                
+                currentNewsItem.isExpanded.toggle()
+                tableView.beginUpdates()
+                tableView.endUpdates()
+            }
             
-
+            cell.configure(currentNewsItem.text, currentNewsItem.isExpanded)
+            
             return cell
             
         case 2:
@@ -162,17 +182,17 @@ class NewsViewController: UITableViewController {
             }
             
         case 4:
-            if currentNewsItem.attachmentsTypes.contains("link") {
-                print("ATTACHMENT TYPES contains link ")
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-                let labelFont = UIFont.systemFont(ofSize: 18)
-                cell.configure("THIS POST HAS LINK", labelHeight: DynamicLabelHeight.height(text: "THIS POST HAS LINK", font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
-                return cell
-
-            } else {
-                return UITableViewCell()
-            }
-            
+//            if currentNewsItem.attachmentsTypes.contains("link") {
+//                print("ATTACHMENT TYPES contains link ")
+//                guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
+//                let labelFont = UIFont.systemFont(ofSize: 18)
+//                cell.configure("THIS POST HAS LINK", labelHeight: DynamicLabelHeight.height(text: "THIS POST HAS LINK", font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
+////                return cell
+//
+//            } else {
+//                return UITableViewCell()
+//            }
+            return UITableViewCell()
         case 5:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
             cell.selectionStyle = .none

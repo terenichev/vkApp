@@ -92,6 +92,8 @@ struct NewsItem: Codable {
         }
     }
     
+    var isExpanded: Bool = false
+    
     let carouselOffset, topicID: Int?
 
     enum CodingKeys: String, CodingKey {

@@ -11,13 +11,15 @@ class TextInNewsCell: UITableViewCell {
 
     private var indexPath: IndexPath!
     private var tableView: UITableView!
-    var nvc: NewsViewController!
+    
+    private var isSeeLess = true
+    private var seeMoreDidTapHandler: (() -> Void)?
     
     static let identifier: String = "TextInNewsCell"
     var height: CGFloat?
     private var numberOfLines: Int = 2
 
-    private let newsTextLabel: UILabel = {
+    let newsTextLabel: UILabel = {
         let newsTextLabel = UILabel()
         
         let labelFont = UIFont.systemFont(ofSize: 15)
@@ -45,8 +47,17 @@ class TextInNewsCell: UITableViewCell {
         return textStackView
     }()
     
-    @objc func showMoreAction() {
+    func onSeeMoreDidTap(_ handler: @escaping () -> Void) {
         
+        self.seeMoreDidTapHandler = handler
+    }
+    
+    @objc func showMoreAction() {
+        self.isSeeLess.toggle()
+        self.newsTextLabel.numberOfLines = self.isSeeLess ? 0 : 3
+        self.newsTextLabel.layoutIfNeeded()
+        self.showMoreButton.setTitle(self.isSeeLess ? "See less" : "See more", for: .normal)
+        self.seeMoreDidTapHandler?()
        }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -62,20 +73,26 @@ class TextInNewsCell: UITableViewCell {
         super.awakeFromNib()
     }
 
-    func configure(_ text: String?, labelHeight: CGFloat?, tableView: UITableView, indexPath: IndexPath, vc: NewsViewController) {
-        newsTextLabel.text = text
-
-        self.tableView = tableView
-        self.indexPath = indexPath
-        self.height = labelHeight
-        self.nvc = vc
-       
-        if self.newsTextLabel.numberOfVisibleLines < newsTextLabel.maxNumberOfLines,
-            newsTextLabel.maxNumberOfLines > 2 {
-            self.showMoreButton.isHidden = false
-        } else {
-            self.showMoreButton.isHidden = true
-        }
+    func configure(_ text: String?, _ isExpanded: Bool) {
+//    func configure(_ text: String?, labelHeight: CGFloat?, tableView: UITableView, indexPath: IndexPath, vc: NewsViewController) {
+//        newsTextLabel.text = text
+//
+//        self.tableView = tableView
+//        self.indexPath = indexPath
+//        self.height = labelHeight
+//
+//        if self.newsTextLabel.numberOfVisibleLines < newsTextLabel.maxNumberOfLines,
+//            newsTextLabel.maxNumberOfLines > 2 {
+//            self.showMoreButton.isHidden = false
+//        } else {
+//            self.showMoreButton.isHidden = true
+//        }
+        
+        self.newsTextLabel.text = text
+        
+        self.isSeeLess = isExpanded
+        self.newsTextLabel.numberOfLines = self.isSeeLess ? 0 : 3
+        self.showMoreButton.setTitle(self.isSeeLess ? "See less" : "See more", for: .normal)
     }
 
     private func setConstraints() {
