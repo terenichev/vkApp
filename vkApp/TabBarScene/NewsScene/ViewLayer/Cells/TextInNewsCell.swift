@@ -22,39 +22,36 @@ class TextInNewsCell: UITableViewCell {
         
         let labelFont = UIFont.systemFont(ofSize: 15)
         newsTextLabel.font = labelFont
-//        newsTextLabel.sizeToFit()
         newsTextLabel.lineBreakMode = .byWordWrapping
         newsTextLabel.translatesAutoresizingMaskIntoConstraints = false
         return newsTextLabel
     }()
 
-    private let showMoreButton: UIButton = {
+     private let showMoreButton: UIButton = {
         let showMoreButton = UIButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
         showMoreButton.configuration = UIButton.Configuration.plain()
         showMoreButton.configuration?.title = "Показать полностью.."
         showMoreButton.titleLabel?.textAlignment = .left
-        let labelFont = UIFont.systemFont(ofSize: 15)
-        
-        
         showMoreButton.addTarget(self, action: #selector(showMoreAction), for: .touchUpInside)
         showMoreButton.translatesAutoresizingMaskIntoConstraints = false
         return showMoreButton
     }()
     
+    lazy var textStackView: UIStackView = {
+        let textStackView = UIStackView(arrangedSubviews: [newsTextLabel, showMoreButton])
+        textStackView.axis = .vertical
+        textStackView.spacing = 3
+        textStackView.translatesAutoresizingMaskIntoConstraints = false
+        return textStackView
+    }()
+    
     @objc func showMoreAction() {
-        self.numberOfLines = 0
         
-
-//        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
-
-
-        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
-        showMoreButton.isHidden = true
-    }
+       }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setConstraints()
+//        setConstraints()
     }
 
     required init?(coder: NSCoder) {
@@ -77,28 +74,19 @@ class TextInNewsCell: UITableViewCell {
             newsTextLabel.maxNumberOfLines > 2 {
             self.showMoreButton.isHidden = false
         } else {
-            self.showMoreButton.removeFromSuperview()
             self.showMoreButton.isHidden = true
         }
     }
 
     private func setConstraints() {
-        
-        contentView.addSubview(newsTextLabel)
-        let topConstraint = newsTextLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
-        
-            contentView.addSubview(showMoreButton)
-            NSLayoutConstraint.activate([
-                showMoreButton.topAnchor.constraint(equalTo: newsTextLabel.bottomAnchor, constant: -10),
-                showMoreButton.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
-                showMoreButton.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-                showMoreButton.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -200),
-                
-                topConstraint,
-//                newsTextLabel.bottomAnchor.constraint(equalTo: showMoreButton.topAnchor, constant: 0),
-                newsTextLabel.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
-                newsTextLabel.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
-            ])
+        contentView.addSubview(textStackView)
+        let topConstraint = textStackView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0)
+        NSLayoutConstraint.activate([
+            topConstraint,
+            textStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0),
+            textStackView.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 16),
+            textStackView.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -16),
+        ])
         topConstraint.priority = .init(999)
     }
     
