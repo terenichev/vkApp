@@ -24,36 +24,37 @@
                             <constraint firstAttribute="height" constant="35" id="GtK-ww-80w"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Денис Тереничев" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMf-lY-3zC">
-                        <rect key="frame" x="61" y="5" width="209" height="17"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="17" id="xc3-El-YeI"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 минут назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hD7-1F-Xwt">
-                        <rect key="frame" x="61" y="22" width="159" height="13"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="13" id="Dqf-k5-Daa"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
-                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="aRG-pi-R7a">
+                        <rect key="frame" x="61" y="7" width="133.5" height="30"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Денис Тереничев" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bMf-lY-3zC">
+                                <rect key="frame" x="0.0" y="0.0" width="133.5" height="17"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="17" id="xc3-El-YeI"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="25 минут назад" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hD7-1F-Xwt">
+                                <rect key="frame" x="0.0" y="17" width="84.5" height="13"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="13" id="Dqf-k5-Daa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="11"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="bMf-lY-3zC" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="4gR-hK-WHX"/>
-                    <constraint firstItem="bMf-lY-3zC" firstAttribute="leading" secondItem="FFW-7F-ht4" secondAttribute="trailing" constant="10" id="FDA-oh-eFa"/>
-                    <constraint firstAttribute="trailing" secondItem="bMf-lY-3zC" secondAttribute="trailing" constant="50" id="UyN-Ps-2Vt"/>
-                    <constraint firstAttribute="trailing" secondItem="hD7-1F-Xwt" secondAttribute="trailing" constant="100" id="Wlg-cP-kPh"/>
                     <constraint firstItem="FFW-7F-ht4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="dR2-Yn-g0Z"/>
+                    <constraint firstItem="aRG-pi-R7a" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="doo-Ny-YJ8"/>
                     <constraint firstItem="FFW-7F-ht4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="kSL-If-CXV"/>
-                    <constraint firstItem="hD7-1F-Xwt" firstAttribute="top" secondItem="bMf-lY-3zC" secondAttribute="bottom" id="qfB-m1-3Vh"/>
-                    <constraint firstItem="hD7-1F-Xwt" firstAttribute="leading" secondItem="FFW-7F-ht4" secondAttribute="trailing" constant="10" id="rbd-gm-qI9"/>
+                    <constraint firstItem="bMf-lY-3zC" firstAttribute="leading" secondItem="FFW-7F-ht4" secondAttribute="trailing" constant="10" id="nJb-Lx-SUI"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

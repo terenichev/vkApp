@@ -44,8 +44,12 @@ class TextInNewsCell: UITableViewCell {
     @objc func showMoreAction() {
         self.numberOfLines = 0
         
+
 //        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
-        self.newsTextLabel.layoutIfNeeded()
+
+
+        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
+        showMoreButton.isHidden = true
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
