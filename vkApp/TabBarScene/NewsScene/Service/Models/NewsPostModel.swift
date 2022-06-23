@@ -60,6 +60,7 @@ struct NewsItem: Codable {
     let canDoubtCategory, canSetCategory, isFavorite: Bool?
     let postType: PostTypeEnum?
     let text: String?
+    var isTextShowMore: Bool = false
     let copyHistory: [CopyHistory]?
     let postSource: ItemPostSource?
     let comments: Comments?
@@ -91,8 +92,6 @@ struct NewsItem: Codable {
             return attachmentsTypes ?? []
         }
     }
-    
-    var isTextShowMore: Bool = false
     
     let carouselOffset, topicID: Int?
 

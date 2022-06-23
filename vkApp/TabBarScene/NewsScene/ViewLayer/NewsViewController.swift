@@ -11,8 +11,6 @@ class NewsViewController: UITableViewController {
     
     let service = NewsService()
     private var imageService: ImageService?
-    private var textService: TextInNewsCell?
-    private var isSeemore = false
     
     var isNewsLoading = false
     var nextFrom = ""
@@ -24,7 +22,9 @@ class NewsViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.prefetchDataSource = self
-                
+//        tableView.backgroundColor = .systemGray6
+        
+        
         imageService = ImageService(container: tableView)
         
         setupRefreshControl()
@@ -36,18 +36,9 @@ class NewsViewController: UITableViewController {
         tableView.register(BottomOfNewsCell.nib(), forCellReuseIdentifier: BottomOfNewsCell.identifier)
     }
     
-    @objc func showMoreAction(_ sender: IndexedButton) {
-        print("tapped on button at ", sender.indexPath)
-//        isSeemore.toggle()
-        newsResponse.items[sender.indexPath.section].isTextShowMore.toggle()
-//        tableView.reloadRows(at: [sender.indexPath], with: .automatic)
-        tableView.reloadSections(IndexSet(integer: sender.indexPath.section), with: .automatic)
-    }
-    
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        
         return newsResponse?.items.count ?? 0
     }
     
@@ -57,7 +48,7 @@ class NewsViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var currentNewsItem = newsResponse.items[indexPath.section]
+        let currentNewsItem = newsResponse.items[indexPath.section]
         let postOwner = newsResponse.profiles.first(where: { $0.id == currentNewsItem.sourceID })
         
         switch indexPath.row {
@@ -66,82 +57,31 @@ class NewsViewController: UITableViewController {
             cell.selectionStyle = .none
             
             let url = URL(string: postOwner?.photo100 ?? "")
-                self.service.imageLoader(url: url) { image in
-                    DispatchQueue.main.async {
-                        cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: currentNewsItem.getStringDate())
-                    }
+            self.service.imageLoader(url: url) { image in
+                DispatchQueue.main.async {
+                    cell.configure(with: image, name: (postOwner?.firstName ?? "1name") + " " + (postOwner?.lastName ?? "2name"), dateOfNews: currentNewsItem.getStringDate())
                 }
+            }
             return cell
             
         case 1:
-            let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-            cell.selectionStyle = .none
-
-            let newsTextLabel: UILabel = {
-                let newsTextLabel = UILabel()
-
-                let labelFont = UIFont.systemFont(ofSize: 15)
-                newsTextLabel.font = labelFont
-                newsTextLabel.text = "Label test text"
-                newsTextLabel.lineBreakMode = .byWordWrapping
-                newsTextLabel.translatesAutoresizingMaskIntoConstraints = false
-                return newsTextLabel
-            }()
-
-            let showMoreButton: IndexedButton = {
-                let showMoreButton = IndexedButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
-                showMoreButton.configuration = UIButton.Configuration.plain()
-                showMoreButton.configuration?.title = "Показать полностью.."
-                showMoreButton.titleLabel?.textAlignment = .left
-                showMoreButton.addTarget(self, action: #selector(showMoreAction), for: .touchUpInside)
-                showMoreButton.translatesAutoresizingMaskIntoConstraints = false
-                showMoreButton.indexPath = indexPath
-                return showMoreButton
-            }()
-
-            cell.contentView.addSubview(newsTextLabel)
-            cell.contentView.addSubview(showMoreButton)
-            
-
-            newsTextLabel.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
-            newsTextLabel.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
-            newsTextLabel.topAnchor.constraint(equalTo: cell.contentView.topAnchor).isActive = true
-            newsTextLabel.bottomAnchor.constraint(equalTo: showMoreButton.bottomAnchor).isActive = true
-
-            showMoreButton.leadingAnchor.constraint(equalTo: cell.contentView.leadingAnchor).isActive = true
-            showMoreButton.trailingAnchor.constraint(equalTo: cell.contentView.trailingAnchor).isActive = true
-            showMoreButton.topAnchor.constraint(equalTo: newsTextLabel.topAnchor).isActive = true
-            showMoreButton.bottomAnchor.constraint(equalTo: cell.contentView.bottomAnchor).isActive = true
-//
-            
-
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
-//            let labelFont = UIFont.systemFont(ofSize: 18)
-//            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), tableView: tableView, indexPath: indexPath, vc: self)
-//            cell.showMoreButton.tag = indexPath.section
-
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
+            let labelFont = UIFont.systemFont(ofSize: 18)
+            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), vc: self)
             return cell
             
         case 2:
-            if currentNewsItem.attachmentsTypes.contains("photo") {
-                print("ATTACHMENT TYPES contains photo ")
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
-                
-                guard let urlImage = currentNewsItem.photosURL?.first else { return UITableViewCell() }
-                let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage)
-                cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
-                
-                return cell
-            } else {
-                return UITableViewCell()
-            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
+            guard let urlImage = currentNewsItem.photosURL?.first else { return UITableViewCell() }
+            let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage)
+            cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
+            return cell
             
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
             cell.selectionStyle = .none
             cell.configure(with: "\(currentNewsItem.likes?.count ?? 0)", comments: "\(currentNewsItem.comments?.count ?? 0)", reposts: "\(currentNewsItem.views?.count ?? 0)")
             return cell
-            
         default:
             return UITableViewCell()
         }
@@ -151,28 +91,44 @@ class NewsViewController: UITableViewController {
         let post = newsResponse.items[indexPath.section]
         switch indexPath.row {
         case 0:
-            return UITableView.automaticDimension
+            return 50
         case 1:
-//            guard let isTextEmpty = post.text?.isEmpty else { return 0 }
-//            if isTextEmpty {
-//                return 0
-//            }
-            print("CHANGED HEIGHT", indexPath)
+            guard let isTextEmpty = post.text?.isEmpty else { return 0 }
+            if isTextEmpty {
+                return 0
+            }
             return post.isTextShowMore ? 200 : 100
         case 2:
             guard let urls = newsResponse.items[indexPath.section].photosURL,
                     !urls.isEmpty else { return 0 }
             let width = view.frame.width
             let cellHeight = width * post.aspectRatio
-//            return cellHeight
-            return 100
+            return cellHeight
         case 3:
-            return UITableView.automaticDimension
+            return 50
             
         default:
             return 0
         }
     }
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            return nil
+        }
+        
+        let separatorView = UIView(frame: CGRect(x: 0, y:0, width: tableView.frame.width, height: UIScreen.main.scale))
+        separatorView.backgroundColor = .systemGray6
+        
+        return separatorView
+    }
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let separatorView = UIView(frame: CGRect(x: 0, y:0, width: tableView.frame.width, height: UIScreen.main.scale))
+        separatorView.backgroundColor = .systemGray6
+
+        return separatorView
+    }
+    
 }
 
 // MARK: - Infinite Scrolling - loading news
@@ -216,7 +172,7 @@ private extension NewsViewController {
                 DispatchQueue.main.async {
                     self?.nextFrom = news.nextFrom ?? ""
                     self?.tableView.reloadData()
-                    self?.tableView.refreshControl?.endRefreshing()
+                    
                 }
             }
         }
@@ -224,10 +180,11 @@ private extension NewsViewController {
     
     func setupRefreshControl() {
         self.tableView.refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refreshNews), for: .valueChanged)
+        refreshControl?.addTarget(self, action: #selector(refreshNews), for: .allEvents)
     }
     
     @objc func refreshNews() {
         self.loadNews()
+        self.tableView.refreshControl?.endRefreshing()
     }
 }

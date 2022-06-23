@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class NewsService {
     
@@ -18,7 +19,7 @@ class NewsService {
     }()
     
     ///Загрузка последних новостей
-    func loadNews(completion: @escaping (Result<ResponseClass, Error>) -> Void) {
+    func loadNews(completion: @escaping (Swift.Result<ResponseClass, Error>) -> Void) {
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
@@ -52,7 +53,7 @@ class NewsService {
     }
     
     ///Загрузка новостей для реализации Infinite scrolling
-    func loadNews(nextFrom: String, completion: @escaping (Result<ResponseClass, Error>) -> Void) {
+    func loadNews(nextFrom: String, completion: @escaping (Swift.Result<ResponseClass, Error>) -> Void) {
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"

@@ -24,7 +24,6 @@ class TextInNewsCell: UITableViewCell {
         
         let labelFont = UIFont.systemFont(ofSize: 15)
         newsTextLabel.font = labelFont
-//        newsTextLabel.sizeToFit()
         newsTextLabel.lineBreakMode = .byWordWrapping
         newsTextLabel.translatesAutoresizingMaskIntoConstraints = false
         return newsTextLabel
@@ -34,8 +33,6 @@ class TextInNewsCell: UITableViewCell {
         let showMoreButton = IndexedButton(frame: CGRect(x: 100, y: 100, width: 100, height: 50))
         showMoreButton.configuration = UIButton.Configuration.plain()
         showMoreButton.configuration?.title = "Показать полностью.."
-        showMoreButton.titleLabel?.textAlignment = .left
-        
         showMoreButton.addTarget(self, action: #selector(showMoreAction), for: .touchUpInside)
         showMoreButton.translatesAutoresizingMaskIntoConstraints = false
         return showMoreButton
@@ -49,14 +46,16 @@ class TextInNewsCell: UITableViewCell {
         return textStackView
     }()
     
-    
-    
-    @objc func showMoreAction() {
+    @objc func showMoreAction(_ sender: IndexedButton) {
         self.numberOfLines = 0
         
-        print("TAG = ", showMoreButton.tag)
-//        nvc.tableView.reloadRows(at: [indexPath], with: .automatic)
-        nvc.tableView.reloadSections(IndexSet(integer: showMoreButton.tag), with: .automatic)
+        print("tapped on button at ", sender.indexPath)
+        
+        self.nvc.newsResponse.items[sender.indexPath.section].isTextShowMore.toggle()
+        UIView.animate(withDuration: 0,
+                       delay: 0) {
+            self.nvc.tableView.reloadRows(at: [sender.indexPath], with: .automatic)
+        }
         showMoreButton.isHidden = true
     }
     
@@ -74,11 +73,9 @@ class TextInNewsCell: UITableViewCell {
     }
 
 
-    func configure(_ text: String?, labelHeight: CGFloat?, tableView: UITableView, indexPath: IndexPath, vc: NewsViewController) {
+    func configure(_ text: String?, labelHeight: CGFloat?, vc: NewsViewController) {
         newsTextLabel.text = text
 
-        self.tableView = tableView
-        self.indexPath = indexPath
         self.height = labelHeight
         self.nvc = vc
 
@@ -121,7 +118,7 @@ extension UILabel {
     var maxNumberOfLines: Int {
         let maxSize = CGSize(width: frame.size.width, height: CGFloat(MAXFLOAT))
         let text = (self.text ?? "") as NSString
-        let textHeight = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [.font: font], context: nil).height
+        let textHeight = text.boundingRect(with: maxSize, options: .usesLineFragmentOrigin, attributes: [.font: font as UIFont], context: nil).height
         let lineHeight = font.lineHeight
         return Int(ceil(textHeight / lineHeight))
     }
@@ -138,7 +135,7 @@ extension UILabel {
 
 class IndexedButton: UIButton {
 
-    var indexPath: IndexPath!
+    var indexPath = IndexPath(row: 0, section: 0)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
