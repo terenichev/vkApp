@@ -27,6 +27,7 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.promiseLoad()
         
         tableView.refreshControl = friendsRefreshControl
         
@@ -35,13 +36,6 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         tableView.reloadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        DispatchQueue.global(qos: .background).async {
-//            self.loadFriends()
-            self.promiseLoad()
-        }
-    }
     
     @objc private func refreshFriends(sender: UIRefreshControl) {
         DispatchQueue.global(qos: .background).async {
@@ -65,9 +59,11 @@ class FriendsViewController: UITableViewController, UISearchBarDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "friendCell", for: indexPath) as? FriendsCell else {
             preconditionFailure("FriendsCell cannot")
         }
-        let friend: FriendsItem = self.searchFriends[indexPath.row]
         
+        let friend: FriendsItem = self.searchFriends[indexPath.row]
         let url = URL(string: friend.avatarMiddleSizeUrl)
+        
+        cell.selectionStyle = .none
         cell.imageFriendsCell.image = UIImage(named: "not photo")
         DispatchQueue.global(qos: .default).async {
             self.service.imageLoader(url: url) { image in

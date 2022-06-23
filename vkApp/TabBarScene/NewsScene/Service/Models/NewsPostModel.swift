@@ -60,6 +60,7 @@ struct NewsItem: Codable {
     let canDoubtCategory, canSetCategory, isFavorite: Bool?
     let postType: PostTypeEnum?
     let text: String?
+    var isTextShowMore: Bool = false
     let copyHistory: [CopyHistory]?
     let postSource: ItemPostSource?
     let comments: Comments?
@@ -77,6 +78,21 @@ struct NewsItem: Codable {
             return photosURL
         }
     }
+    
+    var aspectRatio: CGFloat {
+        get {
+            let aspectRatio = attachments?.compactMap{ $0.photo?.sizes?.last?.aspectRatio }.last
+            return aspectRatio ?? 1
+        }
+    }
+    
+    var attachmentsTypes: [AttachmentType.RawValue] {
+        get {
+            let attachmentsTypes = attachments?.compactMap{ $0.type?.rawValue }
+            return attachmentsTypes ?? []
+        }
+    }
+    
     let carouselOffset, topicID: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -187,28 +203,17 @@ struct LinkPhoto: Codable {
 struct PhotoSize: Codable {
     let height: Int?
     let url: String?
-    let type: SizeType?
+    let type: String?
     let width, withPadding: Int?
     
-    var aspectRatio: CGFloat { return CGFloat(height ?? 1)/CGFloat(width ?? 1) }
+    var aspectRatio: CGFloat {
+        return CGFloat(height ?? 1)/CGFloat(width ?? 1)
+    }
 
     enum CodingKeys: String, CodingKey {
         case height, url, type, width
         case withPadding = "with_padding"
     }
-}
-
-enum SizeType: String, Codable {
-    case m = "m"
-    case o = "o"
-    case p = "p"
-    case q = "q"
-    case r = "r"
-    case s = "s"
-    case w = "w"
-    case x = "x"
-    case y = "y"
-    case z = "z"
 }
 
 // MARK: - AttachmentPhoto
@@ -248,7 +253,7 @@ struct PurpleVideo: Codable {
     let canAddToFaves, canAdd, comments, date: Int?
     let videoDescription: String?
     let duration: Int?
-    let image, firstFrame: [Size]?
+    let image, firstFrame: [PhotoSize]?
     let width, height, id, ownerID: Int?
     let title: String?
     let isFavorite: Bool?

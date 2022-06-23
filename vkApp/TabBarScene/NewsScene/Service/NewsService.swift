@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PromiseKit
 
 class NewsService {
     
@@ -18,7 +19,7 @@ class NewsService {
     }()
     
     ///Загрузка последних новостей
-    func loadNews(completion: @escaping (Result<ResponseClass, Error>) -> Void) {
+    func loadNews(completion: @escaping (Swift.Result<ResponseClass, Error>) -> Void) {
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
@@ -26,7 +27,7 @@ class NewsService {
         urlForNewsFeedComponents.queryItems = [
             URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "source_ids", value: "friends"),
-            URLQueryItem(name: "count", value: "10"),
+            URLQueryItem(name: "count", value: "15"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -38,7 +39,9 @@ class NewsService {
             }
             guard let data = data else { return }
             do {
-                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                var newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                let items = newsFromJSON.items.filter({ $0.photosURL?.isEmpty == false })
+                newsFromJSON.items = items
                 DispatchQueue.main.async {
                     completion(.success(newsFromJSON))
                 }
@@ -50,7 +53,7 @@ class NewsService {
     }
     
     ///Загрузка новостей для реализации Infinite scrolling
-    func loadNews(nextFrom: String, completion: @escaping (Result<ResponseClass, Error>) -> Void) {
+    func loadNews(nextFrom: String, completion: @escaping (Swift.Result<ResponseClass, Error>) -> Void) {
         var urlForNewsFeedComponents = URLComponents()
         urlForNewsFeedComponents.scheme = "https"
         urlForNewsFeedComponents.host = "api.vk.com"
@@ -59,7 +62,7 @@ class NewsService {
             URLQueryItem(name: "filters", value: "post"),
             URLQueryItem(name: "source_ids", value: "friends"),
             URLQueryItem(name: "start_from", value: nextFrom),
-            URLQueryItem(name: "count", value: "10"),
+            URLQueryItem(name: "count", value: "15"),
             URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
             URLQueryItem(name: "v", value: "5.131")
         ]
@@ -71,7 +74,9 @@ class NewsService {
             }
             guard let data = data else { return }
             do {
-                let newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                var newsFromJSON = try JSONDecoder().decode(NewsResponse.self, from: data).response
+                let items = newsFromJSON.items.filter({ $0.photosURL?.isEmpty == false })
+                newsFromJSON.items = items
                 DispatchQueue.main.async {
                     completion(.success(newsFromJSON))
                 }
