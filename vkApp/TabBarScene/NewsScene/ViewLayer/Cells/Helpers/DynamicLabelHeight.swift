@@ -15,7 +15,7 @@ class DynamicLabelHeight {
         label.text = text
         label.font = font
         label.numberOfLines = 0
-//        label.sizeToFit()
+        label.sizeToFit()
         label.lineBreakMode = .byWordWrapping
         
         currentHeight = label.frame.height
@@ -24,5 +24,20 @@ class DynamicLabelHeight {
         return currentHeight
     }
     
+    static func heightTwoLines(text: String?, font: UIFont, width: CGFloat) -> CGFloat {
+        var twoLinesHeight: CGFloat!
+        
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: CGFloat.greatestFiniteMagnitude))
+        label.text = text
+        label.font = font
+        label.numberOfLines = 2
+        label.sizeToFit()
+        label.lineBreakMode = .byWordWrapping
+        
+        twoLinesHeight = label.frame.height + 10
+        label.removeFromSuperview()
+        
+        return twoLinesHeight
+    }
     
 }

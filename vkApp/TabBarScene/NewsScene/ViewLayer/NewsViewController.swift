@@ -12,6 +12,8 @@ class NewsViewController: UITableViewController {
     let service = NewsService()
     private var imageService: ImageService?
     
+    var isSeeMore = false
+    
     var isNewsLoading = false
     var nextFrom = ""
     var newsResponse: ResponseClass!
@@ -22,8 +24,6 @@ class NewsViewController: UITableViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.prefetchDataSource = self
-//        tableView.backgroundColor = .systemGray6
-        
         
         imageService = ImageService(container: tableView)
         
@@ -48,6 +48,7 @@ class NewsViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let currentNewsItem = newsResponse.items[indexPath.section]
         let postOwner = newsResponse.profiles.first(where: { $0.id == currentNewsItem.sourceID })
         
@@ -67,7 +68,7 @@ class NewsViewController: UITableViewController {
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: TextInNewsCell.identifier, for: indexPath) as? TextInNewsCell else { preconditionFailure("TextInNewsCell cannot") }
             let labelFont = UIFont.systemFont(ofSize: 18)
-            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), vc: self)
+            cell.configure(currentNewsItem.text, labelHeight: DynamicLabelHeight.height(text: currentNewsItem.text, font: labelFont, width: view.frame.width), vc: self, indexPath: indexPath)
             return cell
             
         case 2:
@@ -88,16 +89,17 @@ class NewsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let post = newsResponse.items[indexPath.section]
+        var post = newsResponse.items[indexPath.section]
         switch indexPath.row {
         case 0:
             return 50
         case 1:
             guard let isTextEmpty = post.text?.isEmpty else { return 0 }
+            let font = UIFont.systemFont(ofSize: 18)
             if isTextEmpty {
                 return 0
             }
-            return post.isTextShowMore ? 200 : 100
+            return post.isTextShowMore ? DynamicLabelHeight.height(text: post.text, font: font, width: view.frame.width) : DynamicLabelHeight.heightTwoLines(text: post.text, font: font, width: view.frame.width)
         case 2:
             guard let urls = newsResponse.items[indexPath.section].photosURL,
                     !urls.isEmpty else { return 0 }
@@ -118,13 +120,13 @@ class NewsViewController: UITableViewController {
         }
         
         let separatorView = UIView(frame: CGRect(x: 0, y:0, width: tableView.frame.width, height: UIScreen.main.scale))
-        separatorView.backgroundColor = .systemGray6
+        separatorView.backgroundColor = .systemGray5
         
         return separatorView
     }
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         let separatorView = UIView(frame: CGRect(x: 0, y:0, width: tableView.frame.width, height: UIScreen.main.scale))
-        separatorView.backgroundColor = .systemGray6
+        separatorView.backgroundColor = .systemGray5
 
         return separatorView
     }
@@ -172,7 +174,6 @@ private extension NewsViewController {
                 DispatchQueue.main.async {
                     self?.nextFrom = news.nextFrom ?? ""
                     self?.tableView.reloadData()
-                    
                 }
             }
         }
