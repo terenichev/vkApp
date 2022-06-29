@@ -73,7 +73,7 @@ class NewsViewController: UITableViewController {
             
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "PhotosInNewsCell", for: indexPath) as? PhotosInNewsCell else { preconditionFailure("PhotosInNewsCell cannot") }
-            guard let urlImage = currentNewsItem.photosURL?.first else { return UITableViewCell() }
+            guard let urlImage = currentNewsItem.photosURL?.last else { return UITableViewCell() }
             let image = imageService?.photo(atIndexPath: indexPath, byUrl: urlImage)
             cell.configureNewsAttachmentsCell(image: (image ?? UIImage(named: "not photo"))!)
             return cell
