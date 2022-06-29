@@ -89,10 +89,10 @@ class NewsViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        var post = newsResponse.items[indexPath.section]
+        let post = newsResponse.items[indexPath.section]
         switch indexPath.row {
         case 0:
-            return 50
+            return UITableView.automaticDimension
         case 1:
             guard let isTextEmpty = post.text?.isEmpty else { return 0 }
             let font = UIFont.systemFont(ofSize: 18)
@@ -107,7 +107,7 @@ class NewsViewController: UITableViewController {
             let cellHeight = width * post.aspectRatio
             return cellHeight
         case 3:
-            return 50
+            return UITableView.automaticDimension
             
         default:
             return 0
@@ -130,7 +130,6 @@ class NewsViewController: UITableViewController {
 
         return separatorView
     }
-    
 }
 
 // MARK: - Infinite Scrolling - loading news
@@ -149,7 +148,6 @@ extension NewsViewController: UITableViewDataSourcePrefetching {
                     guard let self = self else { return }
                     let indexSet = IndexSet(integersIn: self.newsResponse.items.count..<self.newsResponse.items.count + news.items.count)
                     self.newsResponse.items.append(contentsOf: news.items)
-                    self.newsResponse.groups.append(contentsOf: news.groups)
                     self.newsResponse.profiles.append(contentsOf: news.profiles)
                     self.nextFrom = news.nextFrom ?? ""
                     self.tableView.insertSections(indexSet, with: .none)
