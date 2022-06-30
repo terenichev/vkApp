@@ -88,6 +88,10 @@ class NewsViewController: UITableViewController {
         }
     }
     
+    @objc func tapToLike() {
+        print("like tapped")
+    }
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let post = newsResponse.items[indexPath.section]
         switch indexPath.row {
