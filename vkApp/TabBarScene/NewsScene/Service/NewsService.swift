@@ -119,3 +119,37 @@ extension NewsService {
         }
     }
 }
+
+extension NewsService {
+    /// Проверяет, находится ли объект в списке "Мне нравится"
+    func checkIsLike(itemId: Int, completion: @escaping (Swift.Result<IsLikedResponse, Error>) -> Void) {
+        var isLikeUrlComponents = URLComponents()
+        isLikeUrlComponents.scheme = "https"
+        isLikeUrlComponents.host = "api.vk.com"
+        isLikeUrlComponents.path = "/method/likes.isLiked"
+        isLikeUrlComponents.queryItems = [
+            URLQueryItem(name: "type", value: "post"),
+            URLQueryItem(name: "item_id", value: "\(itemId)"),
+            URLQueryItem(name: "access_token", value: "\(Singleton.instance.token!)"),
+            URLQueryItem(name: "v", value: "5.131")
+        ]
+        guard let isLikeUrl = isLikeUrlComponents.url else { return }
+        session.dataTask(with: isLikeUrl) { (data, response, error) in
+            if let error = error {
+                completion(.failure(error))
+                return
+            }
+            guard let data = data else { return }
+            do {
+                let isLikeFromJSON = try JSONDecoder().decode(IsLiked.self, from: data).response
+                print(isLikeFromJSON.liked)
+                DispatchQueue.main.async {
+                    completion(.success(isLikeFromJSON))
+                }
+            } catch let jsonError {
+                print("Failed to decode JSON", jsonError)
+                completion(.failure(jsonError))
+            }
+        }.resume()
+    }
+}

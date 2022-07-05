@@ -49,7 +49,7 @@ class NewsViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let currentNewsItem = newsResponse.items[indexPath.section]
+        var currentNewsItem = newsResponse.items[indexPath.section]
         let postOwner = newsResponse.profiles.first(where: { $0.id == currentNewsItem.sourceID })
         
         switch indexPath.row {
@@ -81,7 +81,7 @@ class NewsViewController: UITableViewController {
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: BottomOfNewsCell.identifier, for: indexPath) as? BottomOfNewsCell else { preconditionFailure("BottomOfNewsCell cannot") }
             cell.selectionStyle = .none
-            cell.configure(with: "\(currentNewsItem.likes?.count ?? 0)", comments: "\(currentNewsItem.comments?.count ?? 0)", reposts: "\(currentNewsItem.views?.count ?? 0)")
+            cell.configure(with: currentNewsItem)
             return cell
         default:
             return UITableViewCell()
@@ -176,6 +176,23 @@ private extension NewsViewController {
                 DispatchQueue.main.async {
                     self?.nextFrom = news.nextFrom ?? ""
                     self?.tableView.reloadData()
+                }
+            }
+        }
+    }
+    
+    func isLikeCheck(itemId: Int) {
+        service.checkIsLike(itemId: itemId) { [weak self] result in
+            switch result {
+            case .failure(let error):
+                print("isLike error = ", error)
+            case .success(let isLike):
+                var isLikeBool = false
+                if isLike.liked == 1 {
+                    isLikeBool = true
+                }
+                DispatchQueue.global().async {
+                    
                 }
             }
         }

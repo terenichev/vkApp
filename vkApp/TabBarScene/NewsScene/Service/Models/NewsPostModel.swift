@@ -31,6 +31,7 @@ struct NewsItem: Codable {
     let canDoubtCategory, canSetCategory, isFavorite: Bool?
     let text: String?
     var isTextShowMore: Bool = false
+    var isLiked: Bool = false
     let comments: Comments?
     let likes: Likes?
     let reposts: Reposts?

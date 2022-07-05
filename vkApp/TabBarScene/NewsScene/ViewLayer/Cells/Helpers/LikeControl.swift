@@ -12,6 +12,7 @@ class LikeControl: UIControl {
     @IBOutlet var likePicture: UIImageView!
     @IBOutlet var likesCountLabel: UILabel!
     
+    var newsItem: NewsItem?
     var islike: Bool = false
     var likesCount = 0
     
@@ -43,6 +44,7 @@ class LikeControl: UIControl {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        print("control awake")
         likesCountLabel.tintColor = .black
         likePicture.tintColor = .systemBlue
         likesCountLabel.text = String(likesCount)

@@ -15,6 +15,8 @@ class BottomOfNewsCell: UITableViewCell {
     @IBOutlet weak var container: UIView!
     static let identifier = "BottomOfNewsCell"
     
+    var newsItem: NewsItem?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTap))
@@ -32,15 +34,22 @@ class BottomOfNewsCell: UITableViewCell {
         }
     }
     
-    public func configure(with likes: String, comments: String, reposts: String) {
-        likeControl.likesCountLabel.text = likes
-        likeControl.likesCount = Int(likes) ?? 0
-        commentsLabel.text = comments
-        repostsLabel.text = reposts
+    public func configure(with newsItem: NewsItem) {
+        self.newsItem = newsItem
+        print("bottom configure")
+        if newsItem.likes?.userLikes == 1 {
+            likeControl.plusOneLike()
+        } else {
+            likeControl.minusOneLike()
+        }
+
+        likeControl.likesCountLabel.text = String(describing: newsItem.likes?.count ?? 0)
+        likeControl.likesCount = newsItem.likes?.count ?? 0
+        commentsLabel.text = String(describing: newsItem.comments?.count ?? 0)
+        repostsLabel.text = String(describing: newsItem.views?.count ?? 0)
     }
     
     static func nib() -> UINib{
         return UINib(nibName: "BottomOfNewsCell", bundle: nil)
     }
-    
 }
