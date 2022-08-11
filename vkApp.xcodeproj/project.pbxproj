@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		B209732DEF630F405D10B387 /* Pods_vkApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */; };
 		D3045D3B282429BB005F41FF /* FriendsRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3045D3A282429BB005F41FF /* FriendsRequests.swift */; };
+		D31F77522861A7A1004B1F4B /* DynamicLabelHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */; };
+		D31F795A2864A45100582391 /* PromiseKit in Frameworks */ = {isa = PBXBuildFile; productRef = D31F79592864A45100582391 /* PromiseKit */; };
 		D33BDBFD27BFBDEB00398A63 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */; };
 		D33BDBFF27BFBF2000398A63 /* FriendsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */; };
 		D346CA01282C11C700142368 /* GroupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA00282C11C700142368 /* GroupModel.swift */; };
@@ -16,6 +18,7 @@
 		D346CA0A282C3A9B00142368 /* GroupsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA09282C3A9B00142368 /* GroupsCell.swift */; };
 		D346CA13282CD37C00142368 /* GroupRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA12282CD37C00142368 /* GroupRequests.swift */; };
 		D346CA15282D5E7100142368 /* GroupPhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D346CA14282D5E7100142368 /* GroupPhotoView.swift */; };
+		D3518E382869739800CA978C /* LikeControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3518E372869739800CA978C /* LikeControl.swift */; };
 		D35E5187283DEDB600D3C800 /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35E5186283DEDB600D3C800 /* UserModel.swift */; };
 		D35E5189283DEE4200D3C800 /* UserRequests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D35E5188283DEE4200D3C800 /* UserRequests.swift */; };
 		D37184B0284094A600C29DEC /* NewsPostModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37184AF284094A600C29DEC /* NewsPostModel.swift */; };
@@ -44,7 +47,6 @@
 		D3C4B4CE2831581300AEBBC3 /* OwnerNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4CC2831581300AEBBC3 /* OwnerNewsCell.swift */; };
 		D3C4B4CF2831581300AEBBC3 /* OwnerNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4CD2831581300AEBBC3 /* OwnerNewsCell.xib */; };
 		D3C4B4D32831587000AEBBC3 /* TextInNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */; };
-		D3C4B4D42831587000AEBBC3 /* TextInNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4D22831587000AEBBC3 /* TextInNewsCell.xib */; };
 		D3C4B4D7283158B500AEBBC3 /* PhotosInNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D5283158B500AEBBC3 /* PhotosInNewsCell.swift */; };
 		D3C4B4DB2831594000AEBBC3 /* BottomOfNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */; };
 		D3C4B4DC2831594000AEBBC3 /* BottomOfNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */; };
@@ -54,6 +56,7 @@
 /* Begin PBXFileReference section */
 		1109C46CCBA13C32019A8B22 /* Pods-vkApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.release.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.release.xcconfig"; sourceTree = "<group>"; };
 		D3045D3A282429BB005F41FF /* FriendsRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsRequests.swift; sourceTree = "<group>"; };
+		D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicLabelHeight.swift; sourceTree = "<group>"; };
 		D33BDBFC27BFBDEB00398A63 /* FriendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
 		D33BDBFE27BFBF2000398A63 /* FriendsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsCell.swift; sourceTree = "<group>"; };
 		D346CA00282C11C700142368 /* GroupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupModel.swift; sourceTree = "<group>"; };
@@ -61,6 +64,7 @@
 		D346CA09282C3A9B00142368 /* GroupsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsCell.swift; sourceTree = "<group>"; };
 		D346CA12282CD37C00142368 /* GroupRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupRequests.swift; sourceTree = "<group>"; };
 		D346CA14282D5E7100142368 /* GroupPhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupPhotoView.swift; sourceTree = "<group>"; };
+		D3518E372869739800CA978C /* LikeControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikeControl.swift; sourceTree = "<group>"; };
 		D35E5186283DEDB600D3C800 /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		D35E5188283DEE4200D3C800 /* UserRequests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRequests.swift; sourceTree = "<group>"; };
 		D37184AF284094A600C29DEC /* NewsPostModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsPostModel.swift; sourceTree = "<group>"; };
@@ -92,7 +96,6 @@
 		D3C4B4CC2831581300AEBBC3 /* OwnerNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OwnerNewsCell.swift; sourceTree = "<group>"; };
 		D3C4B4CD2831581300AEBBC3 /* OwnerNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OwnerNewsCell.xib; sourceTree = "<group>"; };
 		D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextInNewsCell.swift; sourceTree = "<group>"; };
-		D3C4B4D22831587000AEBBC3 /* TextInNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextInNewsCell.xib; sourceTree = "<group>"; };
 		D3C4B4D5283158B500AEBBC3 /* PhotosInNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosInNewsCell.swift; sourceTree = "<group>"; };
 		D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOfNewsCell.swift; sourceTree = "<group>"; };
 		D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomOfNewsCell.xib; sourceTree = "<group>"; };
@@ -107,6 +110,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B209732DEF630F405D10B387 /* Pods_vkApp.framework in Frameworks */,
+				D31F795A2864A45100582391 /* PromiseKit in Frameworks */,
 				D37BC7F92857525500A6C83F /* PromiseKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -120,6 +124,15 @@
 				E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D31F77502861A780004B1F4B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				D31F77512861A7A1004B1F4B /* DynamicLabelHeight.swift */,
+				D3518E372869739800CA978C /* LikeControl.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		D346C9FB282B7E3E00142368 /* TabBarScene */ = {
@@ -367,6 +380,7 @@
 		D3C4B4CB2831577400AEBBC3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				D31F77502861A780004B1F4B /* Helpers */,
 				D3C4B4D02831581D00AEBBC3 /* XIBs */,
 				D3C4B4CC2831581300AEBBC3 /* OwnerNewsCell.swift */,
 				D3C4B4D12831587000AEBBC3 /* TextInNewsCell.swift */,
@@ -380,7 +394,6 @@
 			isa = PBXGroup;
 			children = (
 				D3C4B4CD2831581300AEBBC3 /* OwnerNewsCell.xib */,
-				D3C4B4D22831587000AEBBC3 /* TextInNewsCell.xib */,
 				D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */,
 			);
 			path = XIBs;
@@ -425,6 +438,7 @@
 			name = vkApp;
 			packageProductDependencies = (
 				D37BC7F82857525500A6C83F /* PromiseKit */,
+				D31F79592864A45100582391 /* PromiseKit */,
 			);
 			productName = vkApp;
 			productReference = D381202D27B595DF00986187 /* vkApp.app */;
@@ -457,6 +471,7 @@
 			mainGroup = D381202427B595DF00986187;
 			packageReferences = (
 				D37BC7F72857525500A6C83F /* XCRemoteSwiftPackageReference "PromiseKit" */,
+				D31F79582864A45100582391 /* XCRemoteSwiftPackageReference "PromiseKit" */,
 			);
 			productRefGroup = D381202E27B595DF00986187 /* Products */;
 			projectDirPath = "";
@@ -476,7 +491,6 @@
 				D381203D27B595E100986187 /* LaunchScreen.storyboard in Resources */,
 				D3804D0B282FF37F0057F87B /* PhotoCollectionViewCell.xib in Resources */,
 				D3C4B4CF2831581300AEBBC3 /* OwnerNewsCell.xib in Resources */,
-				D3C4B4D42831587000AEBBC3 /* TextInNewsCell.xib in Resources */,
 				D381203A27B595E100986187 /* Assets.xcassets in Resources */,
 				D381203827B595DF00986187 /* Main.storyboard in Resources */,
 				D38881D527CEB7AF00C7BE5B /* ProfilePhotosCollectionViewCell.xib in Resources */,
@@ -550,7 +564,9 @@
 				D3ACC505280691BF00059240 /* Singleton.swift in Sources */,
 				D346CA13282CD37C00142368 /* GroupRequests.swift in Sources */,
 				D3C4B4D32831587000AEBBC3 /* TextInNewsCell.swift in Sources */,
+				D31F77522861A7A1004B1F4B /* DynamicLabelHeight.swift in Sources */,
 				D3ACC510280B00E500059240 /* UserPhotos.swift in Sources */,
+				D3518E382869739800CA978C /* LikeControl.swift in Sources */,
 				D37BC7FD2858EE3F00A6C83F /* ImageService.swift in Sources */,
 				D38881D427CEB7AF00C7BE5B /* UserPhotosCollectionViewCell.swift in Sources */,
 				D3C4B4CA2831573700AEBBC3 /* NewsViewController.swift in Sources */,
@@ -793,6 +809,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D31F79582864A45100582391 /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mxcl/PromiseKit";
+			requirement = {
+				branch = v6;
+				kind = branch;
+			};
+		};
 		D37BC7F72857525500A6C83F /* XCRemoteSwiftPackageReference "PromiseKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/mxcl/PromiseKit";
@@ -804,6 +828,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D31F79592864A45100582391 /* PromiseKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D31F79582864A45100582391 /* XCRemoteSwiftPackageReference "PromiseKit" */;
+			productName = PromiseKit;
+		};
 		D37BC7F82857525500A6C83F /* PromiseKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D37BC7F72857525500A6C83F /* XCRemoteSwiftPackageReference "PromiseKit" */;

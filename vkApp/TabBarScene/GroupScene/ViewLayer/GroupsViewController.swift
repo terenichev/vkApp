@@ -68,6 +68,7 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
             }
         }
         cell.groupNameLabel.text = group.name
+        cell.selectionStyle = .none
         
         return cell
     }

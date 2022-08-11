@@ -10,23 +10,14 @@ import UIKit
 
 /// Ячейка, отображающая фото.
 final class PhotosInNewsCell: UITableViewCell {
-    
-    /// Фон ячейки.
-    private lazy var backgroundCell: UIView = {
-        let view = UIView()
-        
-        view.backgroundColor = .white
-        view.translatesAutoresizingMaskIntoConstraints = false
 
-        return view
-    }()
     
     /// Фото.
     var newsPhoto: UIImageView = {
         let view = UIImageView()
         
-        view.contentMode = .scaleAspectFit
-        view.layer.masksToBounds = true
+//        view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false
         
         return view
@@ -56,23 +47,15 @@ final class PhotosInNewsCell: UITableViewCell {
 private extension PhotosInNewsCell {
     func setupSubviews() {
         
-        contentView.addSubview(backgroundCell)
-        backgroundCell.addSubview(newsPhoto)
+        contentView.addSubview(newsPhoto)
         
         let topConstraint = newsPhoto.topAnchor.constraint(equalTo: contentView.topAnchor)
                 
         NSLayoutConstraint.activate([
             topConstraint,
-            backgroundCell.topAnchor.constraint(equalTo: contentView.topAnchor),
-            backgroundCell.rightAnchor.constraint(equalTo: contentView.rightAnchor),
-            backgroundCell.leftAnchor.constraint(equalTo: contentView.leftAnchor),
-            backgroundCell.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-//            backgroundCell.heightAnchor.constraint(equalToConstant: ceil(contentView.bounds.width)),
-            
-            newsPhoto.topAnchor.constraint(equalTo: backgroundCell.topAnchor),
-            newsPhoto.bottomAnchor.constraint(equalTo: backgroundCell.bottomAnchor),
-            newsPhoto.leftAnchor.constraint(equalTo: backgroundCell.leftAnchor),
-            newsPhoto.rightAnchor.constraint(equalTo: backgroundCell.rightAnchor),
+            newsPhoto.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            newsPhoto.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            newsPhoto.rightAnchor.constraint(equalTo: contentView.rightAnchor),
         ])
         topConstraint.priority = .init(rawValue: 999)
     }
