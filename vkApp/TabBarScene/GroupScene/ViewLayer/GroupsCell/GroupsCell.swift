@@ -20,4 +20,8 @@ class GroupsCell: UITableViewCell{
         super.awakeFromNib()
     }
     
+    func configure(with viewModel: GroupViewModel) {
+        groupImage.image = viewModel.groupImage
+        groupNameLabel.text = viewModel.groupName
+    }
 }
