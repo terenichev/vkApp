@@ -16,6 +16,9 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     @IBOutlet weak var plusBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var searchBar: UISearchBar!
        
+    private let viewModelFactory = GroupViewModelFactory()
+    private var viewModels: [GroupViewModel] = []
+    
     var groups: [Group] = []
     let service = GroupsRequests()
     
@@ -26,7 +29,8 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
         
         searchBar.delegate = self
         searchGroups = groups
-        loadGroups()
+        viewModels = viewModelFactory.constructViewModels(from: searchGroups)
+//        loadGroups()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,26 +53,14 @@ class GroupsViewController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return searchGroups?.count ?? 0
+        return viewModels.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "groupCell", for: indexPath) as? GroupsCell else {
             preconditionFailure("GroupsCell cannot")
         }
-        
-        let group: Group = groups[indexPath.row]
-        let url = URL(string: group.photo100)
-        cell.groupImage.image = UIImage(named: "not photo")
-        DispatchQueue.global(qos: .default).async {
-            self.service.imageLoader(url: url) { image in
-                DispatchQueue.main.async {
-                    cell.groupImage.image = image
-                }
-            }
-        }
-        cell.groupNameLabel.text = group.name
-        cell.selectionStyle = .none
+        cell.configure(with: viewModels[indexPath.row])
         
         return cell
     }
@@ -125,6 +117,7 @@ extension GroupsViewController {
                 let name = group.name
                 if name.lowercased().contains(searchText.lowercased()) {
                     searchGroups.append(group)
+                    viewModels = viewModelFactory.constructViewModels(from: searchGroups)
                 }
             }
         }
@@ -141,6 +134,7 @@ private extension GroupsViewController {
             case .success(let groups):
                 self?.groups = groups
                 self?.searchGroups = groups
+                self?.viewModels = (self?.viewModelFactory.constructViewModels(from: groups))!
                 DispatchQueue.main.async {
                     // перезагрузим данные
                     self?.tableView.reloadData()

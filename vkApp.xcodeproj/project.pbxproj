@@ -52,6 +52,7 @@
 		D3C4B4DB2831594000AEBBC3 /* BottomOfNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */; };
 		D3C4B4DC2831594000AEBBC3 /* BottomOfNewsCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */; };
 		D3E835D227CA6F6800C37C67 /* AvatarUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */; };
+		D3FC553228AAA2D800169EDE /* GroupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3FC553128AAA2D800169EDE /* GroupViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		D3C4B4D92831594000AEBBC3 /* BottomOfNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomOfNewsCell.swift; sourceTree = "<group>"; };
 		D3C4B4DA2831594000AEBBC3 /* BottomOfNewsCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BottomOfNewsCell.xib; sourceTree = "<group>"; };
 		D3E835D127CA6F6800C37C67 /* AvatarUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarUIView.swift; sourceTree = "<group>"; };
+		D3FC553128AAA2D800169EDE /* GroupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewModel.swift; sourceTree = "<group>"; };
 		D749ACB0896C5474ED1A04F0 /* Pods-vkApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-vkApp.debug.xcconfig"; path = "Target Support Files/Pods-vkApp/Pods-vkApp.debug.xcconfig"; sourceTree = "<group>"; };
 		E81D2EDC2AD305783EF7F105 /* Pods_vkApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_vkApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -241,6 +243,7 @@
 		D346CA11282CCA6800142368 /* ViewLayer */ = {
 			isa = PBXGroup;
 			children = (
+				D3FC553028AAA29B00169EDE /* ViewModel */,
 				D346CA07282C2FA300142368 /* GroupsViewController.swift */,
 				D3AA9E4C282E210900CA02C9 /* AllGroupsViewController.swift */,
 				D346CA0F282CCA3300142368 /* GroupsCell */,
@@ -412,6 +415,14 @@
 			path = ProfileScene;
 			sourceTree = "<group>";
 		};
+		D3FC553028AAA29B00169EDE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				D3FC553128AAA2D800169EDE /* GroupViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		FCE37BAD7B896B0365F9B874 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -579,6 +590,7 @@
 				D35E5187283DEDB600D3C800 /* UserModel.swift in Sources */,
 				D3ACC508280692DD00059240 /* AuthViewController.swift in Sources */,
 				D3AA9E4D282E210900CA02C9 /* AllGroupsViewController.swift in Sources */,
+				D3FC553228AAA2D800169EDE /* GroupViewModel.swift in Sources */,
 				D3C4B4CE2831581300AEBBC3 /* OwnerNewsCell.swift in Sources */,
 				D3C4B4DB2831594000AEBBC3 /* BottomOfNewsCell.swift in Sources */,
 				D3E835D227CA6F6800C37C67 /* AvatarUIView.swift in Sources */,
